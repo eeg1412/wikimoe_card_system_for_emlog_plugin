@@ -5,7 +5,8 @@
 
 体验地址：[https://www.wikimoe.com/?post=130](https://www.wikimoe.com/?post=130)
 ![预览图](https://gitee.com/uploads/images/2018/0423/102004_554a8f2e_1258290.png "QQ截图20180423101944.png")
-![竞技模式模式](https://gitee.com/uploads/images/2018/0423/102131_49e221e9_1258290.jpeg "QQ截图20180423102031.jpg")
+![竞技模式](https://gitee.com/uploads/images/2018/0423/102131_49e221e9_1258290.jpeg "QQ截图20180423102031.jpg")
+![竞技模式](https://gitee.com/uploads/images/2018/0423/103321_ad1abab8_1258290.jpeg "QQ截图20180423103151.jpg")
 
 #### 注意
 
