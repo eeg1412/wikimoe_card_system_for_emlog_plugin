@@ -1,0 +1,163 @@
+@charset "utf-8";
+/* CSS Document */
+.cardList {
+	width: 100%;
+	height: 100%;
+	display: block;
+	vertical-align: middle;
+	text-align: center;
+}
+.card,
+.inner,
+.card .face,
+.card .back {
+	width: 160px;
+	height: 225px;
+	border-radius: 6px;
+}
+.card {
+	margin: 10px;
+	display: inline-block;
+	perspective: 800px;
+	-webkit-perspective: 800px;
+}
+.inner {
+	cursor: pointer;
+	overflow: hidden;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
+}
+.card .face,
+.card .back {
+	vertical-align: middle;
+	text-align: center;
+	background: #fff;
+}
+.card .face {
+	box-sizing: border-box;
+	display: none;
+	border: 1px solid #ccc;
+	background: #fff;
+}
+.card .face img {
+	width: 160px;
+	height: 225px;
+}
+.card .back {
+	display: block;
+	background-image: url(img/back.jpg);
+	background-position:center center;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.card.reverse .face {
+	display: block;
+}
+.card.reverse .back {
+	display: none;
+}
+.wm_card_email{
+	border:1px solid #333;
+	height:16px;
+	width:200px;
+	line-height:16px;
+	border-radius:5px;
+	padding:10px;
+	text-align:center;
+	background-color:#fff!important;
+}
+.wm_card_email_body{
+	text-align:center;
+}
+.wm_mycard_list{
+	text-align:center;
+	margin-top:10px;
+}
+.wm_getcard_img{
+	width: 100%;
+	border-radius: 5px;
+}
+.wm_card_chiose_title{
+	    font-size: 22px;
+    padding: 10px 0;
+    line-height: 32px;
+    text-align: center;
+}
+.wm_getcard_box{
+	padding:5px;
+	display:inline-block;
+	text-align:center;
+	width:20%;
+}
+.wm_getcard_box:hover .wm_getcard_img{
+	-webkit-filter: saturate(150%);
+    -moz-filter: saturate(150%);
+    -o-filter: saturate(150%);
+    -ms-filter: saturate(150%);
+}
+.wm_card_nums{
+	font-size: 21px;
+    padding: 5px;
+    line-height: 36px;
+    color: #254d6d!important;
+}
+
+input.wm_card_email:-webkit-autofill {
+	background-color:#fff!important;
+}
+#wm_mylist_title{
+	display:none;
+}
+.wm_user_info_table{
+	width:100%;
+}
+.wm_user_info_table th,.wm_user_info_table td{
+	border:1px solid #333;
+	text-align:center;
+	font-size:14px;
+	padding:5px;
+	width:50%;
+}
+.wm_user_info_body{
+	display:none;
+}
+.wm_cardGame_canvas{
+	max-width:100%;
+	vertical-align:middle;
+	margin: auto;
+	position:fixed;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	z-index:1002;
+}
+.wm_card_game_body{
+	position:fixed;
+	left:0;
+	right:0;
+	top:0;
+	bottom:0;
+	text-align:center;
+	z-index:1001;
+	background:#000;
+	display:none;
+}
+.wm_tiaozhan_body{
+	padding:10px 0;
+	text-align:center;
+	display:none;
+}
+.wm_user_info_table{
+	display:none;
+}
+.wm_tiaozhan_btn{
+    background: #ff4c4c;
+    color: #fff;
+    text-align: center;
+    width: 80px;
+    height: 38px;
+    line-height: 38px;
+    border-radius: 5px;
+    cursor: pointer;
+	margin-top: 10px;
+}

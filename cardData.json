@@ -1,0 +1,275 @@
+{
+	"cardData": {
+		"0001": {
+			"star": 1,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 4
+		},
+		"0002": {
+			"star": 1,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 5
+		},
+		"0003": {
+			"star": 1,
+			"leftType": 1,
+			"rightType": 5,
+			"cry": 5
+		},
+		"0004": {
+			"star": 2,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4
+		},
+		"0005": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 5
+		},
+		"0006": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 4,
+			"cry": 3
+		},
+		"0007": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 4,
+			"cry": 2
+		},
+		"0008": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4
+		},
+		"0009": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1
+		},
+		"0010": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 1
+		},
+		"0011": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 2
+		},
+		"0012": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 4,
+			"cry": 3
+		},
+		"0013": {
+			"star": 2,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 5
+		},
+		"0014": {
+			"star": 2,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 5
+		},
+		"1001": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4
+		},
+		"1002": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1
+		},
+		"1003": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 2
+		},
+		"1004": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 2
+		},
+		"1005": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 4,
+			"cry": 2
+		},
+		"1006": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 2
+		},
+		"1007": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4
+		},
+		"1008": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 1,
+			"cry": 3
+		},
+		"1009": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 1
+		},
+		"1010": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 2,
+			"cry": 4
+		},
+		"2001": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 4
+		},
+		"2002": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 3,
+			"cry": 4
+		},
+		"2003": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4
+		},
+		"2004": {
+			"star": 5,
+			"leftType": 4,
+			"rightType": 1,
+			"cry": 3
+		},
+		"2005": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 1
+		},
+		"2006": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 3
+		},
+		"2007": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4
+		},
+		"2008": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5
+		},
+		"2009": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 3
+		},
+		"2010": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 5
+		},
+		"3001": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 2
+		},
+		"3002": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 7,
+			"cry": 5
+		},
+		"3003": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 5
+		},
+		"3004": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 1
+		},
+		"3005": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 4,
+			"cry": 2
+		},
+		"3006": {
+			"star": 6,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 4
+		},
+		"3007": {
+			"star": 6,
+			"leftType": 3,
+			"rightType": 1,
+			"cry": 4
+		},
+		"3008": {
+			"star": 6,
+			"leftType": 4,
+			"rightType": 6,
+			"cry": 3
+		},
+		"3009": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 5
+		},
+		"3010": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4
+		},
+		"3011": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4
+		}
+	},
+	"level":[40,82,130,180,276,360]
+}
