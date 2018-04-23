@@ -8,6 +8,9 @@
 ![竞技模式](https://gitee.com/uploads/images/2018/0423/102131_49e221e9_1258290.jpeg "QQ截图20180423102031.jpg")
 ![竞技模式](https://gitee.com/uploads/images/2018/0423/103429_4793ca2f_1258290.jpeg "QQ截图20180423103345.jpg")
 
+#### 项目介绍
+在需要的页面添加自定义钩子：<?php doAction('wm_card_plugin'); ?>
+
 #### 注意
 
 1. 邮箱地址必须是曾经在使用插件的网站内评论过且通过审核的邮箱地址才能进行抽卡。
