@@ -1,37 +1,14 @@
 # 维基萌emlog抽卡系统插件
 
 #### 项目介绍
-维基萌emlog抽卡系统插件
+可用于emlog博客系统，自带数十张精美卡牌图片，不仅可以每天抽卡更可以与亲朋好友进行卡牌竞技！
 
-#### 软件架构
-软件架构说明
+体验地址：[https://www.wikimoe.com/?post=130](https://www.wikimoe.com/?post=130)
+![预览图](https://gitee.com/uploads/images/2018/0423/102004_554a8f2e_1258290.png "QQ截图20180423101944.png")
+![竞技模式模式](https://gitee.com/uploads/images/2018/0423/102131_49e221e9_1258290.jpeg "QQ截图20180423102031.jpg")
 
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 参与贡献
-
-1. Fork 本项目
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [http://git.mydoc.io/](http://git.mydoc.io/)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 注意
+邮箱地址必须是曾经在使用插件的网站内评论过且通过审核的邮箱地址才能进行抽卡。
+卡牌所用到的素材图片均源自网络，版权归各位大佬所有。
+如果图片素材侵犯到了大佬的权利，请联系我，我将迅速处理！
+卡牌图片仅供技术交流使用，严禁私自用于商业用途，如果造成法律纠纷，后果自负！
