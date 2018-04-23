@@ -8,8 +8,8 @@
 ```PHP
 <?php doAction('wm_card_plugin'); ?>
 ```
-在地址栏带上参数即可查询该用户的卡片情况，例如
-www.wikimoe.com/?post=130&useraddr=fbb31d99a24cf9a56c48b44dd0797d22&usernick=广树
+在地址栏带上参数即可查询该用户的卡片情况，例如  
+www.wikimoe.com/?post=130&useraddr=fbb31d99a24cf9a56c48b44dd0797d22&usernick=广树  
 其中useraddr=想要查询的邮箱地址MD5值，usernick=用户名
 
 体验地址：[https://www.wikimoe.com/?post=130](https://www.wikimoe.com/?post=130)
