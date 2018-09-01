@@ -175,7 +175,7 @@ function getNewCardList(){
 				for(var i=0;i<result.length;i++){
 					var getText = '虽然卡牌星级不高，但是我也很喜欢！';
 					if(result[i].cardInfo.star===4){
-						getText = '不好不差，刚刚好才是最好的！'
+						getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
 					}else if(result[i].cardInfo.star===5){
 						etText = '运气不错，距离欧皇还差一点点。'
 					}else if(result[i].cardInfo.star>=6){
