@@ -85,8 +85,8 @@ function wmsearchCard(emailmd5_,addrsearch){
 				for(var i =0;i<wmcardarr.length;i++){
 					var html_ = '<a href="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg"><br><span class="wm_card_nums">×'+wmcardCountarr[i]+'</span</a>';
 					$('.wm_mycard_list').append(html_);
-					$('.wm_getcard_box').last().delay(delay).fadeIn(500);
-					delay = delay + 300;
+					$('.wm_getcard_box').last().delay(delay).fadeIn(400);
+					delay = delay + 200;
 				}
 			}else if(result.code=="1"){
 				$('#wm_mylist_title').text('还没有获得过卡牌');
@@ -160,7 +160,41 @@ function GetQueryString(name) {
           return null;
     }      
 }
+//获取最新抽卡动态
+function getNewCardList(){
+	var getTimeStamp = new Date().getTime();
+	$.ajax({
+		type: 'GET',
+		url: wmCardPluginpath + 'cardGetList.json?time=' + getTimeStamp,
+		success: function(result){
+			console.log(result);
+			if(result.length>0){
+				$('.wm_card_get_list_body').fadeIn(300);
+				$('#wmCardGetList').empty();
+				var delay = 0;
+				for(var i=0;i<result.length;i++){
+					var getText = '虽然卡牌星级不高，但是我也很喜欢！';
+					if(result[i].cardInfo.star===4){
+						getText = '不好不差，刚刚好才是最好的！'
+					}else if(result[i].cardInfo.star===5){
+						etText = '运气不错，距离欧皇还差一点点。'
+					}else if(result[i].cardInfo.star>=6){
+						getText = '欧气满满，欧耶~';
+					}
+					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://www.gravatar.com/avatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardPluginpath+'/card/img/'+result[i].cardID+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+					$('#wmCardGetList').append(listHtml);
+					$('.wm_card_get_list_item').last().delay(delay).fadeIn(600);
+					delay = delay + 500;
+				}
+			}
+		},
+		dataType: 'json'
+	});
+}
 $(document).ready(function(e) {
+	//获取最新抽卡动态
+	getNewCardList();
+	//挑战
 	var addrmd5 = GetQueryString('useraddr');
 	if(addrmd5){
 		wmsearchCard(addrmd5,true);
@@ -229,7 +263,7 @@ $(document).ready(function(e) {
 					  $('#wmGetCard').rotate_box();
 					  chiosed = true;
 					  wmsearchCard(emailmd5_);
-					  
+					  getNewCardList();
 				  }else{
 					  alert('未知错误 请联系管理员');
 				  }

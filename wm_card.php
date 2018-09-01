@@ -19,8 +19,8 @@ function wm_card_init() {
 	}
 }
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.2';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.2';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.3';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.3';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<div class="wm_card_body">
@@ -55,7 +55,13 @@ function wm_card_loghook() {
         </div>
 		<div class="wm_card_game_body">
         	<canvas class="wm_cardGame_canvas" id="wm_cardGame_canvas"></canvas>
-        </div>';
+		</div>
+		<div class="wm_card_get_list_body">
+			<h5 class="wm_card_chiose_title">抽卡最新动态</h5>
+			<div class="wm_card_get_list_item_body" id="wmCardGetList">
+				
+			</div>
+		</div>';
 	echo '<script src="'.$wm_card_jsfile.'"></script>';
 	echo '<script>var wmCardPluginpath = "'.$wm_card_pluginpath.'"</script>';
 }

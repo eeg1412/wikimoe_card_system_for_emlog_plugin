@@ -4,271 +4,361 @@
 			"star": 1,
 			"leftType": 1,
 			"rightType": 7,
-			"cry": 4
+			"cry": 4,
+			"title":"摇曳百合",
+			"name":"赤座灯里"
 		},
 		"0002": {
 			"star": 1,
 			"leftType": 1,
 			"rightType": 2,
-			"cry": 5
+			"cry": 5,
+			"title":"原书·原书使",
+			"name":"键村叶月"
 		},
 		"0003": {
 			"star": 1,
 			"leftType": 1,
 			"rightType": 5,
-			"cry": 5
+			"cry": 5,
+			"title":"迷家",
+			"name":"真咲"
 		},
 		"0004": {
 			"star": 2,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 4
+			"cry": 4,
+			"title":"那就是声优",
+			"name":"一之濑双叶&小花铃&萌咲莓"
 		},
 		"0005": {
 			"star": 3,
 			"leftType": 5,
 			"rightType": 6,
-			"cry": 5
+			"cry": 5,
+			"title":"学园孤岛",
+			"name":"太郎丸&佐仓慈"
 		},
 		"0006": {
 			"star": 3,
 			"leftType": 1,
 			"rightType": 4,
-			"cry": 3
+			"cry": 3,
+			"title":"白明与御子地",
+			"name":"白明&御子地"
 		},
 		"0007": {
 			"star": 3,
 			"leftType": 1,
 			"rightType": 4,
-			"cry": 2
+			"cry": 2,
+			"title":"天体的秩序",
+			"name":"诺艾尔"
 		},
 		"0008": {
 			"star": 3,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 4
+			"cry": 4,
+			"title":"一周的朋友",
+			"name":"藤宫香织"
 		},
 		"0009": {
 			"star": 3,
 			"leftType": 2,
 			"rightType": 1,
-			"cry": 1
+			"cry": 1,
+			"title":"MAGI",
+			"name":"摩尔加纳"
 		},
 		"0010": {
 			"star": 3,
 			"leftType": 2,
 			"rightType": 2,
-			"cry": 1
+			"cry": 1,
+			"title":"境界的彼方",
+			"name":"栗山未来"
 		},
 		"0011": {
 			"star": 3,
 			"leftType": 3,
 			"rightType": 3,
-			"cry": 2
+			"cry": 2,
+			"title":"舰娘",
+			"name":"金刚"
 		},
 		"0012": {
 			"star": 3,
 			"leftType": 4,
 			"rightType": 4,
-			"cry": 3
+			"cry": 3,
+			"title":"Urara迷路帖",
+			"name":"千矢"
 		},
 		"0013": {
 			"star": 2,
 			"leftType": 1,
 			"rightType": 2,
-			"cry": 5
+			"cry": 5,
+			"title":"咕噜咕噜魔法阵",
+			"name":"柯柯丽"
 		},
 		"0014": {
 			"star": 2,
 			"leftType": 5,
 			"rightType": 5,
-			"cry": 5
+			"cry": 5,
+			"title":"调教咖啡厅",
+			"name":"樱之宫莓香"
 		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
 			"rightType": 6,
-			"cry": 4
+			"cry": 4,
+			"title":"星之梦",
+			"name":"星野梦美"
 		},
 		"1002": {
 			"star": 4,
 			"leftType": 2,
 			"rightType": 1,
-			"cry": 1
+			"cry": 1,
+			"title":"甲铁城的卡巴内瑞",
+			"name":"无名"
 		},
 		"1003": {
 			"star": 4,
 			"leftType": 5,
 			"rightType": 2,
-			"cry": 2
+			"cry": 2,
+			"title":"从零开始的异世界生活",
+			"name":"艾米利亚"
 		},
 		"1004": {
 			"star": 4,
 			"leftType": 5,
 			"rightType": 6,
-			"cry": 2
+			"cry": 2,
+			"title":"VOCALOID",
+			"name":"初音未来"
 		},
 		"1005": {
 			"star": 4,
 			"leftType": 4,
 			"rightType": 4,
-			"cry": 2
+			"cry": 2,
+			"title":"悠哉日常大王",
+			"name":"宫内莲华"
 		},
 		"1006": {
 			"star": 4,
 			"leftType": 5,
 			"rightType": 7,
-			"cry": 2
+			"cry": 2,
+			"title":"吹响吧！上低音号",
+			"name":"高板丽奈"
 		},
 		"1007": {
 			"star": 4,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 4
+			"cry": 4,
+			"title":"DOG DAYS",
+			"name":"米尔希欧蕾·菲里安诺·比斯科迪"
 		},
 		"1008": {
 			"star": 4,
 			"leftType": 1,
 			"rightType": 1,
-			"cry": 3
+			"cry": 3,
+			"title":"少女与战车",
+			"name":"岛田爱里寿"
 		},
 		"1009": {
 			"star": 4,
 			"leftType": 5,
 			"rightType": 2,
-			"cry": 1
+			"cry": 1,
+			"title":"蔷薇少女",
+			"name":"真红"
 		},
 		"1010": {
 			"star": 4,
 			"leftType": 4,
 			"rightType": 2,
-			"cry": 4
+			"cry": 4,
+			"title":"中二病也要谈恋爱",
+			"name":"小鸟游六花"
 		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
 			"rightType": 5,
-			"cry": 4
+			"cry": 4,
+			"title":"埃罗芒阿老师",
+			"name":"和泉纱雾"
 		},
 		"2002": {
 			"star": 5,
 			"leftType": 2,
 			"rightType": 3,
-			"cry": 4
+			"cry": 4,
+			"title":"游戏人生",
+			"name":"休比"
 		},
 		"2003": {
 			"star": 5,
 			"leftType": 1,
 			"rightType": 6,
-			"cry": 4
+			"cry": 4,
+			"title":"请问您今天要来点兔子吗？",
+			"name":"桐间纱路"
 		},
 		"2004": {
 			"star": 5,
 			"leftType": 4,
 			"rightType": 1,
-			"cry": 3
+			"cry": 3,
+			"title":"少女终末旅行",
+			"name":"尤利&千户"
 		},
 		"2005": {
 			"star": 5,
 			"leftType": 2,
 			"rightType": 2,
-			"cry": 1
+			"cry": 1,
+			"title":"灼眼的夏娜",
+			"name":"夏娜"
 		},
 		"2006": {
 			"star": 5,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 3
+			"cry": 3,
+			"title":"埃罗芒阿老师",
+			"name":"艾蜜莉·格兰杰"
 		},
 		"2007": {
 			"star": 5,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 4
+			"cry": 4,
+			"title":"小林家的龙女仆",
+			"name":"康纳"
 		},
 		"2008": {
 			"star": 5,
 			"leftType": 2,
 			"rightType": 1,
-			"cry": 5
+			"cry": 5,
+			"title":"潜行吧！奈亚子",
+			"name":"奈亚子"
 		},
 		"2009": {
 			"star": 5,
 			"leftType": 1,
 			"rightType": 6,
-			"cry": 3
+			"cry": 3,
+			"title":"New Game!",
+			"name":"凉风青叶"
 		},
 		"2010": {
 			"star": 5,
 			"leftType": 5,
 			"rightType": 5,
-			"cry": 5
+			"cry": 5,
+			"title":"少女编号",
+			"name":"乌丸千岁"
 		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
 			"rightType": 1,
-			"cry": 2
+			"cry": 2,
+			"title":"从零开始的异世界生活",
+			"name":"雷姆"
 		},
 		"3002": {
 			"star": 6,
 			"leftType": 2,
 			"rightType": 7,
-			"cry": 5
+			"cry": 5,
+			"title":"超次元游戏",
+			"name":"诺瓦露"
 		},
 		"3003": {
 			"star": 6,
 			"leftType": 1,
 			"rightType": 2,
-			"cry": 5
+			"cry": 5,
+			"title":"东方Project",
+			"name":"蕾米莉亚"
 		},
 		"3004": {
 			"star": 6,
 			"leftType": 1,
 			"rightType": 2,
-			"cry": 1
+			"cry": 1,
+			"title":"东方Project",
+			"name":"芙兰朵露"
 		},
 		"3005": {
 			"star": 6,
 			"leftType": 1,
 			"rightType": 4,
-			"cry": 2
+			"cry": 2,
+			"title":"ARIA",
+			"name":"水无灯里"
 		},
 		"3006": {
 			"star": 6,
 			"leftType": 3,
 			"rightType": 6,
-			"cry": 4
+			"cry": 4,
+			"title":"New Game!",
+			"name":"泷本日富美"
 		},
 		"3007": {
 			"star": 6,
 			"leftType": 3,
 			"rightType": 1,
-			"cry": 4
+			"cry": 4,
+			"title":"龙王的工作",
+			"name":"空银子"
 		},
 		"3008": {
 			"star": 6,
 			"leftType": 4,
 			"rightType": 6,
-			"cry": 3
+			"cry": 3,
+			"title":"文学少女",
+			"name":"天野远子"
 		},
 		"3009": {
 			"star": 6,
 			"leftType": 1,
 			"rightType": 2,
-			"cry": 5
+			"cry": 5,
+			"title":"物语系列",
+			"name":"忍野忍"
 		},
 		"3010": {
 			"star": 6,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 4
+			"cry": 4,
+			"title":"请问您今天要来点兔子吗？",
+			"name":"香风智乃"
 		},
 		"3011": {
 			"star": 6,
 			"leftType": 5,
 			"rightType": 4,
-			"cry": 4
+			"cry": 4,
+			"title":"想要传达你的爱恋",
+			"name":"姬野星奏"
 		}
 	},
 	"level":[40,82,130,180,276,360]
