@@ -227,6 +227,7 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_avatar_pic{
 	width: 45px;
 	height: 45px;
+	background: #f8f8f8;
 }
 .wm_card_get_list_body a.wm_card_get_list_card_link{
 	color: #ff5364;
