@@ -177,7 +177,7 @@ function getNewCardList(){
 					if(result[i].cardInfo.star===4){
 						getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
 					}else if(result[i].cardInfo.star===5){
-						getText = '运气不错，距离欧皇还差一点点。'
+						getText = '运气不错，距离欧皇就差一点点。'
 					}else if(result[i].cardInfo.star>=6){
 						getText = '欧气满满，欧耶~';
 					}

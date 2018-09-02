@@ -112,6 +112,54 @@
 			"title":"调教咖啡厅",
 			"name":"樱之宫莓香"
 		},
+		"0015": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 4,
+			"cry": 3,
+			"title":"月色真美",
+			"name":"水野茜"
+		},
+		"0016": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"此花绮谭",
+			"name":"柚"
+		},
+		"0017": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"向山进发",
+			"name":"雪村葵"
+		},
+		"0018": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"雏子的笔记",
+			"name":"柊真雪&樱木雏子"
+		},
+		"0019": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 3,
+			"title":"Rewrite",
+			"name":"神户小鸟"
+		},
+		"0020": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 2,
+			"title":"春与夏推理事件簿",
+			"name":"穗村千夏"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -192,6 +240,30 @@
 			"title":"中二病也要谈恋爱",
 			"name":"小鸟游六花"
 		},
+		"1011": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 3,
+			"title":"苍之彼方的四重奏",
+			"name":"鸢泽美咲&仓科明日香"
+		},
+		"1012": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 2,
+			"cry": 4,
+			"title":"苍之彼方的四重奏",
+			"name":"市之濑莉佳&有坂真白"
+		},
+		"1013": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"工作细胞",
+			"name":"血小板"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -271,6 +343,22 @@
 			"cry": 5,
 			"title":"少女编号",
 			"name":"乌丸千岁"
+		},
+		"2011": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 5,
+			"cry": 4,
+			"title":"摇曳露营△",
+			"name":"各务原抚子"
+		},
+		"2012": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 7,
+			"cry": 5,
+			"title":"摇曳露营△",
+			"name":"志摩凛"
 		},
 		"3001": {
 			"star": 6,
@@ -359,7 +447,16 @@
 			"cry": 4,
 			"title":"想要传达你的爱恋",
 			"name":"姬野星奏"
+		},
+		"3012": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"砂糖的幸福生活",
+			"name":"神户盐&松坂砂糖"
 		}
+		
 	},
 	"level":[40,82,130,180,276,360]
 }
