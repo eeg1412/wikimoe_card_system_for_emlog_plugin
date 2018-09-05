@@ -224,7 +224,7 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_item:nth-child(5n+0) .wm_card_get_list_comment:before{
 	border-right-color: #fef4ff;
 }
-.wm_card_get_list_avatar_pic{
+.wm_card_get_list_item .wm_card_get_list_avatar .wm_card_get_list_avatar_pic{
 	width: 45px;
 	height: 45px;
 	background: #f8f8f8;
