@@ -1,26 +1,16 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 1.1.0
+Version: 1.2.0
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
 Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
-function wm_card_init() {
-	global $tables;
-	$DB = MySql::getInstance();
-	$mgid=$DB->query("SELECT cardID FROM ".DB_PREFIX."wm_card");
-	$mgidinfo=$DB->fetch_array($mgid);
-	if (!$mgidinfo) {
-		$sqli="INSERT INTO ".DB_PREFIX."qingzz_zan (zanid,zancount) VALUES('".$blogid."',0)";
-		$DB->query($sqli);
-	}
-}
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.4';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.4';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.5';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.5';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<div class="wm_card_body">
@@ -51,6 +41,9 @@ function wm_card_loghook() {
 					<button type="button" class="wm_tiaozhan_btn" id="wm_tiaozhan_btn">挑战TA</button>
 				</div>
 				<div class="wm_mycard_list"></div>
+				<div class="wm_cardmore_body">
+					<button type="button" class="wm_cardmore_btn" id="wm_cardmore_btn">加载更多卡牌</button>
+				</div>
 			</div>
         </div>
 		<div class="wm_card_game_body">

@@ -236,3 +236,18 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_item_body{
 	padding: 10px 5%;
 }
+.wm_cardmore_btn{
+	background: #ff4c4c;
+    color: #fff;
+    text-align: center;
+    width: 120px;
+    height: 38px;
+    line-height: 38px;
+    border-radius: 5px;
+	cursor: pointer;
+	margin: 20px 0px;
+	display: none;
+}
+.wm_cardmore_body{
+	text-align: center;
+}

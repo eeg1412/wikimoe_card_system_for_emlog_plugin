@@ -48,7 +48,12 @@
 		rotate();
 	};
 })(jQuery);
+
 var chiosed = false;
+var wmcardAllInfoArr = [];//卡牌与卡牌数量的合集
+var showedWmCard = 0;//显示多少张
+var wmPageSize = 8;//一次显示多少张
+
 function wmsearchCard(emailmd5_,addrsearch){
 	var wmCardPluginpath_ = wmCardPluginpath + 'wm_card_search.php';
 	$.ajax({
@@ -58,35 +63,42 @@ function wmsearchCard(emailmd5_,addrsearch){
 		success: function(result){
 			console.log(result);
 			if(result.code=="202"){
-				$('#wm_mylist_title').text('您一共获得的卡牌');
+				$('#wm_mylist_title').text('您的当前信息');
 				if(addrsearch){
 					var usernick = GetQueryString('usernick');
 					if(usernick){
 						usernick = urldecode(usernick);
 						$('.wm_user_info_table').show();
 						$('.wm_tiaozhan_body').show();
-						$('#wm_mylist_title').text(usernick + '一共获得的卡牌');
+						$('#wm_mylist_title').text(usernick + '的当前信息');
 					}else{
 						$('.wm_user_info_table').hide();
 						$('.wm_tiaozhan_body').hide();
-						$('#wm_mylist_title').text('您一共获得的卡牌');
+						$('#wm_mylist_title').text('您的当前信息');
 					}
+				}else{
+					$('.wm_tiaozhan_body').hide();
 				}
 				$('#wm_mylist_title').fadeIn(500);
 				var wmcard = result.data;
 				$('.wm_user_level').empty().text(result.level);
 				$('.wm_user_score').empty().text(result.score);
+				$('.wm_user_info_table').show();
 				$('.wm_user_info_body').fadeIn(300);
 				var wmcardarr = wmcard.split(",");
 				var wmcardCount = result.cardCount;
 				var wmcardCountarr = wmcardCount.split(",");
-				var delay = 0;
+				wmcardAllInfoArr = [];//清空卡牌数量的合集数组
+				for(var i =0;i<wmcardarr.length;i++){//循环存入合集
+					var wmcardItemInfoArr = [wmcardarr[i],wmcardCountarr[i]];
+					wmcardAllInfoArr.push(wmcardItemInfoArr);
+				}
+				showedWmCard = 0;//清空显示卡牌计数
+				wmcardAllInfoArr.sort(function(a,b){return a<b?1:-1});//从卡牌ID大到小排列
 				$('.wm_mycard_list').empty();
-				for(var i =0;i<wmcardarr.length;i++){
-					var html_ = '<a href="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg"><br><span class="wm_card_nums">×'+wmcardCountarr[i]+'</span></a>';
-					$('.wm_mycard_list').append(html_);
-					$('.wm_getcard_box').last().delay(delay).fadeIn(400);
-					delay = delay + 200;
+				showWmCard();
+				if(wmcardAllInfoArr.length>wmPageSize){
+					$('#wm_cardmore_btn').fadeIn('200');
 				}
 			}else if(result.code=="1"){
 				$('#wm_mylist_title').text('还没有获得过卡牌');
@@ -95,6 +107,22 @@ function wmsearchCard(emailmd5_,addrsearch){
 		},
 		dataType: 'json'
 	});
+}
+function showWmCard(){
+	showedWmCard = showedWmCard + wmPageSize;
+	var wmPageCount = Math.ceil(showedWmCard/wmPageSize)-1;
+	var wmAddCount = wmPageCount*wmPageSize;
+	if(showedWmCard>=wmcardAllInfoArr.length){
+		showedWmCard = wmcardAllInfoArr.length;
+		$('#wm_cardmore_btn').fadeOut('200');
+	}
+	var delay = 0;
+	for(var i =0;i<showedWmCard-wmAddCount;i++){
+		var html_ = '<a href="'+wmCardPluginpath+'/card/img/'+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardPluginpath+'/card/img/'+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg"><br><span class="wm_card_nums">×'+wmcardAllInfoArr[i+wmAddCount][1]+'</span></a>';
+		$('.wm_mycard_list').append(html_);
+		$('.wm_getcard_box').last().delay(delay).fadeIn(400);
+		delay = delay + 200;
+	}
 }
 function alertTitle(text){
 	$('#alertTitle').text(text);
@@ -192,6 +220,10 @@ function getNewCardList(){
 	});
 }
 $(document).ready(function(e) {
+	//绑定更多事件
+	$('#wm_cardmore_btn').on('click',function(){
+		showWmCard();
+	})
 	//获取最新抽卡动态
 	getNewCardList();
 	//挑战
