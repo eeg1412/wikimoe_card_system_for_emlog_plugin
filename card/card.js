@@ -83,7 +83,7 @@ function wmsearchCard(emailmd5_,addrsearch){
 				var delay = 0;
 				$('.wm_mycard_list').empty();
 				for(var i =0;i<wmcardarr.length;i++){
-					var html_ = '<a href="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg"><br><span class="wm_card_nums">×'+wmcardCountarr[i]+'</span</a>';
+					var html_ = '<a href="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardPluginpath+'/card/img/'+wmcardarr[i]+'.jpg"><br><span class="wm_card_nums">×'+wmcardCountarr[i]+'</span></a>';
 					$('.wm_mycard_list').append(html_);
 					$('.wm_getcard_box').last().delay(delay).fadeIn(400);
 					delay = delay + 200;
