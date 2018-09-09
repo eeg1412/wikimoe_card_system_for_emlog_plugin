@@ -47,19 +47,19 @@ function wm_cardWrite(){
 					$randomCardR = mt_rand(1, 100);
 					if($randomCardR>=1&&$randomCardR<=70){
 						//N
-						$randomCardN_ = mt_rand(1, 20);
+						$randomCardN_ = mt_rand(1, 34);
 						$randomCardID = '0'.sprintf("%03d", $randomCardN_);
 					}else if($randomCardR>=71&&$randomCardR<=90){
 						//R
-						$randomCardR_ = mt_rand(1, 13);
+						$randomCardR_ = mt_rand(1, 20);
 						$randomCardID = '1'.sprintf("%03d", $randomCardR_);
 					}else if($randomCardR>=91&&$randomCardR<=98){
 						//SR
-						$randomCardSR_ = mt_rand(1, 12);
+						$randomCardSR_ = mt_rand(1, 15);
 						$randomCardID = '2'.sprintf("%03d", $randomCardSR_);
 					}else if($randomCardR>98){
 						//SSR
-						$randomCardSSR_ = mt_rand(1, 12);
+						$randomCardSSR_ = mt_rand(1, 14);
 						$randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
 					}
 					$json_string = json_decode(file_get_contents('cardData.json'), true);//获取卡牌数据

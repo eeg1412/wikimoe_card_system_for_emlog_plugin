@@ -97,7 +97,7 @@
 			"name":"千矢"
 		},
 		"0013": {
-			"star": 2,
+			"star": 3,
 			"leftType": 1,
 			"rightType": 2,
 			"cry": 5,
@@ -105,7 +105,7 @@
 			"name":"柯柯丽"
 		},
 		"0014": {
-			"star": 2,
+			"star": 3,
 			"leftType": 5,
 			"rightType": 5,
 			"cry": 5,
@@ -159,6 +159,118 @@
 			"cry": 2,
 			"title":"春与夏推理事件簿",
 			"name":"穗村千夏"
+		},
+		"0021": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 4,
+			"title":"A.I.Channel",
+			"name":"绊爱"
+		},
+		"0022": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"刀剑神域 -序列之争-",
+			"name":"YUNA"
+		},
+		"0023": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 2,
+			"cry": 2,
+			"title":"魔法飞球",
+			"name":"艾琳"
+		},
+		"0024": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 4,
+			"title":"轻音少女",
+			"name":"琴吹䌷"
+		},
+		"0025": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 5,
+			"cry": 3,
+			"title":"擅长捉弄人的高木同学",
+			"name":"高木"
+		},
+		"0026": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 7,
+			"cry": 5,
+			"title":"无彩限的怪灵世界",
+			"name":"和泉玲奈"
+		},
+		"0027": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 5,
+			"title":"Code Geass 反叛的鲁路修",
+			"name":"娜娜莉·V·布里塔尼亚"
+		},
+		"0028": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 3,
+			"title":"碧之轨迹",
+			"name":"诺艾尔·希卡"
+		},
+		"0029": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 2,
+			"title":"调教咖啡厅",
+			"name":"日向夏帆"
+		},
+		"0030": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"调教咖啡厅",
+			"name":"星川麻冬"
+		},
+		"0031": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 5,
+			"cry": 4,
+			"title":"秋之回忆6～T-wave～",
+			"name":"远峰莉莉丝&箱崎智纱"
+		},
+		"0032": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 5,
+			"cry": 3,
+			"title":"Working!!迷糊餐厅",
+			"name":"山田葵"
+		},
+		"0033": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 3,
+			"title":"Comic Girls",
+			"name":"胜木翼"
+		},
+		"0034": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 7,
+			"cry": 4,
+			"title":"爱吃拉面的小泉同学",
+			"name":"小泉"
 		},
 		"1001": {
 			"star": 4,
@@ -264,6 +376,62 @@
 			"title":"工作细胞",
 			"name":"血小板"
 		},
+		"1014": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 2,
+			"cry": 3,
+			"title":"Code Geass 反叛的鲁路修",
+			"name":"C.C."
+		},
+		"1015": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 5,
+			"title":"Comic Girls",
+			"name":"色川琉姬"
+		},
+		"1016": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"Comic Girls",
+			"name":"恋冢小梦"
+		},
+		"1017": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"刀剑神域外传 Gun Gale Online",
+			"name":"莲"
+		},
+		"1018": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"弹丸论破",
+			"name":"腐川冬子"
+		},
+		"1019": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 3,
+			"title":"狼与香辛料",
+			"name":"赫萝"
+		},
+		"1020": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 1,
+			"cry": 4,
+			"title":"Angel Beats!",
+			"name":"立华奏"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -360,6 +528,30 @@
 			"title":"摇曳露营△",
 			"name":"志摩凛"
 		},
+		"2013": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 3,
+			"cry": 4,
+			"title":"Comic Girls",
+			"name":"萌田薰子"
+		},
+		"2014": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 5,
+			"title":"Slow Start",
+			"name":"千石冠"
+		},
+		"2015": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"龙王的工作！",
+			"name":"夏绿蒂·伊索亚尔&雏鹤爱"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -455,6 +647,22 @@
 			"cry": 5,
 			"title":"砂糖的幸福生活",
 			"name":"神户盐&松坂砂糖"
+		},
+		"3013": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 2,
+			"title":"末日时在做什么？有没有空？可以来拯救吗？",
+			"name":"珂朵莉·诺塔·瑟尼欧里斯"
+		},
+		"3014": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 5,
+			"title":"魔卡少女樱",
+			"name":"木之本樱"
 		}
 		
 	},
