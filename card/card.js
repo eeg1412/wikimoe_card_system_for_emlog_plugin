@@ -71,6 +71,10 @@ function wmsearchCard(emailmd5_,addrsearch){
 						$('.wm_user_info_table').show();
 						$('.wm_tiaozhan_body').show();
 						$('#wm_mylist_title').text(usernick + '的当前信息');
+					}else if(addrsearch){
+						$('.wm_user_info_table').show();
+						$('.wm_tiaozhan_body').hide();
+						$('#wm_mylist_title').text('TA的当前信息');
 					}else{
 						$('.wm_user_info_table').hide();
 						$('.wm_tiaozhan_body').hide();
@@ -209,7 +213,7 @@ function getNewCardList(){
 					}else if(result[i].cardInfo.star>=6){
 						getText = '欧气满满，欧耶~';
 					}
-					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://www.gravatar.com/avatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardPluginpath+'/card/img/'+result[i].cardID+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://www.gravatar.com/avatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+result[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardPluginpath+'/card/img/'+result[i].cardID+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 					$('#wmCardGetList').append(listHtml);
 					$('.wm_card_get_list_item').last().delay(delay).fadeIn(600);
 					delay = delay + 500;
@@ -223,6 +227,11 @@ $(document).ready(function(e) {
 	//绑定更多事件
 	$('#wm_cardmore_btn').on('click',function(){
 		showWmCard();
+	})
+	// 查看最新抽卡动态的所获卡牌
+	$('#wmCardGetList').on('click','.wm_card_get_list_avatar_pic',function(){
+		var addrmd5 = $(this).attr('data-md5');
+		wmsearchCard(addrmd5,true);
 	})
 	//获取最新抽卡动态
 	getNewCardList();

@@ -228,6 +228,7 @@ input.wm_card_email:-webkit-autofill {
 	width: 45px;
 	height: 45px;
 	background: #f8f8f8;
+	cursor: pointer;
 }
 .wm_card_get_list_body a.wm_card_get_list_card_link{
 	color: #ff5364;
