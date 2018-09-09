@@ -54,7 +54,7 @@ var wmcardAllInfoArr = [];//卡牌与卡牌数量的合集
 var showedWmCard = 0;//显示多少张
 var wmPageSize = 8;//一次显示多少张
 
-function wmsearchCard(emailmd5_,addrsearch){
+function wmsearchCard(emailmd5_,addrsearch,newListSearch){
 	var wmCardPluginpath_ = wmCardPluginpath + 'wm_card_search.php';
 	$.ajax({
 		type: 'POST',
@@ -71,15 +71,15 @@ function wmsearchCard(emailmd5_,addrsearch){
 						$('.wm_user_info_table').show();
 						$('.wm_tiaozhan_body').show();
 						$('#wm_mylist_title').text(usernick + '的当前信息');
-					}else if(addrsearch){
-						$('.wm_user_info_table').show();
-						$('.wm_tiaozhan_body').hide();
-						$('#wm_mylist_title').text('TA的当前信息');
 					}else{
 						$('.wm_user_info_table').hide();
 						$('.wm_tiaozhan_body').hide();
 						$('#wm_mylist_title').text('您的当前信息');
 					}
+				}else if(newListSearch){
+					$('.wm_user_info_table').show();
+					$('.wm_tiaozhan_body').hide();
+					$('#wm_mylist_title').text('TA的当前信息');
 				}else{
 					$('.wm_tiaozhan_body').hide();
 				}
@@ -231,7 +231,8 @@ $(document).ready(function(e) {
 	// 查看最新抽卡动态的所获卡牌
 	$('#wmCardGetList').on('click','.wm_card_get_list_avatar_pic',function(){
 		var addrmd5 = $(this).attr('data-md5');
-		wmsearchCard(addrmd5,true);
+		wmsearchCard(addrmd5,false,true);
+		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+210}, 300);
 	})
 	//获取最新抽卡动态
 	getNewCardList();
