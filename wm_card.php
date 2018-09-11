@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 1.2.1
+Version: 1.2.2
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,11 +9,30 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.62';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.6';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.7';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.7';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<div class="wm_card_body">
+			<div class="jar_loading_body" id="wmCardLoading">
+				<div class="jar_loading_content">
+					<div class="jar_loading_box">
+						<div class="jar_loading_bg"></div>
+						<div class="jar_loading">
+						<div class="base_loading">
+							<div class="liquid_loading"> </div>
+							<div class="wave_loading"></div>
+							<div class="wave_loading"></div>
+							<div class="bubble_loading"></div>
+							<div class="bubble_loading"></div>
+						</div>
+						<div class="bubble_loading"></div>
+						<div class="bubble_loading"></div>
+						</div>
+					</div>
+					<p class="jar_loading_text">正在炼制卡牌...</p>
+				</div>
+			</div>
 			<h5 class="wm_card_chiose_title" id="alertTitle">每天一次神抽</h5>
 			<div class="wm_card_email_body"><input type="text" name="email" class="wm_card_email" id="wm_card_email" placeholder="请先输入邮箱地址再点击卡片"></div>
             <div class="cardList">

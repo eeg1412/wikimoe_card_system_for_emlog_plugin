@@ -55,6 +55,7 @@ var showedWmCard = 0;//显示多少张
 var wmPageSize = 8;//一次显示多少张
 
 function wmsearchCard(emailmd5_,addrsearch,newListSearch){
+	$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
 	var wmCardPluginpath_ = wmCardPluginpath + 'wm_card_search.php';
 	$.ajax({
 		type: 'POST',
@@ -108,6 +109,11 @@ function wmsearchCard(emailmd5_,addrsearch,newListSearch){
 				$('#wm_mylist_title').text('还没有获得过卡牌');
 				$('#wm_mylist_title').fadeIn(500);
 			}
+			$('#wmCardLoading').stop(true, false).fadeOut(100);
+		},
+		error:function(){
+			alert('网络异常！');
+			$('#wmCardLoading').stop(true, false).fadeOut(100);
 		},
 		dataType: 'json'
 	});
@@ -274,6 +280,7 @@ $(document).ready(function(e) {
 	　　　　return false;
 	　　}else{
 		chiosed = true;
+		$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
 	　　　　$.ajax({
 			  type: 'POST',
 			  url: wmCardPluginpath_,
@@ -281,6 +288,7 @@ $(document).ready(function(e) {
 			  success: function(result){
 				  console.log(result);
 				  //0为邮箱地址为空，1为邮箱地址不合格，2为今天已经抽过了，3为评论表里找不到邮箱地址，202
+				  $('#wmCardLoading').stop(true, false).fadeOut(100);
 				  if(result.code == '0'){
 					  alert('邮箱地址为空');
 					  chiosed = false;
@@ -309,7 +317,11 @@ $(document).ready(function(e) {
 				  }else{
 					  alert('未知错误 请联系管理员');
 				  }
-				  
+			  },
+			  error:function(){
+				  chiosed = false;
+				  alert('网络异常！');
+				  $('#wmCardLoading').stop(true, false).fadeOut(100);
 			  },
 			  dataType: 'json'
 		   });
