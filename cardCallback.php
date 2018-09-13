@@ -47,15 +47,15 @@ function wm_cardWrite(){
 					$randomCardR = mt_rand(1, 100);
 					if($randomCardR>=1&&$randomCardR<=70){
 						//N
-						$randomCardN_ = mt_rand(1, 34);
+						$randomCardN_ = mt_rand(1, 42);
 						$randomCardID = '0'.sprintf("%03d", $randomCardN_);
 					}else if($randomCardR>=71&&$randomCardR<=90){
 						//R
-						$randomCardR_ = mt_rand(1, 20);
+						$randomCardR_ = mt_rand(1, 24);
 						$randomCardID = '1'.sprintf("%03d", $randomCardR_);
 					}else if($randomCardR>=91&&$randomCardR<=98){
 						//SR
-						$randomCardSR_ = mt_rand(1, 15);
+						$randomCardSR_ = mt_rand(1, 18);
 						$randomCardID = '2'.sprintf("%03d", $randomCardSR_);
 					}else if($randomCardR>98){
 						//SSR

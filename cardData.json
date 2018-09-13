@@ -272,6 +272,70 @@
 			"title":"爱吃拉面的小泉同学",
 			"name":"小泉"
 		},
+		"0035": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 5,
+			"cry": 3,
+			"title":"笨女孩",
+			"name":"花畑佳子"
+		},
+		"0036": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 7,
+			"cry": 5,
+			"title":"死神的歌谣",
+			"name":"百百"
+		},
+		"0037": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"神隐之狼",
+			"name":"栉名田眠"
+		},
+		"0038": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 5,
+			"cry": 2,
+			"title":"侵略！乌贼娘",
+			"name":"乌贼娘"
+		},
+		"0039": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 2,
+			"cry": 5,
+			"title":"萌单",
+			"name":"黑威澄"
+		},
+		"0040": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 4,
+			"title":"萌单",
+			"name":"虹原茵可"
+		},
+		"0041": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 4,
+			"cry": 4,
+			"title":"茂伸奇谈",
+			"name":"有岛爱丽丝"
+		},
+		"0042": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 5,
+			"cry": 2,
+			"title":"东方Project",
+			"name":"琪露诺"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -432,6 +496,38 @@
 			"title":"Angel Beats!",
 			"name":"立华奏"
 		},
+		"1021": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 5,
+			"title":"水仙",
+			"name":"佐仓濑津美"
+		},
+		"1022": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 5,
+			"cry": 3,
+			"title":"文学少女",
+			"name":"朝仓美羽"
+		},
+		"1023": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 4,
+			"title":"茂伸奇谈",
+			"name":"泽井夏叶"
+		},
+		"1024": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 1,
+			"title":"茂伸奇谈",
+			"name":"栖美"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -551,6 +647,30 @@
 			"cry": 4,
 			"title":"龙王的工作！",
 			"name":"夏绿蒂·伊索亚尔&雏鹤爱"
+		},
+		"2016": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 2,
+			"title":"文学少女",
+			"name":"琴吹七濑"
+		},
+		"2017": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 3,
+			"cry": 4,
+			"title":"我女友与青梅竹马的惨烈修罗场",
+			"name":"春咲千和"
+		},
+		"2018": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"Working!!迷糊餐厅",
+			"name":"种岛白杨"
 		},
 		"3001": {
 			"star": 6,
