@@ -55,11 +55,11 @@ function wm_cardWrite(){
 						$randomCardID = '1'.sprintf("%03d", $randomCardR_);
 					}else if($randomCardR>=91&&$randomCardR<=98){
 						//SR
-						$randomCardSR_ = mt_rand(1, 18);
+						$randomCardSR_ = mt_rand(1, 19);
 						$randomCardID = '2'.sprintf("%03d", $randomCardSR_);
 					}else if($randomCardR>98){
 						//SSR
-						$randomCardSSR_ = mt_rand(1, 14);
+						$randomCardSSR_ = mt_rand(1, 15);
 						$randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
 					}
 					$json_string = json_decode(file_get_contents('cardData.json'), true);//获取卡牌数据

@@ -672,6 +672,14 @@
 			"title":"Working!!迷糊餐厅",
 			"name":"种岛白杨"
 		},
+		"2019": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"科学超电磁炮",
+			"name":"御坂美琴"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -783,6 +791,14 @@
 			"cry": 5,
 			"title":"魔卡少女樱",
 			"name":"木之本樱"
+		},
+		"3015": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 2,
+			"title":"电波女与青春男",
+			"name":"藤和艾莉欧"
 		}
 		
 	},
