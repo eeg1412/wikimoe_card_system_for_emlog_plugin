@@ -79,7 +79,7 @@ function wmsearchCard(emailmd5_,addrsearch,newListSearch){
 					}
 				}else if(newListSearch){
 					$('.wm_user_info_table').show();
-					$('.wm_tiaozhan_body').hide();
+					$('.wm_tiaozhan_body').show();
 					$('#wm_mylist_title').text('TA的当前信息');
 				}else{
 					$('.wm_tiaozhan_body').hide();
@@ -221,7 +221,7 @@ function getNewCardList(){
 						getText = '欧气满满，欧耶~';
 						wmSixStarCardShake = ' wm_six_star_card_shake'
 					}
-					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://www.gravatar.com/avatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+result[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardPluginpath+'/card/img/'+result[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+result[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardPluginpath+'/card/img/'+result[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 					$('#wmCardGetList').append(listHtml);
 					$('.wm_card_get_list_item').last().delay(delay).fadeIn(600);
 					delay = delay + 500;
@@ -239,6 +239,7 @@ $(document).ready(function(e) {
 	// 查看最新抽卡动态的所获卡牌
 	$('#wmCardGetList').on('click','.wm_card_get_list_avatar_pic',function(){
 		var addrmd5 = $(this).attr('data-md5');
+		$('#wm_tiaozhan_btn').attr('data-md5',addrmd5);
 		wmsearchCard(addrmd5,false,true);
 		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+210}, 300);
 	})
@@ -249,6 +250,7 @@ $(document).ready(function(e) {
 	if(addrmd5){
 		wmsearchCard(addrmd5,true);
 	}
+	$('#wm_tiaozhan_btn').attr('data-md5',addrmd5);
 	$('#wm_tiaozhan_btn').on('click',function(){
 		var wmEmail = $('#wm_tiaozhan_email').val();
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
@@ -260,7 +262,7 @@ $(document).ready(function(e) {
 	　　　　return false;
 	　　}else{
 			var MyEmailMD5 = md5(wmEmail);
-			var EMEmailMD5 = addrmd5;
+			var EMEmailMD5 = $('#wm_tiaozhan_btn').attr('data-md5');
 			gameInit(MyEmailMD5,EMEmailMD5);
 			
 		}
@@ -451,8 +453,8 @@ $(document).ready(function(e) {
 	//游戏初始化
 	function gameInit(Mymd5,EMmd5){
 		VarReset();
-		var MyIco = 'https://www.gravatar.com/avatar/'+Mymd5+'?s=300&d=mm&r=g&d=robohash';
-		var EMIco = 'https://www.gravatar.com/avatar/'+EMmd5+'?s=300&d=mm&r=g&d=robohash';
+		var MyIco = 'https://cdn.v2ex.com/gravatar/'+Mymd5+'?s=300&d=mm&r=g&d=robohash';
+		var EMIco = 'https://cdn.v2ex.com/gravatar/'+EMmd5+'?s=300&d=mm&r=g&d=robohash';
 		var imgSrcArr = [];
 		imgSrcArr.push(wmCardPluginpath+'/card/img/game_bg.jpg');
 		imgSrcArr.push(MyIco);
@@ -487,8 +489,11 @@ $(document).ready(function(e) {
 						}
 						
 						loading(imgSrcArr);
-					}else if(result.code="1"){
-						alert('双方有一方并没有牌或者地址有误');
+					}else if(result.code=="1"){
+						alert('双方有一方并没有牌');
+						$('.wm_card_game_body').hide();
+					}else if(result.code=="0"){
+						alert('邮箱地址有误或者游戏双方为同一邮箱');
 						$('.wm_card_game_body').hide();
 					}
 				},
