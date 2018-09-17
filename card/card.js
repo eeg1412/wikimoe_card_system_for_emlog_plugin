@@ -69,16 +69,13 @@ function wmsearchCard(emailmd5_,addrsearch,newListSearch){
 					var usernick = GetQueryString('usernick');
 					if(usernick){
 						usernick = urldecode(usernick);
-						$('.wm_user_info_table').show();
 						$('.wm_tiaozhan_body').show();
 						$('#wm_mylist_title').text(usernick + '的当前信息');
 					}else{
-						$('.wm_user_info_table').hide();
 						$('.wm_tiaozhan_body').hide();
 						$('#wm_mylist_title').text('您的当前信息');
 					}
 				}else if(newListSearch){
-					$('.wm_user_info_table').show();
 					$('.wm_tiaozhan_body').show();
 					$('#wm_mylist_title').text('TA的当前信息');
 				}else{
