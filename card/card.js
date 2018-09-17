@@ -86,13 +86,14 @@ function wmsearchCard(emailmd5_,addrsearch,newListSearch){
 				}
 				$('#wm_mylist_title').fadeIn(500);
 				var wmcard = result.data;
-				$('.wm_user_level').empty().text(result.level);
-				$('.wm_user_score').empty().text(result.score);
-				$('.wm_user_info_table').show();
-				$('.wm_user_info_body').fadeIn(300);
 				var wmcardarr = wmcard.split(",");
 				var wmcardCount = result.cardCount;
 				var wmcardCountarr = wmcardCount.split(",");
+				$('.wm_user_level').empty().text(result.level);
+				$('.wm_user_score').empty().text(result.score);
+				$('.wm_user_getcard_count').empty().text(String(wmcardarr.length)+'/'+String(result.cardLength));
+				$('.wm_user_info_table').show();
+				$('.wm_user_info_body').fadeIn(300);
 				wmcardAllInfoArr = [];//清空卡牌数量的合集数组
 				for(var i =0;i<wmcardarr.length;i++){//循环存入合集
 					var wmcardItemInfoArr = [wmcardarr[i],wmcardCountarr[i]];

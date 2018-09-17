@@ -6,7 +6,7 @@ function wm_cardWrite(){
 	$emailAddr = strip_tags($_POST['email']);
 	$checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
 	if(isset($emailAddr) && $emailAddr!=""){
-		if(preg_match($checkmail,$emailAddr)){                       //用正则表达式函数进行判断  
+		if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断  
            //邮箱地址正确
 		   	$comment_author_email = "\"".$emailAddr."\"";
 			$sql = "SELECT cid as author_count FROM ".DB_PREFIX."comment WHERE mail = ".$comment_author_email." and hide ='n'";
@@ -62,7 +62,7 @@ function wm_cardWrite(){
 						$randomCardSSR_ = mt_rand(1, 15);
 						$randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
 					}
-					$json_string = json_decode(file_get_contents('cardData.json'), true);//获取卡牌数据
+					$json_string = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
 					$getCardData = $json_string['cardData'][$randomCardID];//抽中卡牌数据
 					$cardJsonData = array('mailMD5'=>md5($emailAddr),'cardInfo'=>$getCardData,'cardID'=>$randomCardID);
 					//写入或更新最新抽奖列表json
