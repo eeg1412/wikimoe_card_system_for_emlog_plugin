@@ -80,7 +80,7 @@ function wm_cardWrite(){
 					}
 					//判断数据库是否存在这个用户的抽奖信息
 					if (!$mgidinfo) {
-						$sqli="INSERT INTO ".DB_PREFIX."wm_card (email,cardID,cardCount,timeStamp,todayCount,score,level,exp) VALUES(".$comment_author_email.",'".$randomCardID."','1',".$timeStamp.",1,0,0,0)";
+						$sqli="INSERT INTO ".DB_PREFIX."wm_card (email,cardID,cardCount,timeStamp,todayCount,score,level,exp,battleStamp,exData) VALUES(".$comment_author_email.",'".$randomCardID."','1',".$timeStamp.",1,0,0,0,".$timeStamp.",'')";
 						$DB->query($sqli);
 					}else{
 						$originCarID = $mgidinfo[cardID];

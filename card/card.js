@@ -493,6 +493,9 @@ $(document).ready(function(e) {
 					}else if(result.code=="0"){
 						alert('邮箱地址有误或者游戏双方为同一邮箱');
 						$('.wm_card_game_body').hide();
+					}else if(result.code=="2"){
+						alert('对方的战斗还在冷却期内');
+						$('.wm_card_game_body').hide();
 					}
 				},
 				dataType: 'json'

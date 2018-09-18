@@ -12,11 +12,13 @@ function callback_init(){
 		`email` varchar(255) NOT NULL default '0',
 		`cardID` longtext NOT NULL,
 		`cardCount` longtext NOT NULL,
-		`timeStamp` int(10) NOT NULL,
+		`timeStamp` bigint(20) NOT NULL,
 		`todayCount` int(10) NOT NULL,
 		`score` int(10) NOT NULL default '0',
 		`level` int(10) NOT NULL default '0',
 		`exp` int(10) NOT NULL default '0',
+		`battleStamp` bigint(20) NOT NULL,
+		`exData` longtext NOT NULL,
 		PRIMARY KEY  (`id`)
 )".$add;
 		$DB->query($sql);

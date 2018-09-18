@@ -125,14 +125,25 @@ function setCry($cardData,$MyCardArr,$EMCardArr){//计算水晶攻击加成
 	return $plusGong;
 	
 }
-function setScore($Score,$emailMD5){
+function setScore($Score,$emailMD5,$setBattleTime){
 	$DB = MySql::getInstance();
+	if($Score>2147483647){
+		$Score = 2147483647;
+	}
 	$comment_author_email = "\"".$emailMD5."\"";
-	$query = "Update wikimoeindex_wm_card set score=".$Score." where email=".$comment_author_email."";
+	if($setBattleTime==0){
+		$query = "Update wikimoeindex_wm_card set score=".$Score." , battleStamp=0 where email=".$comment_author_email."";
+	}else{
+		$timeStamp = time();
+		$query = "Update wikimoeindex_wm_card set score=".$Score." , battleStamp=".$timeStamp." where email=".$comment_author_email."";
+	}
 	$result=$DB->query($query);
 }
 function setLevel($level,$getexp,$emailMD5){
 	$DB = MySql::getInstance();
+	if($level>2147483647){
+		$level = 2147483647;
+	}
 	$comment_author_email = "\"".$emailMD5."\"";
 	$query = "Update wikimoeindex_wm_card set level=".$level." , exp=".$getexp." where email=".$comment_author_email."";
 	$result=$DB->query($query);
@@ -167,9 +178,15 @@ function gameStart(){
 		$EMCard = $EMCardInfo[0];
 		$MyCard = $MyCardInfo[0];
 		
-		
+		$timeStamp = time();
+		$wmBattleEMBaseStamp = intval ($EMCardInfo[1]['battleStamp']);
+		$wmBattleNowDate = date("Ymd", $timeStamp);//现在的时间
+		$wmBattleEMBaseDate =  date("Ymd", $wmBattleEMBaseStamp);//数据库敌方的时间
+
 		if(count($EMCard) <= 0 || count($MyCard) <= 0){
 			$data = json_encode(array('code'=>"1"));//没有牌
+		}else if($wmBattleNowDate == $wmBattleEMBaseDate){
+			$data = json_encode(array('code'=>"2"));//对方在战斗冷却时间内
 		}else{
 		
 			if(count($EMCard)>20){//牌大于20张的时候取20张
@@ -370,8 +387,8 @@ function gameStart(){
 					$EMGetScore = 0;
 				}
 				
-				setScore($EMGetScore,$EMemailAddr);
-				setScore($MyGetScore,$MyemailAddr);
+				setScore($EMGetScore,$EMemailAddr,1);
+				setScore($MyGetScore,$MyemailAddr,0);
 					
 			}else if($IsWin==1){//敌方赢了
 				$MyGetScore_ = 10;
@@ -393,8 +410,8 @@ function gameStart(){
 					$EMGetScore = 0;
 				}
 				
-				setScore($EMGetScore,$EMemailAddr);
-				setScore($MyGetScore,$MyemailAddr);
+				setScore($EMGetScore,$EMemailAddr,0);
+				setScore($MyGetScore,$MyemailAddr,0);
 			}
 			
 			$shouldEXP = 0;//所需经验值
@@ -429,7 +446,7 @@ function gameStart(){
 			
 
 	}
-	//code0为邮箱格式错误1为双方有一方没有牌
+	//code0为邮箱格式错误1为双方有一方没有牌2为对方在战斗冷却时间内
 	echo $data;
 }
 gameStart()

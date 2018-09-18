@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 1.2.4
+Version: 1.3.4
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,7 +9,7 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.8';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.82';
 	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.8';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
