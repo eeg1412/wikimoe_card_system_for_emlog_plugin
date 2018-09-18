@@ -3,6 +3,8 @@
 //# sourceMappingURL=md5.min.js.map
 (function($){
 	$.fn.rotate_box = function(){
+		var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                            window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 		var	elm = $(this),
 			elm_in = $('.inner', this),
 			btn = $('.face, .back', elm),
@@ -17,7 +19,7 @@
 		};
 
 		var rotate = function(){
-			setTimeout(function(){
+			requestAnimationFrame(function(){
 				rotate_anm();
 				if( deg == 45 ){
 					if( turn === false ){
@@ -28,10 +30,10 @@
 					deg = 315;
 				}
 				if( deg <= 45 ){
-					deg += 3;
+					deg += 5;
 					rotate();
 				} else if( deg < 360 && deg > 45 ) {
-					deg += 1;
+					deg += 3;
 					rotate();
 				} else {
 					deg = 0;
@@ -42,7 +44,7 @@
 						turn = false;
 					}
 				}
-			}, 5);
+			});
 		};
 		
 		rotate();
@@ -229,7 +231,23 @@ function getNewCardList(){
 		dataType: 'json'
 	});
 }
+function setCardScroll(positionType){
+	//小屏滚动条
+	var cardListWidth = $('#wmCardList').width();
+	var wmGetCardWidth = $('#wmGetCard').width();
+	if(wmGetCardWidth>cardListWidth){
+		if(positionType=='left'){
+			$('#wmCardList').animate({scrollLeft: 0}, 200);
+		}else if(positionType=='center'){
+			$('#wmCardList').animate({scrollLeft: (wmGetCardWidth-cardListWidth)/2}, 200);
+		}else if(positionType=='right'){
+			$('#wmCardList').animate({scrollLeft: wmGetCardWidth-cardListWidth}, 200);
+		}
+	}
+}
 $(document).ready(function(e) {
+	//小屏滚动条居中
+	setCardScroll('center');
 	//绑定更多事件
 	$('#wm_cardmore_btn').on('click',function(){
 		showWmCard();
@@ -266,12 +284,13 @@ $(document).ready(function(e) {
 		}
 	});
 	
-   $('#wmGetCard').on('click',function(){
+   $('#wmGetCard').on('click','.selectcard',function(){
 		if(chiosed){
 			return false;
 		}
 		var wmCardPluginpath_ = wmCardPluginpath + 'cardCallback.php';
 		var wmEmail = $('#wm_card_email').val();
+		var choiseIndex = $(this).attr('data-id');
 		//console.log(wmEmail);
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		if(wmEmail === ""){ //输入不能为空
@@ -286,7 +305,7 @@ $(document).ready(function(e) {
 	　　　　$.ajax({
 			  type: 'POST',
 			  url: wmCardPluginpath_,
-			  data: {email:wmEmail},
+			  data: {email:wmEmail,choiseIndex:choiseIndex},
 			  success: function(result){
 				  console.log(result);
 				  //0为邮箱地址为空，1为邮箱地址不合格，2为今天已经抽过了，3为评论表里找不到邮箱地址，202
@@ -307,12 +326,32 @@ $(document).ready(function(e) {
 					  chiosed = false;
 				  }else if(result.code == '202'){
 					  alertTitle('快看看都抽到了什么吧！')
-					  var cardId = result.card;
-					  var imgSrc = wmCardPluginpath+'/card/img/'+ cardId+'.jpg';
-					  var emailmd5_ = result.emailmd5;				
-					  $('#wm_card_img').attr('src',imgSrc);
+					  var emailmd5_ = result.emailmd5;
+					  for(var i=0;i<result.cardChoiseList.length;i++){
+						var cardId = result.cardChoiseList[i];
+						var imgSrc = wmCardPluginpath+'/card/img/'+ cardId+'.jpg';
+						$('#wmGetCard').find('.selectcard .wm_card_img').eq(i).attr('src',imgSrc);
+					  }
 					  $('#wm_card_email').hide(300);
-					  $('#wmGetCard').rotate_box();
+					  $('#wmGetCard').find('.selectcard').eq(result.choiseIndex).addClass('selectedcard');
+					  //小屏模式滚动
+					  if(result.choiseIndex==0){
+						setCardScroll('left');
+					  }else if(result.choiseIndex==1){
+						setCardScroll('center');
+					  }else if(result.choiseIndex==2){
+						setCardScroll('right');
+					  }
+					  $('#wmGetCard').find('.selectcard.selectedcard').rotate_box();
+					  setTimeout(function(){
+						var selElem_ = $('#wmGetCard').find('.selectcard');
+						for(var j=0;j<selElem_.length;j++){
+							if(!selElem_.eq(j).hasClass('selectedcard')){
+								selElem_.eq(j).addClass('no-selectedcard');
+							}
+						}
+						$('#wmGetCard').find('.selectcard.no-selectedcard').rotate_box();
+					  },700)
 					  chiosed = true;
 					  wmsearchCard(emailmd5_);
 					  getNewCardList();

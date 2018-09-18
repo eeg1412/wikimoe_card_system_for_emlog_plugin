@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 1.3.4
+Version: 1.4.4
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,8 +9,8 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.82';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.8';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.9';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.9';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<div class="wm_card_body">
@@ -35,13 +35,27 @@ function wm_card_loghook() {
 			</div>
 			<h5 class="wm_card_chiose_title" id="alertTitle">每天一次神抽</h5>
 			<div class="wm_card_email_body"><input type="text" name="email" class="wm_card_email" id="wm_card_email" placeholder="请先输入邮箱地址再点击卡片"></div>
-            <div class="cardList">
-              <div class="card" id="wmGetCard">
-                <div class="inner">
-                  <div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" id="wm_card_img"></div>
-                  <div class="back"></div>
-                </div>
-              </div>
+			<div class="cardList" id="wmCardList">
+			  <div class="cardList_body" id="wmGetCard">
+				<div class="card selectcard" data-id="0">
+					<div class="inner">
+					<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+					<div class="back"></div>
+					</div>
+				</div>
+				<div class="card selectcard" data-id="1">
+					<div class="inner">
+					<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+					<div class="back"></div>
+					</div>
+				</div>
+				<div class="card selectcard" data-id="2">
+					<div class="inner">
+					<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+					<div class="back"></div>
+					</div>
+				</div>
+			  </div>
 			</div>
 			<h5 class="wm_card_chiose_title" id="wm_mylist_title">您一共获得的卡牌</h5>
 			<div class="wm_user_info_body">
