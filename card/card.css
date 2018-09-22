@@ -7,6 +7,7 @@
 	overflow-x: auto;
 	overflow-y: hidden;
 	text-align: center;
+	margin: 15px 0 10px 0;
 }
 @media only screen and (min-width: 767px) {
 	.cardList::-webkit-scrollbar-track-piece {
@@ -274,7 +275,6 @@ input.wm_card_email:-webkit-autofill {
 	text-align: center;
 }
 .cardList_body{
-	padding: 15px 0 10px 0;
 	display: inline-block;
 	white-space: nowrap;
 }
@@ -286,6 +286,9 @@ input.wm_card_email:-webkit-autofill {
 }
 .no-selectedcard{
 	opacity: 0.5;
+}
+.selectedcard .inner,.no-selectedcard .inner{
+	cursor: default;
 }
 /* loading */
 #wmCardLoading{
@@ -419,7 +422,88 @@ input.wm_card_email:-webkit-autofill {
   .jar_loading_text{
 	  padding-top: 8px;
   }
+  /* 重来 */
+  .wm_restart_btn,.wm_restart_btn[disabled]{
+	background: #ff4c4c;
+    color: #fff;
+    text-align: center;
+    width: 110px;
+    height: 38px;
+    line-height: 38px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .wm_card_restart_body{
+	  text-align: center;
+	  display: none;
+  }
+  /* css动画 */
+  @-webkit-keyframes fadeInDown {
+	from {
+	  opacity: 0;
+	  -webkit-transform: translate3d(0, -100%, 0);
+	  transform: translate3d(0, -100%, 0);
+	}
   
+	to {
+	  opacity: 1;
+	  -webkit-transform: none;
+	  transform: none;
+	}
+  }
+  
+  @keyframes fadeInDown {
+	from {
+	  opacity: 0;
+	  -webkit-transform: translate3d(0, -100%, 0);
+	  transform: translate3d(0, -100%, 0);
+	}
+  
+	to {
+	  opacity: 1;
+	  -webkit-transform: none;
+	  transform: none;
+	}
+  }
+  
+  .fadeInDown {
+	-webkit-animation-name: fadeInDown;
+	animation-name: fadeInDown;
+  }
+  @-webkit-keyframes fadeOutDown {
+	from {
+	  opacity: 1;
+	}
+  
+	to {
+	  opacity: 0;
+	  -webkit-transform: translate3d(0, 100%, 0);
+	  transform: translate3d(0, 100%, 0);
+	}
+  }
+  
+  @keyframes fadeOutDown {
+	from {
+	  opacity: 1;
+	}
+  
+	to {
+	  opacity: 0;
+	  -webkit-transform: translate3d(0, 100%, 0);
+	  transform: translate3d(0, 100%, 0);
+	}
+  }
+  
+  .fadeOutDown {
+	-webkit-animation-name: fadeOutDown;
+	animation-name: fadeOutDown;
+  }
+  .animated {
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+  }
   @-moz-keyframes wave {
 	from {
 	  -moz-transform: translateX(100px);

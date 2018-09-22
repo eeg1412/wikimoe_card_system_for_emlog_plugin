@@ -49,19 +49,19 @@ function wm_cardWrite(){
 					$testCount = 0;
 					while (count($cardChoiseList)<3 && $testCount<100) {
 						$randomCardR = mt_rand(1, 100);
-						if($randomCardR>=1&&$randomCardR<=70){
+						if($randomCardR>=1&&$randomCardR<=64){
 							//N
-							$randomCardN_ = mt_rand(1, 42);
+							$randomCardN_ = mt_rand(1, 66);
 							array_push($cardChoiseList,'0'.sprintf("%03d", $randomCardN_));
-						}else if($randomCardR>=71&&$randomCardR<=90){
+						}else if($randomCardR>=65&&$randomCardR<=86){
 							//R
 							$randomCardR_ = mt_rand(1, 24);
 							array_push($cardChoiseList,'1'.sprintf("%03d", $randomCardR_));
-						}else if($randomCardR>=91&&$randomCardR<=98){
+						}else if($randomCardR>=87&&$randomCardR<=96){
 							//SR
 							$randomCardSR_ = mt_rand(1, 19);
 							array_push($cardChoiseList,'2'.sprintf("%03d", $randomCardSR_));
-						}else if($randomCardR>98){
+						}else if($randomCardR>96){
 							//SSR
 							$randomCardSSR_ = mt_rand(1, 15);
 							array_push($cardChoiseList,'3'.sprintf("%03d", $randomCardSSR_));

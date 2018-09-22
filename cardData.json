@@ -336,6 +336,198 @@
 			"title":"东方Project",
 			"name":"琪露诺"
 		},
+		"0043": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 4,
+			"title":"Kanon",
+			"name":"仓田佐佑理"
+		},
+		"0044": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 2,
+			"title":"Kanon",
+			"name":"美坂栞"
+		},
+		"0045": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 2,
+			"cry": 2,
+			"title":"零之使魔",
+			"name":"安丽埃塔"
+		},
+		"0046": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 4,
+			"title":"CLANNAD",
+			"name":"伊吹风子"
+		},
+		"0047": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 1,
+			"cry": 3,
+			"title":"童话枪手小红帽",
+			"name":"睡美人"
+		},
+		"0048": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 2,
+			"title":"童话枪手小红帽",
+			"name":"白雪公主"
+		},
+		"0049": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 1,
+			"cry": 1,
+			"title":"祝福的钟声",
+			"name":"阿妮艾斯"
+		},
+		"0050": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 3,
+			"title":"悠久之翼",
+			"name":"羽山瑞希"
+		},
+		"0051": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"空·之·音",
+			"name":"空深彼方"
+		},
+		"0052": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 5,
+			"cry": 5,
+			"title":"魔法的禁书目录",
+			"name":"白井黑子"
+		},
+		"0053": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 5,
+			"title":"人类衰退之后",
+			"name":"人类小姐"
+		},
+		"0054": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 6,
+			"cry": 3,
+			"title":"少女与战车",
+			"name":"安斋千代美"
+		},
+		"0055": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"黑白小姐",
+			"name":"黑白小姐"
+		},
+		"0056": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 5,
+			"title":"樱子小姐的脚下埋着秘密",
+			"name":"九条樱子"
+		},
+		"0057": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 1,
+			"cry": 2,
+			"title":"ANNE HAPPY",
+			"name":"江古田莲"
+		},
+		"0058": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"绯弹的亚里亚",
+			"name":"岛麒麟"
+		},
+		"0059": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"吹响吧！上低音号",
+			"name":"小笠原晴香"
+		},
+		"0060": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"吹响吧！上低音号",
+			"name":"川岛绿辉"
+		},
+		"0061": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 2,
+			"title":"花开伊吕波",
+			"name":"鹤来民子"
+		},
+		"0062": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"学生会的一己之见",
+			"name":"樱野栗梦"
+		},
+		"0063": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 5,
+			"title":"少女编号",
+			"name":"久我山八重"
+		},
+		"0064": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 1,
+			"title":"吹响吧！上低音号",
+			"name":"中川夏纪"
+		},
+		"0065": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 3,
+			"cry": 3,
+			"title":"天才麻将少女",
+			"name":"池田华菜"
+		},
+		"0066": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 5,
+			"title":"偶像大师 灰姑娘女孩",
+			"name":"双叶杏"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,

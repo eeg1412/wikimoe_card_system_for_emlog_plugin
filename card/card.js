@@ -246,6 +246,24 @@ function setCardScroll(positionType){
 	}
 }
 $(document).ready(function(e) {
+	//重抽
+	$('#wm_card_restart_btn').on('click',function(){
+		$('#wm_card_restart_btn').attr('disabled','true');
+		$('.no-selectedcard').removeClass('no-selectedcard');
+		$('#wmGetCard').addClass('animated fadeOutDown');
+		$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('.selectcard').attr('class','card selectcard');
+			$('#wmGetCard').removeClass('fadeOutDown').addClass('fadeInDown');
+			$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+				$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
+				$('.wm_card_restart_body').hide();
+				$('#wm_card_email').fadeIn(300);
+				$('#wm_card_restart_btn').removeAttr('disabled');
+				$('#alertTitle').text('继续神抽吧');
+				chiosed = false;
+			});
+		});
+	});
 	//小屏滚动条居中
 	setCardScroll('center');
 	//绑定更多事件
@@ -325,14 +343,16 @@ $(document).ready(function(e) {
 					  alert('请先在文章中评论并等待管理员审核后抽卡');
 					  chiosed = false;
 				  }else if(result.code == '202'){
-					  alertTitle('快看看都抽到了什么吧！')
+					  alertTitle('快看看都抽到了什么吧')
 					  var emailmd5_ = result.emailmd5;
 					  for(var i=0;i<result.cardChoiseList.length;i++){
 						var cardId = result.cardChoiseList[i];
 						var imgSrc = wmCardPluginpath+'/card/img/'+ cardId+'.jpg';
 						$('#wmGetCard').find('.selectcard .wm_card_img').eq(i).attr('src',imgSrc);
 					  }
-					  $('#wm_card_email').hide(300);
+					  $('#wm_card_email').fadeOut(300,function(){
+						$('.wm_card_restart_body').show();
+					  });
 					  $('#wmGetCard').find('.selectcard').eq(result.choiseIndex).addClass('selectedcard');
 					  //小屏模式滚动
 					  if(result.choiseIndex==0){
