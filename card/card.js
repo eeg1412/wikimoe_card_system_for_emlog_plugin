@@ -245,25 +245,35 @@ function setCardScroll(positionType){
 		}
 	}
 }
+function reChioseBtn(shouldAccount){
+	$('#wm_card_restart_btn').attr('disabled','true');
+	$('#wm_card_rechiose_btn').attr('disabled','true');
+	$('.no-selectedcard').removeClass('no-selectedcard');
+	$('#wmGetCard').addClass('animated fadeOutDown');
+	$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+		$('.selectcard').attr('class','card selectcard');
+		$('#wmGetCard').removeClass('fadeOutDown').addClass('fadeInDown');
+		$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
+			if(shouldAccount){
+				$('.wm_card_restart_body').hide();
+				$('#wm_card_email').fadeIn(300);
+			}
+			$('#wm_card_restart_btn').removeAttr('disabled');
+			$('#alertTitle').text('继续神抽吧');
+			chiosed = false;
+		});
+	});
+}
 $(document).ready(function(e) {
 	//重抽
 	$('#wm_card_restart_btn').on('click',function(){
-		$('#wm_card_restart_btn').attr('disabled','true');
-		$('.no-selectedcard').removeClass('no-selectedcard');
-		$('#wmGetCard').addClass('animated fadeOutDown');
-		$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-			$('.selectcard').attr('class','card selectcard');
-			$('#wmGetCard').removeClass('fadeOutDown').addClass('fadeInDown');
-			$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-				$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
-				$('.wm_card_restart_body').hide();
-				$('#wm_card_email').fadeIn(300);
-				$('#wm_card_restart_btn').removeAttr('disabled');
-				$('#alertTitle').text('继续神抽吧');
-				chiosed = false;
-			});
-		});
+		reChioseBtn(true);
+		$('#wm_card_email').val('');
 	});
+	$('#wm_card_rechiose_btn').on('click',function(){
+		reChioseBtn(false);
+	})
 	//小屏滚动条居中
 	setCardScroll('center');
 	//绑定更多事件
@@ -351,6 +361,12 @@ $(document).ready(function(e) {
 						$('#wmGetCard').find('.selectcard .wm_card_img').eq(i).attr('src',imgSrc);
 					  }
 					  $('#wm_card_email').fadeOut(300,function(){
+						if(result.leftGetChance<=0){
+							$('#wm_card_rechiose_btn').attr('disabled','true');
+						}else{
+							$('#wm_card_rechiose_btn').removeAttr('disabled');
+							$('#wm_card_rechiose_btn').show();
+						}
 						$('.wm_card_restart_body').show();
 					  });
 					  $('#wmGetCard').find('.selectcard').eq(result.choiseIndex).addClass('selectedcard');

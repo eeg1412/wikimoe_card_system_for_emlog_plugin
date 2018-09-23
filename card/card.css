@@ -424,15 +424,24 @@ input.wm_card_email:-webkit-autofill {
   }
   /* 重来 */
   .wm_restart_btn,.wm_restart_btn[disabled]{
-	background: #ff4c4c;
+		background: #ff4c4c;
     color: #fff;
     text-align: center;
-    width: 110px;
+    width: 90px;
     height: 38px;
     line-height: 38px;
     border-radius: 5px;
-    cursor: pointer;
-  }
+		cursor: pointer;
+		margin:0 5px;
+		opacity: 1;
+		transition: all 0.3s linear;
+		-webkit-transition: all 0.3s linear;
+		-moz-transition: all 0.3s linear;
+	}
+	.wm_restart_btn[disabled]{
+		opacity: 0.3;
+		cursor: default;
+	}
   .wm_card_restart_body{
 	  text-align: center;
 	  display: none;

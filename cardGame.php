@@ -8,23 +8,73 @@ function getCardInfo($emailMD5){//获取卡片数组
 			//循环遍历卡组
 			$originCarIDArr = explode(",",$mgidinfo[cardID]);//1001,1002,1003
 			$originCarCountArr = explode(",",$mgidinfo[cardCount]);//1,2,1
-			$CarIDArr=array();
-			for($j=0; $j<count($originCarIDArr); $j++){
-				for($i=0; $i<intval($originCarCountArr[$j]); $i++){
-					array_push($CarIDArr,$originCarIDArr[$j]);
-				}
-			}
+			$CarIDArr=$originCarIDArr;
+			// $CarIDArr=array();
+			// for($j=0; $j<count($originCarIDArr); $j++){
+			// 	for($i=0; $i<intval($originCarCountArr[$j]); $i++){
+			// 		array_push($CarIDArr,$originCarIDArr[$j]);
+			// 	}
+			// }
 			$CardInfo = array($CarIDArr,$mgidinfo);
 			return $CardInfo;
 }
 function cardSet($cardArr,$setNUM){//牌太多的时候随机取牌
+	//初始化每种卡牌数量
+	$sixStarCardCount = 10;
+	$fiveStarCardCount = 5;
+	$fourStarCardCount = 3;
+	$threeStarCardCount = 2;
+
+	//初始化每种卡牌数组
+	$sixStarCardArr = array();
+	$fiveStarCardArr = array();
+	$fourStarCardArr = array();
+	$threeStarCardArr = array();
+
 	$cardCount = count($cardArr);
 	$cardResetArr = array();
-	$num = range(0,$cardCount-1);//利用range()函数产生一个0到10的数组
-    shuffle($num);//利用shuffle()函数将产生的$num数组随机打乱顺序
-    for ($i=0; $i < $setNUM; $i++) {//选取数组前 setNUM
-        array_push($cardResetArr,$cardArr[$num[$i]]);
-    }
+	//随机打乱
+	shuffle($cardArr);
+	//给卡牌分类
+	for ($i=0; $i < $cardCount; $i++) {
+		$intCardId = intval($cardArr[$i]);
+		if($intCardId>3000){
+			array_push($sixStarCardArr,$cardArr[$i]);
+		}else if($intCardId>2000){
+			array_push($fiveStarCardArr,$cardArr[$i]);
+		}else if($intCardId>1000){
+			array_push($fourStarCardArr,$cardArr[$i]);
+		}else{
+			array_push($threeStarCardArr,$cardArr[$i]);
+		}
+	}
+	//如果卡牌不够设置则数量下移
+	if(count($sixStarCardArr)<$sixStarCardCount){
+		$fiveStarCardCount = $fiveStarCardCount + ($sixStarCardCount - count($sixStarCardArr));
+		$sixStarCardCount = count($sixStarCardArr);
+	}
+	if(count($fiveStarCardArr)<$fiveStarCardCount){
+		$fourStarCardCount = $fourStarCardCount + ($fiveStarCardCount - count($fiveStarCardArr));
+		$fiveStarCardCount = count($fiveStarCardArr);
+	}
+	if(count($fourStarCardArr)<$fourStarCardCount){
+		$threeStarCardCount = $threeStarCardCount + ($fourStarCardCount - count($fourStarCardArr));
+		$fourStarCardCount = count($fourStarCardArr);
+	}
+	//填充新数组
+	for ($j=0; $j < $sixStarCardCount; $j++) {
+        array_push($cardResetArr,$sixStarCardArr[$j]);
+	}
+	for ($j=0; $j < $fiveStarCardCount; $j++) {
+        array_push($cardResetArr,$fiveStarCardArr[$j]);
+	}
+	for ($j=0; $j < $fourStarCardCount; $j++) {
+        array_push($cardResetArr,$fourStarCardArr[$j]);
+	}
+	for ($j=0; $j < $threeStarCardCount; $j++) {
+        array_push($cardResetArr,$threeStarCardArr[$j]);
+	}
+
 	return $cardResetArr;
 }
 function setStatStart($cardData,$CardArr,$HP,$Gong,$Fang,$Su,$levelPlus){//计算初始攻防速
@@ -411,7 +461,7 @@ function gameStart(){
 				}
 				
 				setScore($EMGetScore,$EMemailAddr,0);
-				setScore($MyGetScore,$MyemailAddr,0);
+				setScore($MyGetScore,$MyemailAddr,1);
 			}
 			
 			$shouldEXP = 0;//所需经验值

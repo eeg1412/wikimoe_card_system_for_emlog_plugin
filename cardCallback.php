@@ -26,18 +26,29 @@ function wm_cardWrite(){
 				$wmnowDate_ = null;
 				$originToday = null;
 				$DateCheck = true;
+				$leftGetChance = 0;
 				if ($mgidinfo) {
 					$wmoriginTime = intval ($mgidinfo[timeStamp]);
 					$wmnowDate_ = date("Ymd", $timeStamp);
 					$wmoriginDate =  date("Ymd", $wmoriginTime);
-					
+					//次数的基数（次数-1）
+					$canGetCardChance = 0;
+					//根据竞技分数增加抽卡次数
+					$canGetCardChancePlus = floor($mgidinfo[score]/1000);
+					if($canGetCardChancePlus>10){//加成最多10次
+						$canGetCardChancePlus = 10;
+					}
 					if($wmoriginDate==$wmnowDate_){
 						//判断今天抽了几次
+						//获取抽卡次数
 						$originToday = $mgidinfo[todayCount];
-						if(intval($originToday)>0){
+						$canGetCardChance = $canGetCardChance + $canGetCardChancePlus;
+						$leftGetChance = $canGetCardChance - $originToday; 
+						if($leftGetChance<0){
 							$DateCheck = false;
 						}
 					}else{
+						$leftGetChance = $canGetCardChance;
 						$query = "Update ".DB_PREFIX."wm_card set todayCount=0 where email=".$comment_author_email."";
 						$result=$DB->query($query);
 					}
@@ -55,7 +66,7 @@ function wm_cardWrite(){
 							array_push($cardChoiseList,'0'.sprintf("%03d", $randomCardN_));
 						}else if($randomCardR>=65&&$randomCardR<=86){
 							//R
-							$randomCardR_ = mt_rand(1, 24);
+							$randomCardR_ = mt_rand(1, 40);
 							array_push($cardChoiseList,'1'.sprintf("%03d", $randomCardR_));
 						}else if($randomCardR>=87&&$randomCardR<=96){
 							//SR
@@ -127,7 +138,7 @@ function wm_cardWrite(){
 							$query = "Update ".DB_PREFIX."wm_card set cardID='".$originCarIDText."' , cardCount='".$originCardCountText."' , timeStamp=".$timeStamp." , todayCount=todayCount+1 where email=".$comment_author_email."";
 							$result=$DB->query($query);
 						}
-						$data = json_encode(array('code'=>"202",'card'=>$randomCardID,'emailmd5'=>md5($emailAddr),'todaycount'=>$originToday,'cardChoiseList'=>$cardChoiseList,'choiseIndex'=>$choiseIndex));
+						$data = json_encode(array('code'=>"202",'card'=>$randomCardID,'emailmd5'=>md5($emailAddr),'todaycount'=>$originToday,'cardChoiseList'=>$cardChoiseList,'choiseIndex'=>$choiseIndex,'leftGetChance'=>$leftGetChance));
 					}
 				}else{
 					$data = json_encode(array('code'=>"2" , 'data'=>$wmoriginDate , 'datanow'=>$wmnowDate_,'emailmd5'=>md5($emailAddr)));  

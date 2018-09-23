@@ -720,6 +720,134 @@
 			"title":"茂伸奇谈",
 			"name":"栖美"
 		},
+		"1025": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 2,
+			"title":"sola",
+			"name":"森宫苍乃"
+		},
+		"1026": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"sola",
+			"name":"四方茉莉"
+		},
+		"1027": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 4,
+			"title":"七色星露",
+			"name":"秋姬素桃"
+		},
+		"1028": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 1,
+			"cry": 1,
+			"title":"童话枪手小红帽",
+			"name":"小红帽"
+		},
+		"1029": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 5,
+			"cry": 5,
+			"title":"只有神知道的世界",
+			"name":"艾利由西亚·D·露德·伊玛"
+		},
+		"1030": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"祝福的钟声",
+			"name":"米内特"
+		},
+		"1031": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"异国迷宫的十字路口",
+			"name":"汤音"
+		},
+		"1032": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"我们仍未知道那天所看见的花的名字",
+			"name":"本间芽衣子"
+		},
+		"1033": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 2,
+			"title":"神的记事本",
+			"name":"紫苑寺有子"
+		},
+		"1034": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 2,
+			"title":"纯白交响曲",
+			"name":"瓜生樱乃"
+		},
+		"1035": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 2,
+			"title":"ANNE HAPPY",
+			"name":"云雀丘琉璃"
+		},
+		"1036": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"吹响吧！上低音号",
+			"name":"黄前久美子"
+		},
+		"1037": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 5,
+			"title":"吹响吧！上低音号",
+			"name":"田中明日香"
+		},
+		"1038": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"绯弹的亚里亚",
+			"name":"神崎·H·亚里亚"
+		},
+		"1039": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 5,
+			"cry": 3,
+			"title":"请问您今天要来点兔子吗？",
+			"name":"青山蓝山"
+		},
+		"1040": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"少女编号",
+			"name":"苑生百花"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
