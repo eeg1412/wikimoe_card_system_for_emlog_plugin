@@ -26,13 +26,17 @@ function wm_cardWrite(){
 				$wmnowDate_ = null;
 				$originToday = null;
 				$DateCheck = true;
-				$leftGetChance = 0;
+				$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
+				//次数的基数（次数-1）
+				$canGetCardChance = intval($wmCard_set['chance'])-1;
+				if($canGetCardChance<0){
+					$canGetCardChance = 0;
+				}
+				$leftGetChance = $canGetCardChance;
 				if ($mgidinfo) {
 					$wmoriginTime = intval ($mgidinfo[timeStamp]);
 					$wmnowDate_ = date("Ymd", $timeStamp);
 					$wmoriginDate =  date("Ymd", $wmoriginTime);
-					//次数的基数（次数-1）
-					$canGetCardChance = 0;
 					//根据竞技分数增加抽卡次数
 					$canGetCardChancePlus = floor($mgidinfo[score]/1000);
 					if($canGetCardChancePlus>10){//加成最多10次
@@ -68,13 +72,13 @@ function wm_cardWrite(){
 							//R
 							$randomCardR_ = mt_rand(1, 40);
 							array_push($cardChoiseList,'1'.sprintf("%03d", $randomCardR_));
-						}else if($randomCardR>=87&&$randomCardR<=96){
+						}else if($randomCardR>=87&&$randomCardR<=97){
 							//SR
-							$randomCardSR_ = mt_rand(1, 19);
+							$randomCardSR_ = mt_rand(1, 31);
 							array_push($cardChoiseList,'2'.sprintf("%03d", $randomCardSR_));
-						}else if($randomCardR>96){
+						}else if($randomCardR>97){
 							//SSR
-							$randomCardSSR_ = mt_rand(1, 15);
+							$randomCardSSR_ = mt_rand(1, 19);
 							array_push($cardChoiseList,'3'.sprintf("%03d", $randomCardSSR_));
 						}
 						$testCount = $testCount +1;

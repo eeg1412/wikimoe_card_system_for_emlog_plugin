@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 1.6.4
+Version: 1.7.4
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,9 +9,11 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.11';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.11';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.12';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.12';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
+	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
+	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<div class="wm_card_body">
 			<div class="jar_loading_body" id="wmCardLoading">
@@ -94,6 +96,7 @@ function wm_card_loghook() {
 		</div>';
 	echo '<script src="'.$wm_card_jsfile.'"></script>';
 	echo '<script>var wmCardPluginpath = "'.$wm_card_pluginpath.'"</script>';
+	echo '<script>var wmCardImgPath = "'.$wm_card_img_path.'"</script>';
 }
 addAction('wm_card_plugin','wm_card_loghook');
 function wm_card_backup(){

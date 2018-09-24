@@ -1000,6 +1000,102 @@
 			"title":"科学超电磁炮",
 			"name":"御坂美琴"
 		},
+		"2020": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"只有神知道的世界",
+			"name":"汐宫栞"
+		},
+		"2021": {
+			"star": 5,
+			"leftType": 4,
+			"rightType": 2,
+			"cry": 5,
+			"title":"东方Project",
+			"name":"西行寺幽幽子"
+		},
+		"2022": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 1,
+			"cry": 1,
+			"title":"旋风管家",
+			"name":"桂雏菊"
+		},
+		"2023": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 5,
+			"title":"GOSICK",
+			"name":"维多利加·德·布洛瓦"
+		},
+		"2024": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 4,
+			"title":"罗罗娜的工作室～阿兰德的炼金术士～",
+			"name":"库迪利亚·冯·费尔巴哈"
+		},
+		"2025": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"梅露露的工作室～阿兰德的炼金术士3～",
+			"name":"咪咪·霍利尔·冯·修沃兹兰格"
+		},
+		"2026": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 2,
+			"title":"梅露露的工作室～阿兰德的炼金术士3～",
+			"name":"凯娜·斯维娅"
+		},
+		"2027": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 1,
+			"cry": 3,
+			"title":"蔷薇少女",
+			"name":"翠星石"
+		},
+		"2028": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"请问您今天要来点兔子吗？",
+			"name":"条河麻耶"
+		},
+		"2029": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"请问您今天要来点兔子吗？",
+			"name":"奈津惠"
+		},
+		"2030": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"请问您今天要来点兔子吗？",
+			"name":"保登摩卡&保登心爱"
+		},
+		"2031": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"Fate/stay night",
+			"name":"阿尔托莉雅·潘德拉贡"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -1119,6 +1215,38 @@
 			"cry": 2,
 			"title":"电波女与青春男",
 			"name":"藤和艾莉欧"
+		},
+		"3016": {
+			"star": 6,
+			"leftType": 3,
+			"rightType": 7,
+			"cry": 4,
+			"title":"罗罗娜的工作室～阿兰德的炼金术士～",
+			"name":"罗洛莱娜·弗莉克希尔"
+		},
+		"3017": {
+			"star": 6,
+			"leftType": 3,
+			"rightType": 7,
+			"cry": 4,
+			"title":"托托莉的工作室～阿兰德的炼金术士2～",
+			"name":"托特莉亚·赫尔莫德"
+		},
+		"3018": {
+			"star": 6,
+			"leftType": 3,
+			"rightType": 7,
+			"cry": 4,
+			"title":"梅露露的工作室～阿兰德的炼金术士3～",
+			"name":"梅露露琳丝·蕾蒂·阿鲁兹"
+		},
+		"3019": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 4,
+			"title":"零之使魔",
+			"name":"露易丝·法兰西斯·露·布朗·杜·拉·瓦利埃尔"
 		}
 		
 	},

@@ -26,7 +26,10 @@ function callback_init(){
 }
 
 function callback_rm(){
-	$DB = MySql::getInstance();
-	$query = $DB->query("DROP TABLE IF EXISTS ".DB_PREFIX."wm_card");
+	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
+	if(intval($wmCard_set['delDatabase'])==1){
+		$DB = MySql::getInstance();
+		$query = $DB->query("DROP TABLE IF EXISTS ".DB_PREFIX."wm_card");
+	}
 }
 ?>

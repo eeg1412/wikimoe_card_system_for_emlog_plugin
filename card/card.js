@@ -128,7 +128,7 @@ function showWmCard(){
 	}
 	var delay = 0;
 	for(var i =0;i<showedWmCard-wmAddCount;i++){
-		var html_ = '<a href="'+wmCardPluginpath+'/card/img/'+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardPluginpath+'/card/img/'+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg"><br><span class="wm_card_nums">×'+wmcardAllInfoArr[i+wmAddCount][1]+'</span></a>';
+		var html_ = '<a href="'+wmCardImgPath+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardImgPath+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg"><br><span class="wm_card_nums">×'+wmcardAllInfoArr[i+wmAddCount][1]+'</span></a>';
 		$('.wm_mycard_list').append(html_);
 		$('.wm_getcard_box').last().delay(delay).fadeIn(400);
 		delay = delay + 200;
@@ -221,7 +221,7 @@ function getNewCardList(){
 						getText = '欧气满满，欧耶~';
 						wmSixStarCardShake = ' wm_six_star_card_shake'
 					}
-					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+result[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardPluginpath+'/card/img/'+result[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+result[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+result[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 					$('#wmCardGetList').append(listHtml);
 					$('.wm_card_get_list_item').last().delay(delay).fadeIn(600);
 					delay = delay + 500;
@@ -357,7 +357,7 @@ $(document).ready(function(e) {
 					  var emailmd5_ = result.emailmd5;
 					  for(var i=0;i<result.cardChoiseList.length;i++){
 						var cardId = result.cardChoiseList[i];
-						var imgSrc = wmCardPluginpath+'/card/img/'+ cardId+'.jpg';
+						var imgSrc = wmCardImgPath+ cardId+'.jpg';
 						$('#wmGetCard').find('.selectcard .wm_card_img').eq(i).attr('src',imgSrc);
 					  }
 					  $('#wm_card_email').fadeOut(300,function(){
@@ -552,12 +552,12 @@ $(document).ready(function(e) {
 						var EMcardAddrArr = WMGameData.EMCard;
 						var thisAddr = null;		
 						for(var i =0;i<MycardAddrArr.length;i++){
-							thisAddr = wmCardPluginpath+'/card/img/'+MycardAddrArr[i]+'.jpg';
+							thisAddr = wmCardImgPath+MycardAddrArr[i]+'.jpg';
 							imgSrcArr.push(thisAddr);
 						}
 									
 						for(var j =0;j<EMcardAddrArr.length;j++){
-							thisAddr = wmCardPluginpath+'/card/img/'+EMcardAddrArr[j]+'.jpg';
+							thisAddr = wmCardImgPath+EMcardAddrArr[j]+'.jpg';
 							imgSrcArr.push(thisAddr);
 						}
 						
