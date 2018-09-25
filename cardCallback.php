@@ -102,7 +102,7 @@ function wm_cardWrite(){
 						if(file_exists('cardGetList.json')){//判断json文件是否存在
 							$cardGetList = json_decode(file_get_contents('cardGetList.json'),true);
 							array_unshift($cardGetList,$cardJsonData);
-							if(count($cardGetList)>5){//判断数据量是否超过5条
+							if(count($cardGetList)>10){//判断数据量是否超过10条
 								array_pop($cardGetList);
 							}
 							$cardJsonDataEncode = json_encode($cardGetList);
