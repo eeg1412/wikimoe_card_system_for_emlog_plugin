@@ -298,7 +298,7 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_item_body{
 	padding: 10px 5%;
 }
-.wm_cardmore_btn{
+.wm_cardmore_btn,.wm_get_list_more_btn{
 	background: #ff4c4c;
     color: #fff;
     text-align: center;
@@ -310,7 +310,7 @@ input.wm_card_email:-webkit-autofill {
 	margin: 20px 0px;
 	display: none;
 }
-.wm_cardmore_body{
+.wm_cardmore_body,.wm_get_list_more_body{
 	text-align: center;
 }
 .cardList_body{
@@ -477,14 +477,14 @@ input.wm_card_email:-webkit-autofill {
 		-webkit-transition: all 0.3s linear;
 		-moz-transition: all 0.3s linear;
 	}
-	.wm_restart_btn[disabled]{
+	.wm_restart_btn[disabled],.wm_get_list_more_btn[disabled]{
 		opacity: 0.3;
 		cursor: default;
 	}
   .wm_card_restart_body{
 	  text-align: center;
 	  display: none;
-  }
+	}
   /* css动画 */
   @-webkit-keyframes fadeInDown {
 	from {

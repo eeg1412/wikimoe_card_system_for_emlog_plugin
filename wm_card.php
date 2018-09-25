@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 1.7.5
+Version: 1.8.6
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,8 +9,8 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.12';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.13';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.15';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.15';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -92,6 +92,9 @@ function wm_card_loghook() {
 			<h5 class="wm_card_chiose_title">抽卡最新动态</h5>
 			<div class="wm_card_get_list_item_body" id="wmCardGetList">
 				
+			</div>
+			<div class="wm_get_list_more_body">
+				<button type="button" class="wm_get_list_more_btn" id="wm_get_list_more_btn">加载更多动态</button>
 			</div>
 		</div>';
 	echo '<script src="'.$wm_card_jsfile.'"></script>';

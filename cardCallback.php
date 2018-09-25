@@ -39,8 +39,8 @@ function wm_cardWrite(){
 					$wmoriginDate =  date("Ymd", $wmoriginTime);
 					//根据竞技分数增加抽卡次数
 					$canGetCardChancePlus = floor($mgidinfo[score]/1000);
-					if($canGetCardChancePlus>10){//加成最多10次
-						$canGetCardChancePlus = 10;
+					if($canGetCardChancePlus>5){//加成最多5次
+						$canGetCardChancePlus = 5;
 					}
 					if($wmoriginDate==$wmnowDate_){
 						//判断今天抽了几次
@@ -102,7 +102,7 @@ function wm_cardWrite(){
 						if(file_exists('cardGetList.json')){//判断json文件是否存在
 							$cardGetList = json_decode(file_get_contents('cardGetList.json'),true);
 							array_unshift($cardGetList,$cardJsonData);
-							if(count($cardGetList)>10){//判断数据量是否超过10条
+							if(count($cardGetList)>30){//判断数据量是否超过30条
 								array_pop($cardGetList);
 							}
 							$cardJsonDataEncode = json_encode($cardGetList);

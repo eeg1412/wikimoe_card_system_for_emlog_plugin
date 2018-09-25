@@ -235,10 +235,11 @@ function gameStart(){
 
 		if(count($EMCard) <= 0 || count($MyCard) <= 0){
 			$data = json_encode(array('code'=>"1"));//没有牌
+		}else if(empty($EMCard[0]) || empty($MyCard[0])){
+			$data = json_encode(array('code'=>"1"));//没有牌
 		}else if($wmBattleNowDate == $wmBattleEMBaseDate){
 			$data = json_encode(array('code'=>"2"));//对方在战斗冷却时间内
 		}else{
-		
 			if(count($EMCard)>20){//牌大于20张的时候取20张
 				$EMCard = cardSet($EMCard,20);
 			}

@@ -51,221 +51,247 @@
 	};
 })(jQuery);
 
-var chiosed = false;
-var wmcardAllInfoArr = [];//卡牌与卡牌数量的合集
-var showedWmCard = 0;//显示多少张
-var wmPageSize = 8;//一次显示多少张
 
-function wmsearchCard(emailmd5_,addrsearch,newListSearch){
-	$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
-	var wmCardPluginpath_ = wmCardPluginpath + 'wm_card_search.php';
-	$.ajax({
-		type: 'POST',
-		url: wmCardPluginpath_,
-		data: {email:emailmd5_},
-		success: function(result){
-			console.log(result);
-			if(result.code=="202"){
-				$('#wm_mylist_title').text('您的当前信息');
-				if(addrsearch){
-					var usernick = GetQueryString('usernick');
-					if(usernick){
-						usernick = urldecode(usernick);
+$(document).ready(function(e) {
+	var chiosed = false;
+	var wmcardAllInfoArr = [];//卡牌与卡牌数量的合集
+	var showedWmCard = 0;//显示多少张
+	var wmPageSize = 8;//一次显示多少张
+	var wmNewListSize = 5;//一次显示多少动态
+	var showedWmNewList = 0;//显示了多少条
+	var wmNewListInfoArr = [];//储存最新动态
+
+	function wmsearchCard(emailmd5_,addrsearch,newListSearch){
+		$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+		var wmCardPluginpath_ = wmCardPluginpath + 'wm_card_search.php';
+		$.ajax({
+			type: 'POST',
+			url: wmCardPluginpath_,
+			data: {email:emailmd5_},
+			success: function(result){
+				console.log(result);
+				if(result.code=="202"){
+					$('#wm_mylist_title').text('您的当前信息');
+					if(addrsearch){
+						var usernick = GetQueryString('usernick');
+						if(usernick){
+							usernick = urldecode(usernick);
+							$('.wm_tiaozhan_body').show();
+							$('#wm_mylist_title').text(usernick + '的当前信息');
+						}else{
+							$('.wm_tiaozhan_body').hide();
+							$('#wm_mylist_title').text('您的当前信息');
+						}
+					}else if(newListSearch){
 						$('.wm_tiaozhan_body').show();
-						$('#wm_mylist_title').text(usernick + '的当前信息');
+						$('#wm_mylist_title').text('TA的当前信息');
 					}else{
 						$('.wm_tiaozhan_body').hide();
-						$('#wm_mylist_title').text('您的当前信息');
 					}
-				}else if(newListSearch){
-					$('.wm_tiaozhan_body').show();
-					$('#wm_mylist_title').text('TA的当前信息');
-				}else{
-					$('.wm_tiaozhan_body').hide();
-				}
-				$('#wm_mylist_title').fadeIn(500);
-				var wmcard = result.data;
-				var wmcardarr = wmcard.split(",");
-				var wmcardCount = result.cardCount;
-				var wmcardCountarr = wmcardCount.split(",");
-				$('.wm_user_level').empty().text(result.level);
-				$('.wm_user_score').empty().text(result.score);
-				$('.wm_user_getcard_count').empty().text(String(wmcardarr.length)+'/'+String(result.cardLength));
-				$('.wm_user_info_table').show();
-				$('.wm_user_info_body').fadeIn(300);
-				wmcardAllInfoArr = [];//清空卡牌数量的合集数组
-				for(var i =0;i<wmcardarr.length;i++){//循环存入合集
-					var wmcardItemInfoArr = [wmcardarr[i],wmcardCountarr[i]];
-					wmcardAllInfoArr.push(wmcardItemInfoArr);
-				}
-				showedWmCard = 0;//清空显示卡牌计数
-				wmcardAllInfoArr.sort(function(a,b){return a<b?1:-1});//从卡牌ID大到小排列
-				$('.wm_mycard_list').empty();
-				showWmCard();
-				if(wmcardAllInfoArr.length>wmPageSize){
-					$('#wm_cardmore_btn').fadeIn('200');
-				}
-			}else if(result.code=="1"){
-				$('#wm_mylist_title').text('还没有获得过卡牌');
-				$('#wm_mylist_title').fadeIn(500);
-			}
-			$('#wmCardLoading').stop(true, false).fadeOut(100);
-		},
-		error:function(){
-			alert('网络异常！');
-			$('#wmCardLoading').stop(true, false).fadeOut(100);
-		},
-		dataType: 'json'
-	});
-}
-function showWmCard(){
-	showedWmCard = showedWmCard + wmPageSize;
-	var wmPageCount = Math.ceil(showedWmCard/wmPageSize)-1;
-	var wmAddCount = wmPageCount*wmPageSize;
-	if(showedWmCard>=wmcardAllInfoArr.length){
-		showedWmCard = wmcardAllInfoArr.length;
-		$('#wm_cardmore_btn').fadeOut('200');
-	}
-	var delay = 0;
-	for(var i =0;i<showedWmCard-wmAddCount;i++){
-		var html_ = '<a href="'+wmCardImgPath+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardImgPath+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg"><br><span class="wm_card_nums">×'+wmcardAllInfoArr[i+wmAddCount][1]+'</span></a>';
-		$('.wm_mycard_list').append(html_);
-		$('.wm_getcard_box').last().delay(delay).fadeIn(400);
-		delay = delay + 200;
-	}
-}
-function alertTitle(text){
-	$('#alertTitle').text(text);
-}
-function urldecode(encodedString)
-{
-    var output = encodedString;
-    var binVal, thisString;
-    var myregexp = /(%[^%]{2})/;
-    function utf8to16(str)
-    {
-        var out, i, len, c;
-        var char2, char3;
- 
-        out = "";
-        len = str.length;
-        i = 0;
-        while(i < len) 
-        {
-            c = str.charCodeAt(i++);
-            switch(c >> 4)
-            { 
-                case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
-                out += str.charAt(i-1);
-                break;
-                case 12: case 13:
-                char2 = str.charCodeAt(i++);
-                out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
-                break;
-                case 14:
-                char2 = str.charCodeAt(i++);
-                char3 = str.charCodeAt(i++);
-                out += String.fromCharCode(((c & 0x0F) << 12) |
-                        ((char2 & 0x3F) << 6) |
-                        ((char3 & 0x3F) << 0));
-                break;
-            }
-        }
-        return out;
-    }
-    while((match = myregexp.exec(output)) != null
-                && match.length > 1
-                && match[1] != '')
-    {
-        binVal = parseInt(match[1].substr(1),16);
-        thisString = String.fromCharCode(binVal);
-        output = output.replace(match[1], thisString);
-    }
-     
-    //output = utf8to16(output);
-    output = output.replace(/\\+/g, " ");
-    output = utf8to16(output);
-    return output;
-}
-//获取地址栏参数
-function GetQueryString(name) {
-     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-     var r = window.location.search.substr(1).match(reg);
-     
-     if(r!=null) {
-         return  unescape(r[2]);
-     } else {
-          return null;
-    }      
-}
-//获取最新抽卡动态
-function getNewCardList(){
-	var getTimeStamp = new Date().getTime();
-	$.ajax({
-		type: 'GET',
-		url: wmCardPluginpath + 'cardGetList.json?time=' + getTimeStamp,
-		success: function(result){
-			console.log(result);
-			if(result.length>0){
-				$('.wm_card_get_list_body').fadeIn(300);
-				$('#wmCardGetList').empty();
-				var delay = 0;
-				for(var i=0;i<result.length;i++){
-					var getText = '虽然卡牌星级不高，但是我也很喜欢！';
-					var wmSixStarCardShake = '';
-					if(result[i].cardInfo.star===4){
-						getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
-					}else if(result[i].cardInfo.star===5){
-						getText = '运气不错，距离欧皇就差一点点。'
-					}else if(result[i].cardInfo.star>=6){
-						getText = '欧气满满，欧耶~';
-						wmSixStarCardShake = ' wm_six_star_card_shake'
+					$('#wm_mylist_title').fadeIn(500);
+					var wmcard = result.data;
+					var wmcardarr = wmcard.split(",");
+					var wmcardCount = result.cardCount;
+					var wmcardCountarr = wmcardCount.split(",");
+					$('.wm_user_level').empty().text(result.level);
+					$('.wm_user_score').empty().text(result.score);
+					$('.wm_user_getcard_count').empty().text(String(wmcardarr.length)+'/'+String(result.cardLength));
+					$('.wm_user_info_table').show();
+					$('.wm_user_info_body').fadeIn(300);
+					wmcardAllInfoArr = [];//清空卡牌数量的合集数组
+					for(var i =0;i<wmcardarr.length;i++){//循环存入合集
+						var wmcardItemInfoArr = [wmcardarr[i],wmcardCountarr[i]];
+						wmcardAllInfoArr.push(wmcardItemInfoArr);
 					}
-					var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+result[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+result[i].cardInfo.title+'》的'+result[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+result[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+result[i].cardInfo.name+'</a>。'+getText+'</div></div>'
-					$('#wmCardGetList').append(listHtml);
-					$('.wm_card_get_list_item').last().delay(delay).fadeIn(600);
-					delay = delay + 500;
+					showedWmCard = 0;//清空显示卡牌计数
+					wmcardAllInfoArr.sort(function(a,b){return a<b?1:-1});//从卡牌ID大到小排列
+					$('.wm_mycard_list').empty();
+					showWmCard();
+					if(wmcardAllInfoArr.length>wmPageSize){
+						$('#wm_cardmore_btn').fadeIn('200');
+					}
+				}else if(result.code=="1"){
+					$('#wm_mylist_title').text('还没有获得过卡牌');
+					$('#wm_mylist_title').fadeIn(500);
 				}
-			}
-		},
-		dataType: 'json'
-	});
-}
-function setCardScroll(positionType){
-	//小屏滚动条
-	var cardListWidth = $('#wmCardList').width();
-	var wmGetCardWidth = $('#wmGetCard').width();
-	if(wmGetCardWidth>cardListWidth){
-		if(positionType=='left'){
-			$('#wmCardList').animate({scrollLeft: 0}, 200);
-		}else if(positionType=='center'){
-			$('#wmCardList').animate({scrollLeft: (wmGetCardWidth-cardListWidth)/2}, 200);
-		}else if(positionType=='right'){
-			$('#wmCardList').animate({scrollLeft: wmGetCardWidth-cardListWidth}, 200);
+				$('#wmCardLoading').stop(true, false).fadeOut(100);
+			},
+			error:function(){
+				alert('网络异常！');
+				$('#wmCardLoading').stop(true, false).fadeOut(100);
+			},
+			dataType: 'json'
+		});
+	}
+	function showWmCard(){
+		showedWmCard = showedWmCard + wmPageSize;
+		var wmPageCount = Math.ceil(showedWmCard/wmPageSize)-1;
+		var wmAddCount = wmPageCount*wmPageSize;
+		if(showedWmCard>=wmcardAllInfoArr.length){
+			showedWmCard = wmcardAllInfoArr.length;
+			$('#wm_cardmore_btn').fadeOut('200');
+		}
+		var delay = 0;
+		for(var i =0;i<showedWmCard-wmAddCount;i++){
+			var html_ = '<a href="'+wmCardImgPath+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg" class="wm_getcard_box" style="display:none;" target="_blank"><img class="wm_getcard_img" src="'+wmCardImgPath+wmcardAllInfoArr[i+wmAddCount][0]+'.jpg"><br><span class="wm_card_nums">×'+wmcardAllInfoArr[i+wmAddCount][1]+'</span></a>';
+			$('.wm_mycard_list').append(html_);
+			$('.wm_getcard_box').last().delay(delay).fadeIn(400);
+			delay = delay + 200;
 		}
 	}
-}
-function reChioseBtn(shouldAccount){
-	$('#wm_card_restart_btn').attr('disabled','true');
-	$('#wm_card_rechiose_btn').attr('disabled','true');
-	$('.no-selectedcard').removeClass('no-selectedcard');
-	$('#wmGetCard').addClass('animated fadeOutDown');
-	$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-		$('.selectcard').attr('class','card selectcard');
-		$('#wmGetCard').removeClass('fadeOutDown').addClass('fadeInDown');
-		$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-			$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
-			if(shouldAccount){
-				$('.wm_card_restart_body').hide();
-				$('#wm_card_email').fadeIn(300);
+	function alertTitle(text){
+		$('#alertTitle').text(text);
+	}
+	function urldecode(encodedString)
+	{
+		var output = encodedString;
+		var binVal, thisString;
+		var myregexp = /(%[^%]{2})/;
+		function utf8to16(str)
+		{
+			var out, i, len, c;
+			var char2, char3;
+	
+			out = "";
+			len = str.length;
+			i = 0;
+			while(i < len) 
+			{
+				c = str.charCodeAt(i++);
+				switch(c >> 4)
+				{ 
+					case 0: case 1: case 2: case 3: case 4: case 5: case 6: case 7:
+					out += str.charAt(i-1);
+					break;
+					case 12: case 13:
+					char2 = str.charCodeAt(i++);
+					out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+					break;
+					case 14:
+					char2 = str.charCodeAt(i++);
+					char3 = str.charCodeAt(i++);
+					out += String.fromCharCode(((c & 0x0F) << 12) |
+							((char2 & 0x3F) << 6) |
+							((char3 & 0x3F) << 0));
+					break;
+				}
 			}
-			$('#wm_card_restart_btn').removeAttr('disabled');
-			$('#alertTitle').text('继续神抽吧');
-			chiosed = false;
+			return out;
+		}
+		while((match = myregexp.exec(output)) != null
+					&& match.length > 1
+					&& match[1] != '')
+		{
+			binVal = parseInt(match[1].substr(1),16);
+			thisString = String.fromCharCode(binVal);
+			output = output.replace(match[1], thisString);
+		}
+		
+		//output = utf8to16(output);
+		output = output.replace(/\\+/g, " ");
+		output = utf8to16(output);
+		return output;
+	}
+	//获取地址栏参数
+	function GetQueryString(name) {
+		var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+		var r = window.location.search.substr(1).match(reg);
+		
+		if(r!=null) {
+			return  unescape(r[2]);
+		} else {
+			return null;
+		}      
+	}
+	//动态显示效果
+	function wmGetListShow(){
+		var delay = 0;
+		$('#wm_get_list_more_btn').attr('disabled','true');
+		if(showedWmNewList+wmNewListSize > wmNewListInfoArr.length){
+			wmNewListSize = wmNewListSize-(showedWmNewList+wmNewListSize - wmNewListInfoArr.length);
+		}
+		for(var i=showedWmNewList;i<showedWmNewList+wmNewListSize;i++){
+			var getText = '虽然卡牌星级不高，但是我也很喜欢！';
+			var wmSixStarCardShake = '';
+			if(wmNewListInfoArr[i].cardInfo.star===4){
+				getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
+			}else if(wmNewListInfoArr[i].cardInfo.star===5){
+				getText = '运气不错，距离欧皇就差一点点。'
+			}else if(wmNewListInfoArr[i].cardInfo.star>=6){
+				getText = '欧气满满，欧耶~';
+				wmSixStarCardShake = ' wm_six_star_card_shake'
+			}
+			var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+			$('#wmCardGetList').append(listHtml);
+			$('.wm_card_get_list_item').last().delay(delay).fadeIn(300);
+			delay = delay + 300;
+		}
+		showedWmNewList = showedWmNewList+wmNewListSize;
+		if(showedWmNewList == wmNewListInfoArr.length){
+			$('#wm_get_list_more_btn').fadeOut(300);
+		}else{
+			$('#wm_get_list_more_btn').show();
+		}
+		$('#wm_get_list_more_btn').removeAttr('disabled');
+	}
+	//获取最新抽卡动态
+	function getNewCardList(){
+		var getTimeStamp = new Date().getTime();
+		$.ajax({
+			type: 'GET',
+			url: wmCardPluginpath + 'cardGetList.json?time=' + getTimeStamp,
+			success: function(result){
+				console.log(result);
+				if(result.length>0){
+					$('.wm_card_get_list_body').fadeIn(300);
+					$('#wmCardGetList').empty();
+					wmNewListSize = 5;//一次显示多少动态
+					showedWmNewList = 0;//显示了多少条
+					wmNewListInfoArr = result;
+					wmGetListShow();
+				}
+			},
+			dataType: 'json'
 		});
-	});
-}
-$(document).ready(function(e) {
+	}
+	function setCardScroll(positionType){
+		//小屏滚动条
+		var cardListWidth = $('#wmCardList').width();
+		var wmGetCardWidth = $('#wmGetCard').width();
+		if(wmGetCardWidth>cardListWidth){
+			if(positionType=='left'){
+				$('#wmCardList').animate({scrollLeft: 0}, 200);
+			}else if(positionType=='center'){
+				$('#wmCardList').animate({scrollLeft: (wmGetCardWidth-cardListWidth)/2}, 200);
+			}else if(positionType=='right'){
+				$('#wmCardList').animate({scrollLeft: wmGetCardWidth-cardListWidth}, 200);
+			}
+		}
+	}
+	function reChioseBtn(shouldAccount){
+		$('#wm_card_restart_btn').attr('disabled','true');
+		$('#wm_card_rechiose_btn').attr('disabled','true');
+		$('.no-selectedcard').removeClass('no-selectedcard');
+		$('#wmGetCard').addClass('animated fadeOutDown');
+		$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			$('.selectcard').attr('class','card selectcard');
+			$('#wmGetCard').removeClass('fadeOutDown').addClass('fadeInDown');
+			$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+				$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
+				if(shouldAccount){
+					$('.wm_card_restart_body').hide();
+					$('#wm_card_email').fadeIn(300);
+				}
+				$('#wm_card_restart_btn').removeAttr('disabled');
+				$('#alertTitle').text('继续神抽吧');
+				chiosed = false;
+			});
+		});
+	}
+	//加载最新动态按钮
+	$('#wm_get_list_more_btn').on('click',function(){
+		wmGetListShow();
+	})
 	//重抽
 	$('#wm_card_restart_btn').on('click',function(){
 		reChioseBtn(true);
