@@ -209,6 +209,9 @@ input.wm_card_email:-webkit-autofill {
 	line-height: 21px;
 	font-size: 14px;
 }
+.wm_card_get_list_item:nth-child(1n+0) .wm_card_get_list_comment{
+	background-color: #fff8e1;
+}
 .wm_card_get_list_item:nth-child(2n+0) .wm_card_get_list_comment{
 	background-color: #fff0e6;
 }
@@ -224,6 +227,24 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_item:last-child .wm_card_get_list_comment{
 	margin-bottom: 0px;
 }
+.wm_card_get_list_item:nth-child(5n+1) .wm_card_get_list_comment{
+	background-color: #fff8e1;
+}
+.wm_card_get_list_item:nth-child(5n+2) .wm_card_get_list_comment{
+	background-color: #fff0e6;
+}
+.wm_card_get_list_item:nth-child(5n+3) .wm_card_get_list_comment{
+	background-color: #f7fdde;
+}
+.wm_card_get_list_item:nth-child(5n+4) .wm_card_get_list_comment{
+	background-color: #f4f6fe;
+}
+.wm_card_get_list_item:nth-child(5n+5) .wm_card_get_list_comment{
+	background-color: #fef4ff;
+}
+.wm_card_get_list_item:last-child .wm_card_get_list_comment{
+	margin-bottom: 0px;
+}
 .wm_card_get_list_comment:before {
 	content: " ";
     display: block;
@@ -233,6 +254,9 @@ input.wm_card_email:-webkit-autofill {
     margin-top: -5px;
     border: 9px solid transparent;
     border-right: 9px solid #fff8e1;
+}
+.wm_card_get_list_item:nth-child(1n+0) .wm_card_get_list_comment:before{
+	border-right-color: #fff8e1;
 }
 .wm_card_get_list_item:nth-child(2n+0) .wm_card_get_list_comment:before{
 	border-right-color: #fff0e6;
@@ -244,6 +268,21 @@ input.wm_card_email:-webkit-autofill {
 	border-right-color: #f4f6fe;
 }
 .wm_card_get_list_item:nth-child(5n+0) .wm_card_get_list_comment:before{
+	border-right-color: #fef4ff;
+}
+.wm_card_get_list_item:nth-child(5n+1) .wm_card_get_list_comment:before{
+	border-right-color: #fff8e1;
+}
+.wm_card_get_list_item:nth-child(5n+2) .wm_card_get_list_comment:before{
+	border-right-color: #fff0e6;
+}
+.wm_card_get_list_item:nth-child(5n+3) .wm_card_get_list_comment:before{
+	border-right-color: #f7fdde;
+}
+.wm_card_get_list_item:nth-child(5n+4) .wm_card_get_list_comment:before{
+	border-right-color: #f4f6fe;
+}
+.wm_card_get_list_item:nth-child(5n+5) .wm_card_get_list_comment:before{
 	border-right-color: #fef4ff;
 }
 .wm_card_get_list_item .wm_card_get_list_avatar .wm_card_get_list_avatar_pic{
