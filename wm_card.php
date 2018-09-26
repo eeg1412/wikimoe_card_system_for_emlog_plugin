@@ -9,7 +9,7 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.15';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.16';
 	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.15';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));

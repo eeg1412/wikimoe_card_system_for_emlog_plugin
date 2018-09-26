@@ -182,7 +182,7 @@ function setScore($Score,$emailMD5,$setBattleTime){
 	}
 	$comment_author_email = "\"".$emailMD5."\"";
 	if($setBattleTime==0){
-		$query = "Update wikimoeindex_wm_card set score=".$Score." , battleStamp=0 where email=".$comment_author_email."";
+		$query = "Update wikimoeindex_wm_card set score=".$Score." where email=".$comment_author_email."";
 	}else{
 		$timeStamp = time();
 		$query = "Update wikimoeindex_wm_card set score=".$Score." , battleStamp=".$timeStamp." where email=".$comment_author_email."";
@@ -229,7 +229,7 @@ function gameStart(){
 		$MyCard = $MyCardInfo[0];
 		
 		$timeStamp = time();
-		$wmBattleEMBaseStamp = intval ($EMCardInfo[1]['battleStamp']);
+		$wmBattleEMBaseStamp = intval ($MyCardInfo[1]['battleStamp']);
 		$wmBattleNowDate = date("Ymd", $timeStamp);//现在的时间
 		$wmBattleEMBaseDate =  date("Ymd", $wmBattleEMBaseStamp);//数据库敌方的时间
 
@@ -238,7 +238,7 @@ function gameStart(){
 		}else if(empty($EMCard[0]) || empty($MyCard[0])){
 			$data = json_encode(array('code'=>"1"));//没有牌
 		}else if($wmBattleNowDate == $wmBattleEMBaseDate){
-			$data = json_encode(array('code'=>"2"));//对方在战斗冷却时间内
+			$data = json_encode(array('code'=>"2"));//今天已经挑战过了
 		}else{
 			if(count($EMCard)>20){//牌大于20张的时候取20张
 				$EMCard = cardSet($EMCard,20);
@@ -419,7 +419,7 @@ function gameStart(){
 			$MyGetScore_post = 0;
 				
 			if($IsWin==0){//我方赢了
-				$MyGetScore = 35 - $MyScoreOrigin - $EMScoreOrigin;
+				$MyGetScore = intval(($EMScoreOrigin - $MyScoreOrigin)/2);
 				if($MyGetScore<=10){
 					$MyGetScore = 10;
 				}
@@ -438,12 +438,12 @@ function gameStart(){
 					$EMGetScore = 0;
 				}
 				
-				setScore($EMGetScore,$EMemailAddr,1);
-				setScore($MyGetScore,$MyemailAddr,0);
+				setScore($EMGetScore,$EMemailAddr,0);
+				setScore($MyGetScore,$MyemailAddr,1);
 					
 			}else if($IsWin==1){//敌方赢了
 				$MyGetScore_ = 10;
-				$EMGetScore = 35 - $EMScoreOrigin - $MyScoreOrigin;
+				$EMGetScore = intval(($MyScoreOrigin - $EMScoreOrigin/2));
 				if($EMGetScore<=10){
 					$EMGetScore = 10;
 				}
@@ -497,7 +497,7 @@ function gameStart(){
 			
 
 	}
-	//code0为邮箱格式错误1为双方有一方没有牌2为对方在战斗冷却时间内
+	//code0为邮箱格式错误1为双方有一方没有牌2为今天已经发起过挑战
 	echo $data;
 }
 gameStart()
