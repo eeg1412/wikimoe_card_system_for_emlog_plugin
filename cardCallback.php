@@ -32,16 +32,16 @@ function wm_cardWrite(){
 				if($canGetCardChance<0){
 					$canGetCardChance = 0;
 				}
+				//根据竞技分数增加抽卡次数
+				$canGetCardChancePlus = floor($mgidinfo[score]/1000);
+				if($canGetCardChancePlus>5){//加成最多5次
+					$canGetCardChancePlus = 5;
+				}
 				$leftGetChance = $canGetCardChance;
 				if ($mgidinfo) {
 					$wmoriginTime = intval ($mgidinfo[timeStamp]);
 					$wmnowDate_ = date("Ymd", $timeStamp);
 					$wmoriginDate =  date("Ymd", $wmoriginTime);
-					//根据竞技分数增加抽卡次数
-					$canGetCardChancePlus = floor($mgidinfo[score]/1000);
-					if($canGetCardChancePlus>5){//加成最多5次
-						$canGetCardChancePlus = 5;
-					}
 					if($wmoriginDate==$wmnowDate_){
 						//判断今天抽了几次
 						//获取抽卡次数
@@ -52,7 +52,7 @@ function wm_cardWrite(){
 							$DateCheck = false;
 						}
 					}else{
-						$leftGetChance = $canGetCardChance;
+						$leftGetChance = $canGetCardChance+$canGetCardChancePlus;
 						$query = "Update ".DB_PREFIX."wm_card set todayCount=0 where email=".$comment_author_email."";
 						$result=$DB->query($query);
 					}
