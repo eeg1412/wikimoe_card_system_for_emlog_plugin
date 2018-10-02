@@ -20,7 +20,7 @@ function buyCard(){
                     if(($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0){
                         $randomCardRate = mt_rand(1, 100);
                         $starFlag = false;//true为星星不足
-                        $starCount = intval ($mgidinfo[starCount]);
+                        $starCount = intval ($mgidinfo['starCount']);
                         $shouldStar = 9999;
                         if($buyType==3){
                             $shouldStar = 30;
@@ -69,8 +69,8 @@ function buyCard(){
                                 $randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
                             }
 
-                            $originCarID = $mgidinfo[cardID];
-                            $originCardCount = $mgidinfo[cardCount];
+                            $originCarID = $mgidinfo['cardID'];
+                            $originCardCount = $mgidinfo['cardCount'];
                             //循环遍历卡组
                             $originCarIDArr = explode(",",$originCarID);//1001,1002,1003
                             $originCarCountArr = explode(",",$originCardCount);//1,2,1

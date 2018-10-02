@@ -11,7 +11,7 @@ function wm_star_search(){
 		$mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$comment_author_email."");
 		$mgidinfo=$DB->fetch_array($mgid);
 		if ($mgidinfo) {
-			$data = json_encode(array('code'=>"202",'star'=>$mgidinfo[starCount]));
+			$data = json_encode(array('code'=>"202",'star'=>$mgidinfo['starCount']));
 		}else{
 			$data = json_encode(array('code'=>"1"));
 		}

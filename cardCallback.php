@@ -33,19 +33,19 @@ function wm_cardWrite(){
 					$canGetCardChance = 0;
 				}
 				//根据竞技分数增加抽卡次数
-				$canGetCardChancePlus = floor($mgidinfo[score]/1000);
+				$canGetCardChancePlus = floor($mgidinfo['score']/1000);
 				if($canGetCardChancePlus>5){//加成最多5次
 					$canGetCardChancePlus = 5;
 				}
 				$leftGetChance = $canGetCardChance;
 				if ($mgidinfo) {
-					$wmoriginTime = intval ($mgidinfo[timeStamp]);
+					$wmoriginTime = intval ($mgidinfo['timeStamp']);
 					$wmnowDate_ = date("Ymd", $timeStamp);
 					$wmoriginDate =  date("Ymd", $wmoriginTime);
 					if($wmoriginDate==$wmnowDate_){
 						//判断今天抽了几次
 						//获取抽卡次数
-						$originToday = $mgidinfo[todayCount];
+						$originToday = $mgidinfo['todayCount'];
 						$canGetCardChance = $canGetCardChance + $canGetCardChancePlus;
 						$leftGetChance = $canGetCardChance - $originToday; 
 						if($leftGetChance<0){
@@ -116,8 +116,8 @@ function wm_cardWrite(){
 							$sqli="INSERT INTO ".DB_PREFIX."wm_card (email,cardID,cardCount,timeStamp,todayCount,score,level,exp,battleStamp,exData,starCount,verifyCode,verifyCodeStamp,verifyCodeCount) VALUES(".$comment_author_email.",'".$randomCardID."','1',".$timeStamp.",1,0,0,0,".$timeStamp.",'',0,0,0,0)";
 							$DB->query($sqli);
 						}else{
-							$originCarID = $mgidinfo[cardID];
-							$originCardCount = $mgidinfo[cardCount];
+							$originCarID = $mgidinfo['cardID'];
+							$originCardCount = $mgidinfo['cardCount'];
 							//循环遍历卡组
 							$originCarIDArr = explode(",",$originCarID);//1001,1002,1003
 							$originCarCountArr = explode(",",$originCardCount);//1,2,1

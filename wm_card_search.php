@@ -12,7 +12,7 @@ function wm_cardsearch(){
 		$mgidinfo=$DB->fetch_array($mgid);
 		if ($mgidinfo) {
 			$json_string = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
-			$data = json_encode(array('code'=>"202",'data'=>$mgidinfo[cardID],'cardCount'=>$mgidinfo[cardCount],'score'=>$mgidinfo[score],'level'=>$mgidinfo[level],'cardLength'=>count($json_string['cardData'])));
+			$data = json_encode(array('code'=>"202",'data'=>$mgidinfo['cardID'],'cardCount'=>$mgidinfo['cardCount'],'score'=>$mgidinfo['score'],'level'=>$mgidinfo['level'],'cardLength'=>count($json_string['cardData'])));
 		}else{
 			$data = json_encode(array('code'=>"1"));
 		}

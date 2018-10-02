@@ -6,8 +6,8 @@ function getCardInfo($emailMD5){//获取卡片数组
 			$mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$comment_author_email."");
 			$mgidinfo=$DB->fetch_array($mgid);
 			//循环遍历卡组
-			$originCarIDArr = explode(",",$mgidinfo[cardID]);//1001,1002,1003
-			$originCarCountArr = explode(",",$mgidinfo[cardCount]);//1,2,1
+			$originCarIDArr = explode(",",$mgidinfo['cardID']);//1001,1002,1003
+			$originCarCountArr = explode(",",$mgidinfo['cardCount']);//1,2,1
 			$CarIDArr=$originCarIDArr;
 			// $CarIDArr=array();
 			// for($j=0; $j<count($originCarIDArr); $j++){
