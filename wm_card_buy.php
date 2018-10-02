@@ -102,7 +102,7 @@ function buyCard(){
                             $json_string = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
                             
                             $getCardData = $json_string['cardData'][$randomCardID];//抽中卡牌数据
-                            $cardJsonData = array('mailMD5'=>md5($emailAddr),'cardInfo'=>$getCardData,'cardID'=>$randomCardID);
+                            $cardJsonData = array('mailMD5'=>md5($emailAddr),'cardInfo'=>$getCardData,'cardID'=>$randomCardID,'useStar'=>$shouldStar,'massageType'=>'buy');
                             //写入或更新最新抽奖列表json
                             if(file_exists('cardGetList.json')){//判断json文件是否存在
                                 $cardGetList = json_decode(file_get_contents('cardGetList.json'),true);

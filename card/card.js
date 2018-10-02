@@ -460,17 +460,43 @@ $(document).ready(function(e) {
 			wmNewListSize = wmNewListSize-(showedWmNewList+wmNewListSize - wmNewListInfoArr.length);
 		}
 		for(var i=showedWmNewList;i<showedWmNewList+wmNewListSize;i++){
-			var getText = '虽然卡牌星级不高，但是我也很喜欢！';
-			var wmSixStarCardShake = '';
-			if(wmNewListInfoArr[i].cardInfo.star===4){
-				getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
-			}else if(wmNewListInfoArr[i].cardInfo.star===5){
-				getText = '运气不错，距离欧皇就差一点点。'
-			}else if(wmNewListInfoArr[i].cardInfo.star>=6){
-				getText = '欧气满满，欧耶~';
-				wmSixStarCardShake = ' wm_six_star_card_shake'
+			var listHtml = '';
+			if(wmNewListInfoArr[i].massageType=='dailyCard' || wmNewListInfoArr[i].massageType==undefined){
+				var getText = '虽然卡牌星级不高，但是我也很喜欢！';
+				var wmSixStarCardShake = '';
+				if(wmNewListInfoArr[i].cardInfo.star===4){
+					getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
+				}else if(wmNewListInfoArr[i].cardInfo.star===5){
+					getText = '运气不错，距离欧皇就差一点点。'
+				}else if(wmNewListInfoArr[i].cardInfo.star>=6){
+					getText = '欧气满满，欧耶~';
+					wmSixStarCardShake = ' wm_six_star_card_shake'
+				}
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+			}else if(wmNewListInfoArr[i].massageType=='buy'){
+				var getText = '虽然卡牌星级不高，但是我也很喜欢！';
+				var wmSixStarCardShake = '';
+				if(wmNewListInfoArr[i].useStar<=30){
+					if(wmNewListInfoArr[i].cardInfo.star===4){
+						getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
+					}else if(wmNewListInfoArr[i].cardInfo.star===5){
+						getText = '运气不错，距离欧皇就差一点点。'
+					}else if(wmNewListInfoArr[i].cardInfo.star>=6){
+						getText = '欧气满满，欧耶~';
+						wmSixStarCardShake = ' wm_six_star_card_shake'
+					}
+				}else{
+					if(wmNewListInfoArr[i].cardInfo.star===4){
+						getText = '哪怕是4星卡，我也要用星星抽！'
+					}else if(wmNewListInfoArr[i].cardInfo.star===5){
+						getText = '我要用尽我的星星来抽出我喜欢的5星卡！'
+					}else if(wmNewListInfoArr[i].cardInfo.star>=6){
+						getText = '有星星6星卡也随便抽！';
+						wmSixStarCardShake = ' wm_six_star_card_shake'
+					}
+				}
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我使用了'+wmNewListInfoArr[i].useStar+'颗星星抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 			}
-			var listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 			$('#wmCardGetList').append(listHtml);
 			$('.wm_card_get_list_item').last().delay(delay).fadeIn(300);
 			delay = delay + 300;
