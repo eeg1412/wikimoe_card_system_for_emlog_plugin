@@ -163,6 +163,10 @@ $(document).ready(function(e) {
 	$('#wmStarSearchBtn').on('click',function(){
 		searchStar();
 	});
+	// 重置
+	$('.wm_starshop_rebuy_body').on('click',function(){
+		event.stopPropagation();
+	});
 	$('#wmStarshopBody .wm_rebuy_btn').on('click',function(){
 		var this_ = $(this);
 		this_.parents('.wm_starshop_card_list_item').addClass('animated fadeOutDown');
@@ -177,6 +181,7 @@ $(document).ready(function(e) {
 	//星星抽卡
 	$('#wmStarshopBody').on('click','.selectcard',function(){
 		var this_ = $(this);
+		console.log(this_);
 		var myStar = parseInt($('#wm_my_star').attr('data-star'));
 		var wmPrice = parseInt(this_.attr('data-price'));
 		if(isNaN(myStar)||isNaN(wmPrice)){
