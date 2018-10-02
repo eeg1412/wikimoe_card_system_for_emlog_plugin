@@ -77,7 +77,7 @@
 .card.reverse .back {
 	display: none;
 }
-.wm_card_email{
+.wm_card_email,.wm_card_email_starshop{
 	border:1px solid #333;
 	height:16px;
 	width:200px;
@@ -298,7 +298,7 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_item_body{
 	padding: 10px 5%;
 }
-.wm_cardmore_btn,.wm_get_list_more_btn{
+.wm_cardmore_btn,.wm_get_list_more_btn,.wm_search_star_btn{
 	background: #ff4c4c;
     color: #fff;
     text-align: center;
@@ -484,6 +484,90 @@ input.wm_card_email:-webkit-autofill {
   .wm_card_restart_body{
 	  text-align: center;
 	  display: none;
+	}
+	/* 星星商店 */
+	.wm_card_starshop_input_body{
+		text-align: center;
+		margin: 20px 0;
+	}
+	.wm_search_star_btn{
+		display: inline-block;
+		width: 56px;
+		margin:0 5px;
+	}
+	.wm_card_email_starshop{
+		width: 142px;
+	}
+	.wm_star_count_body{
+		font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+	}
+	.wm_starshop_card_list{
+		text-align: center;
+		margin: 15px 0;
+		overflow: hidden;
+	}
+	.wm_starshop_card_list_item{
+		display: inline-block;
+	}
+	#wmStarshopBody .selectedcard{
+		position: relative;
+		z-index: 1;
+	}
+	.wm_starshop_rebuy_body{
+		display: none;
+	}
+	#wmStarshopBody .selectedcard .wm_starshop_rebuy_body{
+		position: absolute;
+		z-index: 1;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background-color: rgba(0,0,0,0.5);
+		box-sizing: border-box;
+		padding-top: 90px;
+	}
+	#wmStarshopBody .selectedcard:hover .wm_starshop_rebuy_body{
+		display: block;
+	}
+	.wm_card_mailcheck{
+		padding: 20px;
+		text-align: center;
+	}
+	#wmMailCheckBody,#starshopBody{
+		display: none;
+	}
+	#wmGetPassword{
+		opacity: 1;
+		transition: all 0.3s linear;
+		-webkit-transition: all 0.3s linear;
+		-moz-transition: all 0.3s linear;
+	}
+	#wmGetPassword[disabled]{
+		opacity: 0.3;
+	}
+	.wm_banner_body .swiper-container{
+		width: 530px;
+		max-width: 100%;
+		border-radius: 10px;
+		box-shadow: 0 0px 2px rgba(0,0,0,0.3);
+	}
+	.wm_banner_body .swiper-container .swiper-slide img{
+		width: 100%;
+		height: auto;
+		cursor: pointer;
+	}
+	.wm_banner_body{
+		margin: 20px 0;
+	}
+	.wm_banner_body .swiper-container-horizontal>.swiper-pagination-bullets, .wm_banner_body .swiper-pagination-custom, .swiper-pagination-fraction{
+		bottom: 2px;
+	}
+	.wm_banner_body .swiper-pagination-bullet{
+		width: 6px;
+		height: 6px;
 	}
   /* css动画 */
   @-webkit-keyframes fadeInDown {

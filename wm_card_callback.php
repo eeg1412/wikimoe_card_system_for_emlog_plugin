@@ -19,6 +19,10 @@ function callback_init(){
 		`exp` int(10) NOT NULL default '0',
 		`battleStamp` bigint(20) NOT NULL,
 		`exData` longtext NOT NULL,
+		`starCount` bigint(20) NOT NULL default '0',
+		`verifyCode` int(10) NOT NULL default '0',
+		`verifyCodeStamp` bigint(20) NOT NULL,
+		`verifyCodeCount` int(10) NOT NULL,
 		PRIMARY KEY  (`id`)
 )".$add;
 		$DB->query($sql);

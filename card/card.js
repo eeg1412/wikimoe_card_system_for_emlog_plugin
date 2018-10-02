@@ -53,6 +53,250 @@
 
 
 $(document).ready(function(e) {
+	//幻灯片
+	var mySwiper = new Swiper ('.wm_banner_body .swiper-container', {
+		direction: 'horizontal',
+		loop: true,
+		autoplay : 5000,
+		autoplayDisableOnInteraction : false,
+		paginationClickable :true,	
+		// 如果需要分页器
+		pagination: '.swiper-pagination',
+	});
+	//查询星星方法
+	function searchStar(){
+		var wmStarSearchInput = $('#wmStarSearchInput').val();
+		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		if(wmStarSearchInput === ""){ //输入不能为空
+	　　　　layer.alert("邮箱地址不能为空");
+	　　　　return false;
+	　　}else if(!reg.test(wmStarSearchInput)){ //正则验证不通过，格式不对
+	　　　　layer.alert("邮箱地址有误!");
+	　　　　return false;
+	　　}else{
+			var starEmailmd5_ = md5(wmStarSearchInput);
+			var wmCardStarpath_ = wmCardPluginpath + 'wm_search_star.php';
+			$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+			$.ajax({
+				type: 'POST',
+				url: wmCardStarpath_,
+				data: {email:starEmailmd5_},
+				success: function(result){
+					if(result.code=="202"){
+						$('#wm_my_star').empty();
+						$('#wm_my_star').attr('data-star',result.star);
+						$('#wm_my_star').attr('data-mail',wmStarSearchInput);
+						$('#wm_my_star').text(result.star);
+					}else if(result.code=="1"){
+						layer.alert('无该用户数据，请先抽一张卡牌来创建用户！');
+					}else if(result.code=="0"){
+						layer.alert('邮箱地址有误！');
+					}
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				error:function(){
+					layer.alert('网络异常！');
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				dataType: 'json'
+			});	
+		}
+	};
+	//获取动态密码
+	$('#wmGetPassword').on('click',function(){
+		var wmStarSearchInput = $('#wm_my_star').attr('data-mail');
+		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		if(wmStarSearchInput === ""){ //输入不能为空
+			layer.alert('邮箱地址不能为空');
+	　　　　return false;
+	　　}else if(!reg.test(wmStarSearchInput)){ //正则验证不通过，格式不对
+			layer.alert('邮箱地址有误');
+	　　　　return false;
+	　　}else{
+			var wmCardStarpath_ = wmCardPluginpath + 'wm_card_email_send.php';
+			$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+			$('#wmGetPassword').attr('disabled','true');
+			var wmEmailCoolDownTime = 60;
+			function wmEmailTimer(){
+				setTimeout(function(){
+					if(wmEmailCoolDownTime===0){
+						$('#wmGetPassword').text('获取');
+						$('#wmGetPassword').removeAttr('disabled');
+						wmEmailCoolDownTime = 60;
+					}else{
+						$('#wmGetPassword').text(wmEmailCoolDownTime);
+						wmEmailCoolDownTime = wmEmailCoolDownTime-1;
+						wmEmailTimer();
+					}
+				},1000)
+			}
+			wmEmailTimer();
+			$.ajax({
+				type: 'POST',
+				url: wmCardStarpath_,
+				data: {email:wmStarSearchInput},
+				success: function(result){
+					if(result.code=="1"){
+						layer.alert('邮件发送成功！如果长时间没有收到请检查是否进入了垃圾邮件中。');
+					}else if(result.code=="0"){
+						layer.alert('邮件发送失败！');
+					}else if(result.code=="2"){
+						layer.alert('邮箱地址有误！');
+						$('#wmGetPassword').removeAttr('disabled');
+					}else if(result.code=="3"){
+						layer.alert('无该用户数据，请先抽一张卡牌来创建用户！');
+						$('#wmGetPassword').removeAttr('disabled');
+					}else if(result.code=="4"){
+						layer.alert('该邮箱超过发送次数或者发送过于频繁！');
+					}
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				error:function(){
+					layer.alert('网络异常！');
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				dataType: 'json'
+			});	
+		}
+	});
+	//点击按钮查询星星
+	$('#wmStarSearchBtn').on('click',function(){
+		searchStar();
+	});
+	$('#wmStarshopBody .wm_rebuy_btn').on('click',function(){
+		var this_ = $(this);
+		this_.parents('.wm_starshop_card_list_item').addClass('animated fadeOutDown');
+		this_.parents('.wm_starshop_card_list_item').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+			this_.parents('.selectcard').attr('class','card selectcard');
+			this_.parents('.wm_starshop_card_list_item').removeClass('fadeOutDown').addClass('fadeInDown');
+			this_.parents('.wm_starshop_card_list_item').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+				this_.parents('.wm_starshop_card_list_item').removeClass('fadeInDown').removeClass('animated');
+			});
+		});
+	});
+	//星星抽卡
+	$('#wmStarshopBody').on('click','.selectcard',function(){
+		var this_ = $(this);
+		var myStar = parseInt($('#wm_my_star').attr('data-star'));
+		var wmPrice = parseInt(this_.attr('data-price'));
+		if(isNaN(myStar)||isNaN(wmPrice)){
+			layer.alert('数据有误');
+			return false;
+		}else{
+			if(myStar<wmPrice){
+				layer.alert('星星不足，如果确定有足额的星星请重新查询星星');
+				return false;
+			}
+		}
+		if(!this_.hasClass('selectedcard')){
+			layer.confirm('您确定要使用星星吗？', {
+				zIndex:1002,
+				btn: ['使用','不了'] //按钮
+				}, function(index){
+					layer.open({
+						type: 1,
+						title:'请输入动态密码',
+						zIndex:1003,
+						content:$('#wmMailCheckBody'),
+						btn: ['确定','取消'], //按钮
+						btn1 :function(index){
+							var embuyemail = $('#wm_my_star').attr('data-mail');
+							var empassword = $('#wmPassword').val();
+							var emBuyType = this_.attr('data-type');
+							var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+							if(embuyemail === ""){ //输入不能为空
+								layer.alert("邮箱地址不能为空");
+						　　　　return false;
+						　　}else if(!reg.test(embuyemail)){ //正则验证不通过，格式不对
+								layer.alert("邮箱地址有误!");
+						　　　　return false;
+						　　}else if(empassword==''){
+								layer.alert("请输入动态密码!");
+							　　return false;
+							}else{
+								var wmCardStarpath_ = wmCardPluginpath + 'wm_card_buy.php';
+								$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+								$.ajax({
+									type: 'POST',
+									url: wmCardStarpath_,
+									data: {email:embuyemail,password:empassword,type:emBuyType},
+									success: function(result){
+										$('#wmCardLoading').stop(true, false).fadeOut(100);
+										if(result.code=="202"){
+											var cardId = result.card;
+											var imgSrc = wmCardImgPath+ cardId+'.jpg';
+											this_.find('.wm_card_img').attr('src',imgSrc);
+											this_.addClass('selectedcard');
+											this_.rotate_box();
+											if($('#wm_card_email').val()==$('#wm_my_star').attr('data-mail')){
+												wmsearchCard(md5(embuyemail));
+											}
+											$('#wm_my_star').empty();
+											$('#wm_my_star').attr('data-star',result.starCountAfter);
+											$('#wm_my_star').text(result.starCountAfter);
+											getNewCardList();
+											layer.close(index);
+										}else if(result.code=="0"){
+											layer.alert('邮箱地址为空！');
+											return false;
+										}else if(result.code=="1"){
+											layer.alert('邮箱地址有误！');
+											return false;
+										}else if(result.code=="6"){
+											layer.alert('无该用户数据，请先抽一张卡牌来创建用户！');
+											return false;
+										}else if(result.code=="301"){
+											layer.alert('密码有误或已经过期！');
+											return false;
+										}else if(result.code=="4"){
+											layer.alert('该物品不存在！');
+											return false;
+										}else if(result.code=="5"){
+											layer.alert('星星不够！');
+											return false;
+										}else{
+											layer.alert('未知错误！');
+											return false;
+										}
+									},
+									error:function(){
+										layer.alert('网络异常！');
+										$('#wmCardLoading').stop(true, false).fadeOut(100);
+									},
+									dataType: 'json'
+								});	
+							}
+						}
+						}
+					);
+					layer.close(index);
+	
+				}, function(){
+					
+				}
+			);
+		}
+	});
+	$('#wmBannerBody').on('click','.swiper-slide',function(){
+		var bannerType = $(this).attr('data-type');
+		if(bannerType == 'starShop'){
+			layer.prompt({
+				btn: [],
+				title: '星星商店',
+				zIndex:1001,
+				content:$('#starshopBody')
+				}, function(value, index, elem){});
+		}else if(bannerType="donate"){
+			var bannerAddress = $(this).attr('data-address');
+			layer.confirm('感谢您赞助本站，赞助每满1元，将会获得30个星星。记得在赞助中留下您的邮箱地址以便发放星星！另外如果没有在本站抽过卡牌的话可能会导致星星发放失败，请务必确认这个邮箱是否在本站抽过卡牌！', {
+				btn: ['赞助','取消'] //按钮
+			  }, function(){
+				window.location.href=bannerAddress;
+			  }
+			);
+		}
+	});
+
 	var chiosed = false;
 	var wmcardAllInfoArr = [];//卡牌与卡牌数量的合集
 	var showedWmCard = 0;//显示多少张
@@ -117,7 +361,7 @@ $(document).ready(function(e) {
 				$('#wmCardLoading').stop(true, false).fadeOut(100);
 			},
 			error:function(){
-				alert('网络异常！');
+				layer.alert('网络异常！');
 				$('#wmCardLoading').stop(true, false).fadeOut(100);
 			},
 			dataType: 'json'
@@ -274,7 +518,7 @@ $(document).ready(function(e) {
 		$('.no-selectedcard').removeClass('no-selectedcard');
 		$('#wmGetCard').addClass('animated fadeOutDown');
 		$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-			$('.selectcard').attr('class','card selectcard');
+			$('#wmGetCard .selectcard').attr('class','card selectcard');
 			$('#wmGetCard').removeClass('fadeOutDown').addClass('fadeInDown');
 			$('#wmGetCard').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
 				$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
@@ -325,10 +569,10 @@ $(document).ready(function(e) {
 		var wmEmail = $('#wm_tiaozhan_email').val();
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		if(wmEmail === ""){ //输入不能为空
-	　　　　alert("邮箱地址不能为空");
+			layer.alert("邮箱地址不能为空");
 	　　　　return false;
 	　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
-	　　　　alert("邮箱地址有误!");
+			layer.alert("邮箱地址有误!");
 	　　　　return false;
 	　　}else{
 			var MyEmailMD5 = md5(wmEmail);
@@ -348,10 +592,10 @@ $(document).ready(function(e) {
 		//console.log(wmEmail);
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		if(wmEmail === ""){ //输入不能为空
-	　　　　alert("邮箱地址不能为空");
+			layer.alert("邮箱地址不能为空");
 	　　　　return false;
 	　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
-	　　　　alert("邮箱地址有误!");
+			layer.alert("邮箱地址有误!");
 	　　　　return false;
 	　　}else{
 		chiosed = true;
@@ -365,10 +609,10 @@ $(document).ready(function(e) {
 				  //0为邮箱地址为空，1为邮箱地址不合格，2为今天已经抽过了，3为评论表里找不到邮箱地址，202
 				  $('#wmCardLoading').stop(true, false).fadeOut(100);
 				  if(result.code == '0'){
-					  alert('邮箱地址为空');
+					  layer.alert('邮箱地址为空');
 					  chiosed = false;
 				  }else if(result.code == '1'){
-					  alert('为邮箱地址不正确');
+					  layer.alert('为邮箱地址不正确');
 					  chiosed = false;
 				  }else if(result.code == '2'){
 					  alertTitle('您已经超过每天的抽卡次数')
@@ -376,7 +620,7 @@ $(document).ready(function(e) {
 					  var emailmd5_ = result.emailmd5;
 					  wmsearchCard(emailmd5_);
 				  }else if(result.code == '3'){
-					  alert('请先在文章中评论并等待管理员审核后抽卡');
+					  layer.alert('请先在文章中评论并等待管理员审核后抽卡');
 					  chiosed = false;
 				  }else if(result.code == '202'){
 					  alertTitle('快看看都抽到了什么吧')
@@ -418,12 +662,12 @@ $(document).ready(function(e) {
 					  wmsearchCard(emailmd5_);
 					  getNewCardList();
 				  }else{
-					  alert('未知错误 请联系管理员');
+					  layer.alert('未知错误 请联系管理员');
 				  }
 			  },
 			  error:function(){
 				  chiosed = false;
-				  alert('网络异常！');
+				  layer.alert('网络异常！');
 				  $('#wmCardLoading').stop(true, false).fadeOut(100);
 			  },
 			  dataType: 'json'
@@ -589,13 +833,13 @@ $(document).ready(function(e) {
 						
 						loading(imgSrcArr);
 					}else if(result.code=="1"){
-						alert('双方有一方并没有牌');
+						layer.alert('双方有一方并没有牌');
 						$('.wm_card_game_body').hide();
 					}else if(result.code=="0"){
-						alert('邮箱地址有误或者游戏双方为同一邮箱');
+						layer.alert('邮箱地址有误或者游戏双方为同一邮箱');
 						$('.wm_card_game_body').hide();
 					}else if(result.code=="2"){
-						alert('您今天已经发起过挑战了，请明天再来吧！');
+						layer.alert('您今天已经发起过挑战了，请明天再来吧！');
 						$('.wm_card_game_body').hide();
 					}
 				},
