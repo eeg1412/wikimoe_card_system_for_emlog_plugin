@@ -496,10 +496,18 @@ $(document).ready(function(e) {
 					}
 				}
 				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我使用了'+wmNewListInfoArr[i].useStar+'颗星星抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+			}else if(wmNewListInfoArr[i].massageType=='battle'){
+				if(wmNewListInfoArr[i].Win == 0){
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我成功挑战了一名大佬，并从中获得了'+wmNewListInfoArr[i].MyGetScore+'点竞技点与'+wmNewListInfoArr[i].GETEXP+'点经验值。</div></div>';
+				}else if(wmNewListInfoArr[i].Win == 1){
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在对战中败给了一名大佬，失去了'+Math.abs(wmNewListInfoArr[i].MyGetScore)+'点竞技点，获得了'+wmNewListInfoArr[i].GETEXP+'点经验值。</div></div>';
+				}
 			}
-			$('#wmCardGetList').append(listHtml);
-			$('.wm_card_get_list_item').last().delay(delay).fadeIn(300);
-			delay = delay + 300;
+			if(listHtml!=''){
+				$('#wmCardGetList').append(listHtml);
+				$('.wm_card_get_list_item').last().delay(delay).fadeIn(300);
+				delay = delay + 300;
+			}
 		}
 		showedWmNewList = showedWmNewList+wmNewListSize;
 		if(showedWmNewList == wmNewListInfoArr.length){
@@ -1200,6 +1208,7 @@ $(document).ready(function(e) {
 					gameOverFlag = true;
 					cancelAnimationFrame(gameTimer);
 					console.log('end');
+					getNewCardList();
 					setTimeout(function(){
 						$('.wm_card_game_body').fadeOut(500);
 					},1000)

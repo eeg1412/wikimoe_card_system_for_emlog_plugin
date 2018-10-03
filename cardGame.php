@@ -491,7 +491,20 @@ function gameStart(){
 			}
 			setLevel($levelSet,$GetEXP,$MyemailAddr);
 			
-				
+			//写入或更新最动态列表json
+			$gameJsonData = array('mailMD5'=>$MyemailAddr,'MyGetScore'=>$MyGetScore_post,'GETEXP'=>$MyGetScore_,'Win'=>$IsWin,'massageType'=>'battle');
+			if(file_exists('cardGetList.json')){//判断json文件是否存在
+				$cardGetList = json_decode(file_get_contents('cardGetList.json'),true);
+				array_unshift($cardGetList,$gameJsonData);
+				if(count($cardGetList)>30){//判断数据量是否超过30条
+					array_pop($cardGetList);
+				}
+				$cardJsonDataEncode = json_encode($cardGetList);
+				file_put_contents('cardGetList.json', $cardJsonDataEncode);
+			}else{
+				$cardJsonDataEncode = json_encode(array($gameJsonData));
+				file_put_contents('cardGetList.json', $cardJsonDataEncode);
+			}
 			$data = json_encode(array('code'=>"202",'cardData'=>$cardData,'EMCard'=>$EMCard,'MyCard'=>$MyCard,'MyStartStat'=>array($MyHP_,$MyGong_,$MyFang_,$MySu),'EMStartStat'=>array($EMHP_,$EMGong_,$EMFang_,$EMSu),'roundData'=>$roundData,'Win'=>$IsWin,'MyGetScore'=>$MyGetScore_post,'MyScoreOrigin'=>$MyScoreOrigin,'EMGetScore'=>$EMGetScore,'EMScoreOrigin'=>$EMScoreOrigin,'GETEXP'=>$MyGetScore_,'EMLevelOrigin'=>$EMLevelOrigin,'MyLevelOrigin'=>$MyLevelOrigin,'MyEXPOrigin'=>$MyEXPOrigin,'MyLevel'=>$levelSet));
 		}
 			
