@@ -175,7 +175,7 @@ function wm_card_loghook() {
 			</div>
 		</div>
 		<div class="wm_card_get_list_body">
-			<h5 class="wm_card_chiose_title">抽卡最新动态</h5>
+			<h5 class="wm_card_chiose_title">最新动态</h5>
 			<div class="wm_card_get_list_item_body" id="wmCardGetList">
 				
 			</div>
