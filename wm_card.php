@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.0.3
+Version: 2.1.3
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.24';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.3';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.21';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.3';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -42,7 +42,20 @@ function wm_card_loghook() {
 				</div>
 			</div>
 			<div class="wm_card_mailcheck" id="wmMailCheckBody">
-				<input type="password" name="email" class="wm_card_email_starshop" id="wmPassword" placeholder="请输入动态密码"><button type="button" class="wm_search_star_btn" id="wmGetPassword">获取</button>
+				<input type="password" name="email" class="wm_card_email_starshop" id="wmPassword" placeholder="请输入动态密码"><button type="button" class="wm_search_star_btn" id="wmGetPassword" data-email="">获取</button>
+			</div>
+			<div class="wm_card_cardmix_input_body" id="wmCardMixInputBody">
+				<input type="text" name="email" class="wm_card_email_cardmix" id="wmCardMixInput" placeholder="请先输入邮箱查询卡牌" />
+			</div>
+			<div class="wm_card_cardmix_cardlist_body" id="wmCardMixListBody">
+				<div class="wm_card_cardmix_cardlist_title">
+					<h3>请选择多出的卡牌来合成星星</h3>
+					<p>Tip:系统已经自动预留一张卡牌 全部合成不影响收集率</p>
+				</div>
+				<div class="wm_card_cardmix_cardlist_box" id="wmCardMixListBox"></div>
+				<div class="wm_mixcardmore_body">
+					<button type="button" class="wm_mixcardmore_btn" id="wm_mixcardmore_btn">加载更多卡牌</button>
+				</div>
 			</div>
 			<div class="wm_card_starshop_input_body" id="wmStarSearchInputBody">
 				<input type="text" name="email" class="wm_card_email_starshop" id="wmStarSearchInput" placeholder="请先输入邮箱查询星星" />
@@ -168,6 +181,9 @@ function wm_card_loghook() {
 				<div class="swiper-wrapper">
 					<div class="swiper-slide" data-type="starShop">
 						<img src="'.$wm_card_pluginpath.'/banner/banner1.jpg" />
+					</div>
+					<div class="swiper-slide" data-type="cardMix">
+						<img src="'.$wm_card_pluginpath.'/banner/banner3.jpg" />
 					</div>
 					'.$wm_donate_el.'
 				</div>

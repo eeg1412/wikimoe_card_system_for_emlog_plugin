@@ -77,7 +77,7 @@
 .card.reverse .back {
 	display: none;
 }
-.wm_card_email,.wm_card_email_starshop{
+.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix{
 	border:1px solid #333;
 	height:16px;
 	width:200px;
@@ -86,6 +86,9 @@
 	padding:10px;
 	text-align:center;
 	background-color:#fff!important;
+}
+.wm_card_mailcheck .wm_card_email_starshop{
+	width: 180px;
 }
 .wm_card_email_body{
 	text-align:center;
@@ -298,7 +301,7 @@ input.wm_card_email:-webkit-autofill {
 .wm_card_get_list_item_body{
 	padding: 10px 5%;
 }
-.wm_cardmore_btn,.wm_get_list_more_btn,.wm_search_star_btn{
+.wm_cardmore_btn,.wm_get_list_more_btn,.wm_search_star_btn,.wm_mixcardmore_btn{
 	background: #ff4c4c;
     color: #fff;
     text-align: center;
@@ -310,7 +313,7 @@ input.wm_card_email:-webkit-autofill {
 	margin: 20px 0px;
 	display: none;
 }
-.wm_cardmore_body,.wm_get_list_more_body{
+.wm_cardmore_body,.wm_get_list_more_body,.wm_mixcardmore_body{
 	text-align: center;
 }
 .cardList_body{
@@ -528,7 +531,10 @@ input.wm_card_email:-webkit-autofill {
 	.wm_card_starshop_input_body{
 		display: none;
 	}
-	.wm_card_mailcheck,.wm_card_starshop_input_body{
+	.wm_card_starshop_body{
+		padding: 20px;
+	}
+	.wm_card_mailcheck,.wm_card_starshop_input_body,.wm_card_cardmix_input_body{
 		padding: 20px;
 		text-align: center;
 	}
@@ -564,6 +570,66 @@ input.wm_card_email:-webkit-autofill {
 	.wm_banner_body .swiper-pagination-bullet{
 		width: 6px;
 		height: 6px;
+	}
+	/* 卡牌合成 */
+	.wm_card_cardmix_cardlist_body{
+		text-align: center;
+		display: none;
+		padding: 20px;
+		max-width: 704px;
+	}
+	.wm_card_cardmix_input_body{
+		display: none;
+	}
+	.wm_mix_card_img_item{
+		padding: 5px;
+    display: inline-block;
+    text-align: center;
+		width: 130px;
+		height: 183px;
+		cursor: pointer;
+		opacity: 0.3;
+	}
+	.wm_mix_card_img_item.card_selected{
+		opacity: 1;
+	}
+	.wm_mix_card_img{
+		width: 100%;
+		height: 100%;
+    border-radius: 5px;
+	}
+	.wm_card_cardmix_cardlist_title{
+		padding-bottom: 20px;
+	}
+	.wm_card_cardmix_cardlist_title h3{
+		font-size: 24px;
+    line-height: 42px;
+	}
+	.wm_card_cardmix_cardlist_title p{
+		font-size: 14px;
+		line-height: 28px;
+		padding: 0;
+		margin: 0;
+	}
+	@media only screen and (min-width: 767px) {
+    .layui-layer-page .layui-layer-content::-webkit-scrollbar-track-piece {
+        background:#eee
+    }
+
+    .layui-layer-page .layui-layer-content::-webkit-scrollbar {
+        width: 6px;
+        height: 6px
+    }
+
+    .layui-layer-page .layui-layer-content::-webkit-scrollbar-thumb {
+        height: 40px;
+        border-radius: 4px;
+        background-color: #A5A5A5
+    }
+
+    .layui-layer-page .layui-layer-content::-webkit-scrollbar-thumb:hover {
+        background-color: #bbb
+		}
 	}
   /* css动画 */
   @-webkit-keyframes fadeInDown {

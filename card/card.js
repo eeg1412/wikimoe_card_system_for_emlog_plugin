@@ -91,7 +91,9 @@ $(document).ready(function(e) {
 							layer.close(windowIndex);
 						}
 						if(starShopOpen){
-							layer.prompt({
+							layer.open({
+								type:1,
+								maxWidth:'100%',
 								btn: [],
 								title: '星星商店',
 								zIndex:1001,
@@ -129,7 +131,7 @@ $(document).ready(function(e) {
 	}
 	//获取动态密码
 	$('#wmGetPassword').on('click',function(){
-		var wmStarSearchInput = $('#wm_my_star').attr('data-mail');
+		var wmStarSearchInput = $('#wmGetPassword').attr('data-email');
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		if(wmStarSearchInput === ""){ //输入不能为空
 			layer.alert('邮箱地址不能为空');
@@ -228,6 +230,7 @@ $(document).ready(function(e) {
 				zIndex:1002,
 				btn: ['使用','不了'] //按钮
 				}, function(index){
+					$('#wmGetPassword').attr('data-email',$('#wm_my_star').attr('data-mail'));
 					layer.open({
 						type: 1,
 						title:'请输入动态密码',
@@ -250,7 +253,7 @@ $(document).ready(function(e) {
 							　　return false;
 							}else{
 								var wmCardStarpath_ = wmCardPluginpath + 'wm_card_buy.php';
-								$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+								$('#wmCardLoading').stop(true, false).fadeIn(100);
 								$.ajax({
 									type: 'POST',
 									url: wmCardStarpath_,
@@ -262,7 +265,9 @@ $(document).ready(function(e) {
 											var imgSrc = wmCardImgPath+ cardId+'.jpg';
 											this_.find('.wm_card_img').attr('src',imgSrc);
 											this_.addClass('selectedcard');
-											this_.rotate_box();
+											setTimeout(function(){
+												this_.rotate_box();
+											},200);
 											if($('#wm_card_email').val()==$('#wm_my_star').attr('data-mail')){
 												wmsearchCard(md5(embuyemail));
 											}
@@ -314,9 +319,10 @@ $(document).ready(function(e) {
 	});
 	$('#wmBannerBody').on('click','.swiper-slide',function(){
 		var bannerType = $(this).attr('data-type');
+		console.log(bannerType);
 		if(bannerType == 'starShop'){
 			openStarSearchWindow(true);
-		}else if(bannerType="donate"){
+		}else if(bannerType=="donate"){
 			var bannerAddress = $(this).attr('data-address');
 			layer.confirm('感谢您赞助本站，赞助每满1元，将会获得30个星星。记得在赞助中留下您的邮箱地址以便发放星星！另外如果没有在本站抽过卡牌的话可能会导致星星发放失败，请务必确认这个邮箱是否在本站抽过卡牌！', {
 				btn: ['赞助','取消'] //按钮
@@ -324,8 +330,279 @@ $(document).ready(function(e) {
 				window.location.href=bannerAddress;
 			  }
 			);
+		}else if(bannerType=="cardMix"){
+			openCardMixWindow();
 		}
 	});
+	//合成列表页面生成
+	var wmcardMixAllInfoArr = [];
+	var wmcardDatabase = null;
+	var wmcardMixNowLength = 0;//已经展示了多少
+	var wmcardMixPage = 20;//一页显示几个
+	var wmcardMixWindowIndex = null;
+	function wmCardMixList(cardID,cardCount,alertWindowIndex,showModWindow){
+		wmcardMixAllInfoArr = [];
+		wmcardDatabase = null;
+		wmcardMixNowLength = 0;//已经展示了多少
+		wmcardMixPage = 20;//一页显示几个
+		var wmcardarr = cardID.split(",");
+		var wmcardCountarr = cardCount.split(",");
+		for(var i=0;i<wmcardarr.length;i++){
+			var thisCardCount = wmcardCountarr[i]-1;
+			for(var j=0;j<thisCardCount;j++){
+				wmcardMixAllInfoArr.push(wmcardarr[i]);
+			}
+		}
+		wmcardMixAllInfoArr.sort(function(a,b){return b<a?1:-1});//从卡牌ID大到小排列
+		if(wmcardMixAllInfoArr.length<=0){
+			layer.alert('您没有多余的卡牌了！');
+			layer.close(wmcardMixWindowIndex);
+			wmcardMixWindowIndex = null;
+			$('#wmCardLoading').stop(true, false).fadeOut(100);
+		}else{
+			wmCardMixCardDatabase(showModWindow);
+		}
+	};
+	//显示合成卡牌
+	function wmCardMixListCardShow(){
+		var wmpageLength = 0;
+		for(wmcardMixNowLength;wmcardMixNowLength<wmcardMixAllInfoArr.length;wmcardMixNowLength++){
+			console.log(wmcardMixNowLength);
+			var cardHtml = '<div class="wm_mix_card_img_item" data-cardid="'+wmcardMixAllInfoArr[wmcardMixNowLength]+'" data-star="'+wmcardDatabase.cardData[wmcardMixAllInfoArr[wmcardMixNowLength]].star+'"><img src="'+wmCardImgPath+wmcardMixAllInfoArr[wmcardMixNowLength]+'.jpg" class="wm_mix_card_img" /></div>'
+			$('#wmCardMixListBox').append(cardHtml);
+			wmpageLength++;
+			if(wmpageLength>=wmcardMixPage){
+				wmcardMixNowLength++
+				break;
+			}
+		}
+		if(wmcardMixNowLength>=wmcardMixAllInfoArr.length){
+			$('#wm_mixcardmore_btn').hide();
+		}else{
+			$('#wm_mixcardmore_btn').show();
+		}
+	};
+	$('#wmCardMixListBox').on('click','.wm_mix_card_img_item',function(){
+		if($(this).hasClass('card_selected')){
+			$(this).removeClass('card_selected');
+		}else{
+			$(this).addClass('card_selected');
+		}
+	});
+	$('#wm_mixcardmore_btn').on('click',function(){
+		wmCardMixListCardShow();
+	});
+	//查询卡牌数据
+	function wmCardMixCardDatabase(showModWindow){
+		var getTimeStamp = new Date().getTime();
+		$('#wmCardLoading').stop(true, false).fadeIn(100);
+		$.ajax({
+			type: 'GET',
+			url: wmCardPluginpath + 'cardData.json?time=' + getTimeStamp,
+			success: function(result){
+				$('#wmCardLoading').stop(true, false).fadeOut(100);
+				wmcardDatabase = result;
+				$('#wmCardMixListBox').empty();
+				wmCardMixListCardShow();
+				if(showModWindow){	
+					wmcardMixWindowIndex = layer.open({
+						type: 1,
+						maxWidth:'100%',
+						title:'卡牌合成',
+						zIndex:1002,
+						content:$('#wmCardMixListBody'),
+						btn: ['合成','全部合成','关闭'], //按钮
+						btn1 :function(index){
+							var wmMixcardSendCard = [];
+							var wmMixcardSendCardEl = $('.wm_mix_card_img_item.card_selected');
+							for(var i =0;i<wmMixcardSendCardEl.length;i++){
+								var mixcardID = wmMixcardSendCardEl.eq(i).attr('data-cardid');
+								wmMixcardSendCard.push(mixcardID);
+							}
+							if(wmMixcardSendCard.length<=0){
+								layer.alert('请选择要合成的卡牌！');
+							}else{
+								wmMixcardSendData = wmCalcMixcard(wmMixcardSendCard);
+								wmCheckMixCard(wmMixcardSendData[2],wmMixcardSendData[0],wmMixcardSendData[1],false);
+								console.log(wmMixcardSendData);
+							}
+						},
+						btn2 :function(index){
+							$('.wm_mix_card_img_item').addClass('card_selected');
+							wmMixcardSendData = wmCalcMixcard(wmcardMixAllInfoArr);
+							wmCheckMixCard(wmMixcardSendData[2],wmMixcardSendData[0],wmMixcardSendData[1],true);
+							console.log(wmMixcardSendData);
+							return false;
+						}
+					});
+				}
+			},error:function(){
+				layer.alert('网络异常！');
+				$('#wmCardLoading').stop(true, false).fadeOut(100);
+			},
+			dataType: 'json'
+		});
+	}
+	//二次确认卡牌是否合成
+	function wmCheckMixCard(star,cardID,cardCount,isAll){
+		var wmMixText = '';
+		if(isAll){
+			wmMixText = '全部';
+		}
+		layer.confirm('确定要合成'+wmMixText+'卡牌吗？合成后所选卡牌将会减少相应数量，并预计会获得'+star+'颗星星。', {
+			btn: ['合成','取消'] //按钮
+		  }, function(index){
+			wmMixCardPassword(cardID,cardCount);
+			layer.close(index);
+		  }
+		);
+	}
+	//弹出合成卡牌密码确认
+	function wmMixCardPassword(cardID,cardCount){
+		$('#wmGetPassword').attr('data-email',$('#wmCardMixInput').val());
+		var wmSendCardID = cardID.join(',');
+		var wmSendCardCount = cardCount.join(',');
+		console.log(wmSendCardID);
+		console.log(wmSendCardCount);
+		layer.open({
+			type: 1,
+			title:'请输入动态密码',
+			zIndex:1003,
+			content:$('#wmMailCheckBody'),
+			btn: ['确定','取消'], //按钮
+			btn1 :function(index){
+				var wmMixcardEmail = $('#wmCardMixInput').val();
+				var wmMixcardPassword = $('#wmPassword').val();
+				var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+				if(wmMixcardEmail === ""){ //输入不能为空
+					layer.alert("邮箱地址不能为空");
+			　　　　return false;
+			　　}else if(!reg.test(wmMixcardEmail)){ //正则验证不通过，格式不对
+					layer.alert("邮箱地址有误!");
+			　　　　return false;
+			　　}else if(wmMixcardPassword==''){
+					layer.alert("请输入动态密码!");
+				　　return false;
+				}else{
+					var wmCardStarpath_ = wmCardPluginpath + 'wm_card_mixcard.php';
+					$('#wmCardLoading').stop(true, false).fadeIn(100);
+					$.ajax({
+						type: 'POST',
+						url: wmCardStarpath_,
+						data: {email:wmMixcardEmail,password:wmMixcardPassword,cardID:wmSendCardID,cardCount:wmSendCardCount},
+						success: function(result){
+							$('#wmCardLoading').stop(true, false).fadeOut(100);
+							if(result.code=="202"){
+								layer.confirm('成功兑换了'+result.useCardNumbe+'张卡牌，获得了'+result.addStar+'颗星星！您现在剩余星星数量有'+result.starCount+'颗了！', {
+									btn: ['确定']
+									,btn1: function(index){
+										wmMixSearchCard(index,false);
+										layer.close(index);
+									},cancel: function(){ 
+										wmMixSearchCard(index,false);
+									  }
+								  });
+								getNewCardList();
+								layer.close(index);
+							}else if(result.code=="0"){
+								layer.alert('邮箱有误！');
+							}else if(result.code=="100"){
+								layer.alert('传送的参数有误！');
+							}else if(result.code=="200"){
+								layer.alert('无该用户数据，请先抽一张卡牌来创建用户！');
+							}else if(result.code=="201"){
+								layer.alert('密码错误或者密码过期！');
+							}else if(result.code=="300"){
+								layer.alert('非法参数，伙计你要做什么？！');
+							}
+						},
+						error:function(){
+							layer.alert('网络异常！');
+							$('#wmCardLoading').stop(true, false).fadeOut(100);
+						},
+						dataType: 'json'
+					});	
+				}
+			}
+			}
+		);
+	};
+	//计算提交的合成卡牌
+	function wmCalcMixcard(wmMixcardSendCard){
+		console.log(wmMixcardSendCard);
+		var wmGetStar = 0;
+		var wmMixcardSendData = [];
+		var wmMixcardSendDataCardID = [];
+		var wmMixcardSendDataCardCount = [];
+		for(var i =0;i<wmMixcardSendCard.length;i++){
+			var wmForCardID = wmMixcardSendCard[i];
+			var wmHasreapt = false;
+			wmGetStar = wmGetStar + wmcardDatabase.cardData[wmForCardID].star;
+			for(var j=0;j<wmMixcardSendDataCardID.length;j++){
+				if(wmForCardID==wmMixcardSendDataCardID[j]){
+					wmHasreapt = true;
+					wmMixcardSendDataCardCount[j]=wmMixcardSendDataCardCount[j]+1;
+					break;
+				}else{
+					wmHasreapt = false;
+				}
+			};
+			if(!wmHasreapt){
+				wmMixcardSendDataCardID.push(wmForCardID);
+				wmMixcardSendDataCardCount.push(1);
+			}
+		};
+		wmMixcardSendData = [wmMixcardSendDataCardID,wmMixcardSendDataCardCount,wmGetStar]
+		return wmMixcardSendData
+	};
+	//星星合成用到的卡牌查询
+	function wmMixSearchCard(alertWindowIndex,showModWindow){
+		var wmMixCardemail = $('#wmCardMixInput').val();
+		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		if(wmMixCardemail === ""){ //输入不能为空
+			layer.alert("邮箱地址不能为空");
+	　　　　return false;
+	　　}else if(!reg.test(wmMixCardemail)){ //正则验证不通过，格式不对
+			layer.alert("邮箱地址有误!");
+	　　　　return false;
+	　　}else{
+			$('#wmCardLoading').stop(true, false).fadeIn(100);
+			var emailmd5_ = md5(wmMixCardemail);
+			var wmCardPluginpath_ = wmCardPluginpath + 'wm_card_search.php';
+			$.ajax({
+				type: 'POST',
+				url: wmCardPluginpath_,
+				data: {email:emailmd5_},
+				success: function(result){
+					console.log(result);
+					if(result.code=="202"){
+						wmCardMixList(result.data,result.cardCount,alertWindowIndex,showModWindow);
+						layer.close(alertWindowIndex);
+					}else if(result.code=="1"){
+						layer.alert("无该用户数据，请先抽一张卡牌来创建用户！");
+					}
+				},
+				error:function(){
+					layer.alert('网络异常！');
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				dataType: 'json'
+			});
+		}
+	}
+	// 星星合成
+	function openCardMixWindow(){
+		layer.open({
+			type: 1,
+			title:'查询卡牌',
+			zIndex:1003,
+			content:$('#wmCardMixInputBody'),
+			btn: ['查询','取消'], //按钮
+			btn1 :function(index){
+				wmMixSearchCard(index,true);
+			}
+		});
+	}
 
 	var chiosed = false;
 	var wmcardAllInfoArr = [];//卡牌与卡牌数量的合集
@@ -527,6 +804,8 @@ $(document).ready(function(e) {
 				}else if(wmNewListInfoArr[i].Win == 1){
 					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在对战中败给了一名大佬，失去了'+Math.abs(wmNewListInfoArr[i].MyGetScore)+'点竞技点，获得了'+wmNewListInfoArr[i].GETEXP+'点经验值。</div></div>';
 				}
+			}else if(wmNewListInfoArr[i].massageType=='mixcard'){
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过卡牌合成，用'+wmNewListInfoArr[i].useCardNumbe+'张卡牌合成了'+wmNewListInfoArr[i].addStar+'颗星星！虽然有点可惜，但是我想这些星星能让我得到更好的卡牌！</div></div>';
 			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);

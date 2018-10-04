@@ -124,7 +124,7 @@ function wm_cardWrite(){
 							$hasReapt = false;
 							for ($i=0; $i<count($originCarIDArr); $i++)
 							{
-								if(intval($originCarIDArr[$i])==$randomCardID){
+								if(intval($originCarIDArr[$i])==intval($randomCardID)){
 									$originCarCountArr[$i] = intval($originCarCountArr[$i])+1;
 									$hasReapt = true;
 									break;
