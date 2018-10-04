@@ -64,7 +64,7 @@ $(document).ready(function(e) {
 		pagination: '.swiper-pagination',
 	});
 	//查询星星方法
-	function searchStar(){
+	function searchStar(windowIndex,starShopOpen){
 		var wmStarSearchInput = $('#wmStarSearchInput').val();
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
 		if(wmStarSearchInput === ""){ //输入不能为空
@@ -76,7 +76,7 @@ $(document).ready(function(e) {
 	　　}else{
 			var starEmailmd5_ = md5(wmStarSearchInput);
 			var wmCardStarpath_ = wmCardPluginpath + 'wm_search_star.php';
-			$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+			$('#wmCardLoading').stop(true, false).fadeIn(100);
 			$.ajax({
 				type: 'POST',
 				url: wmCardStarpath_,
@@ -87,6 +87,17 @@ $(document).ready(function(e) {
 						$('#wm_my_star').attr('data-star',result.star);
 						$('#wm_my_star').attr('data-mail',wmStarSearchInput);
 						$('#wm_my_star').text(result.star);
+						if(windowIndex||windowIndex==0){
+							layer.close(windowIndex);
+						}
+						if(starShopOpen){
+							layer.prompt({
+								btn: [],
+								title: '星星商店',
+								zIndex:1001,
+								content:$('#starshopBody')
+							}, function(value, index, elem){});
+						}
 					}else if(result.code=="1"){
 						layer.alert('无该用户数据，请先抽一张卡牌来创建用户！');
 					}else if(result.code=="0"){
@@ -102,6 +113,20 @@ $(document).ready(function(e) {
 			});	
 		}
 	};
+	//查询星星弹窗
+	function openStarSearchWindow(starShopIsOpen){
+		var starShopIsOpen = starShopIsOpen;
+		layer.open({
+			type: 1,
+			title:'查询星星',
+			zIndex:1003,
+			content:$('#wmStarSearchInputBody'),
+			btn: ['查询','取消'], //按钮
+			btn1 :function(index){
+				searchStar(index,starShopIsOpen);
+			}
+		});
+	}
 	//获取动态密码
 	$('#wmGetPassword').on('click',function(){
 		var wmStarSearchInput = $('#wm_my_star').attr('data-mail');
@@ -114,7 +139,7 @@ $(document).ready(function(e) {
 	　　　　return false;
 	　　}else{
 			var wmCardStarpath_ = wmCardPluginpath + 'wm_card_email_send.php';
-			$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
+			$('#wmCardLoading').stop(true, false).fadeIn(100);
 			$('#wmGetPassword').attr('disabled','true');
 			var wmEmailCoolDownTime = 60;
 			function wmEmailTimer(){
@@ -159,10 +184,6 @@ $(document).ready(function(e) {
 			});	
 		}
 	});
-	//点击按钮查询星星
-	$('#wmStarSearchBtn').on('click',function(){
-		searchStar();
-	});
 	// 重置
 	$('.wm_starshop_rebuy_body').on('click',function(){
 		event.stopPropagation();
@@ -189,7 +210,16 @@ $(document).ready(function(e) {
 			return false;
 		}else{
 			if(myStar<wmPrice){
-				layer.alert('星星不足，如果确定有足额的星星请重新查询星星');
+				layer.confirm('星星不足，如果您确定有足够的星星请重新查询星星。', {
+					zIndex:1002,
+					btn: ['查询','返回'] //按钮
+					}, function(index){
+						layer.close(index);
+						openStarSearchWindow(false);
+					}, function(){
+						
+					}
+				);
 				return false;
 			}
 		}
@@ -285,12 +315,7 @@ $(document).ready(function(e) {
 	$('#wmBannerBody').on('click','.swiper-slide',function(){
 		var bannerType = $(this).attr('data-type');
 		if(bannerType == 'starShop'){
-			layer.prompt({
-				btn: [],
-				title: '星星商店',
-				zIndex:1001,
-				content:$('#starshopBody')
-				}, function(value, index, elem){});
+			openStarSearchWindow(true);
 		}else if(bannerType="donate"){
 			var bannerAddress = $(this).attr('data-address');
 			layer.confirm('感谢您赞助本站，赞助每满1元，将会获得30个星星。记得在赞助中留下您的邮箱地址以便发放星星！另外如果没有在本站抽过卡牌的话可能会导致星星发放失败，请务必确认这个邮箱是否在本站抽过卡牌！', {

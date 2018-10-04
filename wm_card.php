@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.0.2
+Version: 2.0.3
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.23';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.24';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.2';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.21';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -44,10 +44,10 @@ function wm_card_loghook() {
 			<div class="wm_card_mailcheck" id="wmMailCheckBody">
 				<input type="password" name="email" class="wm_card_email_starshop" id="wmPassword" placeholder="请输入动态密码"><button type="button" class="wm_search_star_btn" id="wmGetPassword">获取</button>
 			</div>
+			<div class="wm_card_starshop_input_body" id="wmStarSearchInputBody">
+				<input type="text" name="email" class="wm_card_email_starshop" id="wmStarSearchInput" placeholder="请先输入邮箱查询星星" />
+			</div>
 			<div class="wm_card_starshop_body" id="starshopBody">
-				<div class="wm_card_starshop_input_body">
-					<input type="text" name="email" class="wm_card_email_starshop" id="wmStarSearchInput" placeholder="请先输入邮箱查询星星"><button type="button" class="wm_search_star_btn" id="wmStarSearchBtn">查询</button>
-				</div>
 				<div class="wm_star_count_body">
 					星星 × <span id="wm_my_star" data-star="0" data-mail="">--<span>
 				</div>

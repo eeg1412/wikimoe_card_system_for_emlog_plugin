@@ -486,17 +486,10 @@ input.wm_card_email:-webkit-autofill {
 	  display: none;
 	}
 	/* 星星商店 */
-	.wm_card_starshop_input_body{
-		text-align: center;
-		margin: 20px 0;
-	}
 	.wm_search_star_btn{
 		display: inline-block;
 		width: 56px;
 		margin:0 5px;
-	}
-	.wm_card_email_starshop{
-		width: 142px;
 	}
 	.wm_star_count_body{
 		font-size: 18px;
@@ -532,7 +525,10 @@ input.wm_card_email:-webkit-autofill {
 	#wmStarshopBody .selectedcard:hover .wm_starshop_rebuy_body{
 		display: block;
 	}
-	.wm_card_mailcheck{
+	.wm_card_starshop_input_body{
+		display: none;
+	}
+	.wm_card_mailcheck,.wm_card_starshop_input_body{
 		padding: 20px;
 		text-align: center;
 	}
