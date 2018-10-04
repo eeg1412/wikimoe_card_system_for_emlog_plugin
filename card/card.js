@@ -805,7 +805,7 @@ $(document).ready(function(e) {
 					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在对战中败给了一名大佬，失去了'+Math.abs(wmNewListInfoArr[i].MyGetScore)+'点竞技点，获得了'+wmNewListInfoArr[i].GETEXP+'点经验值。</div></div>';
 				}
 			}else if(wmNewListInfoArr[i].massageType=='mixcard'){
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过卡牌合成，用'+wmNewListInfoArr[i].useCardNumbe+'张卡牌合成了'+wmNewListInfoArr[i].addStar+'颗星星！虽然有点可惜，但是我想这些星星能让我得到更好的卡牌！</div></div>';
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过卡牌合成，用'+wmNewListInfoArr[i].useCardNumbe+'张卡牌搓出了'+wmNewListInfoArr[i].addStar+'颗星星！虽然有点可惜，但是我想这些星星能让我得到更好的卡牌！</div></div>';
 			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);
