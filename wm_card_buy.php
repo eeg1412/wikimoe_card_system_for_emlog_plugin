@@ -1,4 +1,5 @@
 <?php
+require_once('../../../init.php');
 function buyCard(){
     $emailAddr = strip_tags($_POST['email']);
     $buyType = intval($_POST['type']);
@@ -7,7 +8,6 @@ function buyCard(){
     $data = null;
     if(isset($emailAddr) && $emailAddr!=""){
         if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断 
-            require_once('../../../init.php'); 
             $DB = MySql::getInstance();
             $emailAddrMD5 = "\"".md5($emailAddr)."\"";
             $mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$emailAddrMD5."");

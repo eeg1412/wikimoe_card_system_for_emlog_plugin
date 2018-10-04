@@ -1,4 +1,5 @@
 <?php
+require_once('../../../init.php');
 function mixCard(){
     $data = null;
     $emailAddr = strip_tags($_POST['email']);
@@ -9,7 +10,6 @@ function mixCard(){
     if(isset($emailAddr) && $emailAddr!=""){
         if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断 
             if(count($cardIDArr)==count($cardCountArr)){//判断是否数据一致
-                require_once('../../../init.php');
                 $DB = MySql::getInstance();
                 $emailAddrMd5 = "\"".md5($emailAddr)."\"";
                 $mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$emailAddrMd5."");
@@ -40,7 +40,7 @@ function mixCard(){
                                             $mixCheckErrorPass = true;
                                         }
                                         $originCarCountArr[$j] = intval($originCarCountArr[$j])-intval($cardCountArr[$i]);
-                                        $useCardNumbe = $useCardNumbe + intval($cardCountArr[$i]);
+                                        $useCardNumber = $useCardNumber + intval($cardCountArr[$i]);
                                         if($originCarCountArr[$j]<1){
                                             $mixCheckErrorPass = false;
                                         }else{
@@ -66,8 +66,8 @@ function mixCard(){
                                 $starCount = intval($mgidinfo['starCount'])+$addStarCount;
                                 $query = "Update ".DB_PREFIX."wm_card set cardCount='".$originCardCountText."' , starCount=".$starCount." where email=".$emailAddrMd5."";
                                 $result=$DB->query($query);
-                                $data = json_encode(array('code'=>"202",'addStar'=>$addStarCount,'starCount'=>$starCount,'useCardNumbe'=>$useCardNumbe)); //成功
-                                $cardJsonData = array('mailMD5'=>md5($emailAddr),'addStar'=>$addStarCount,'useCardNumbe'=>$useCardNumbe,'massageType'=>'mixcard');
+                                $data = json_encode(array('code'=>"202",'addStar'=>$addStarCount,'starCount'=>$starCount,'useCardNumbe'=>$useCardNumber)); //成功
+                                $cardJsonData = array('mailMD5'=>md5($emailAddr),'addStar'=>$addStarCount,'useCardNumbe'=>$useCardNumber,'massageType'=>'mixcard');
                                 //写入或动态列表json
                                 if(file_exists('cardGetList.json')){//判断json文件是否存在
                                     $cardGetList = json_decode(file_get_contents('cardGetList.json'),true);
