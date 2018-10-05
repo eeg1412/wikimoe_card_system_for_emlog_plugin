@@ -81,7 +81,11 @@ $(document).ready(function(e) {
 							rank_ = rank_ + 'th';
 						}
 						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.score[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.score[i].email+'"></div><div class="fr wm_card_rank_point">'+result.score[i].score+'点</div></div>';
-						$('#wmScoreRankBox .wm_card_rank_list').append(html_);
+						if(i<=4){
+							$('#wmScoreRankBox .wm_card_rank_list').append(html_);
+						}else{
+							$('#wmScoreRankBox .wm_card_rank_list .wm_card_rank_box').eq((i-5)*2).after(html_);
+						}
 					}
 					html_ = '';
 					for(var i=0;i<result.level.length;i++){
@@ -96,7 +100,11 @@ $(document).ready(function(e) {
 							rank_ = rank_ + 'th';
 						}
 						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.level[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.level[i].email+'"></div><div class="fr wm_card_rank_point">'+result.level[i].level+'级</div></div>';
-						$('#wmLevelRankBox .wm_card_rank_list').append(html_);
+						if(i<=4){
+							$('#wmLevelRankBox .wm_card_rank_list').append(html_);
+						}else{
+							$('#wmLevelRankBox .wm_card_rank_list .wm_card_rank_box').eq((i-5)*2).after(html_);
+						}
 					}
 					for(var i=0;i<result.card.length;i++){
 						var rank_ = i+1;
@@ -111,7 +119,11 @@ $(document).ready(function(e) {
 							rank_ = rank_ + 'th';
 						}
 						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.card[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.card[i].email+'"></div><div class="fr wm_card_rank_point">'+cardCount+'种卡牌</div></div>';
-						$('#wmCardRankBox .wm_card_rank_list').append(html_);
+						if(i<=4){
+							$('#wmCardRankBox .wm_card_rank_list').append(html_);
+						}else{
+							$('#wmCardRankBox .wm_card_rank_list .wm_card_rank_box').eq((i-5)*2).after(html_);
+						}
 					}
 					$('#wmCardRankBody').fadeIn(300,function(){
 						var rankSwiper = new Swiper ('#wmCardRankBody .swiper-container', {

@@ -735,15 +735,25 @@ input.wm_card_email:-webkit-autofill {
 		background: #fff;
 		height: 45px;
 		width: 45px;
+		margin-top: -4px;
+    border: 4px solid #fff;
 	}
 	.wm_card_rank_img img{
 		height: 45px;
 		width: 45px;
-		vertical-align: middle;
+		vertical-align:baseline;
 	}
 	.wm_card_rank_point{
 		padding-right: 20px;
     font-size: 14px;
+	}
+	@media only screen and (max-width: 650px) {
+		.wm_card_rank_box{
+			width: 100%;
+		}
+		.wm_card_rank_box:nth-child(even){
+			display: none;
+		}
 	}
   /* css动画 */
   @-webkit-keyframes fadeInDown {
