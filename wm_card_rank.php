@@ -6,8 +6,8 @@ function searchWmRank(){
         $wmRankJsonData = json_decode(file_get_contents('cardRank.json'),true);
         $updataTime = $wmRankJsonData['updataTime'];
         $NewtimeStamp = time();
-        if($NewtimeStamp - $updataTime > 604800){
-            //已经一周没更新了
+        if($NewtimeStamp - $updataTime > 259200){
+            //已经三天没更新了
             $wmRankJsonData = searchWmDataBaseByRank();
         }
     }else{
