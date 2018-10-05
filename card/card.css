@@ -733,10 +733,13 @@ input.wm_card_email:-webkit-autofill {
     overflow: hidden;
 		margin-right: 20px;
 		background: #fff;
+		height: 45px;
+		width: 45px;
 	}
 	.wm_card_rank_img img{
 		height: 45px;
 		width: 45px;
+		vertical-align: middle;
 	}
 	.wm_card_rank_point{
 		padding-right: 20px;
