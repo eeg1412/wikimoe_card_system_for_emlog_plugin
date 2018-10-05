@@ -639,6 +639,9 @@ input.wm_card_email:-webkit-autofill {
 		}
 	}
 	/* 排行榜 */
+	#wmCardRankBody{
+		display: none;
+	}
 	.wm_card_rank_body .clearfix:before, 
 	.wm_card_rank_body .clearfix:after { 
 		display: table; 

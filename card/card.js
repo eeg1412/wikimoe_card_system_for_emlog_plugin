@@ -113,14 +113,16 @@ $(document).ready(function(e) {
 						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.card[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.card[i].email+'"></div><div class="fr wm_card_rank_point">'+cardCount+'种卡牌</div></div>';
 						$('#wmCardRankBox .wm_card_rank_list').append(html_);
 					}
-					var rankSwiper = new Swiper ('#wmCardRankBody .swiper-container', {
-						direction: 'horizontal',
-						loop: true,
-						autoplay : 10000,
-						autoplayDisableOnInteraction : false,
-						paginationClickable :true,	
-						// 如果需要分页器
-						pagination: '.swiper-pagination',
+					$('#wmCardRankBody').fadeIn(300,function(){
+						var rankSwiper = new Swiper ('#wmCardRankBody .swiper-container', {
+							direction: 'horizontal',
+							loop: true,
+							autoplay : 10000,
+							autoplayDisableOnInteraction : false,
+							paginationClickable :true,	
+							// 如果需要分页器
+							pagination: '.swiper-pagination',
+						});
 					});
 				}
 			},
