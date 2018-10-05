@@ -53,6 +53,90 @@
 
 
 $(document).ready(function(e) {
+	// 查询排行榜
+	function searchWmRank(){
+		var wmCardStarpath_ = wmCardPluginpath + 'wm_card_rank.php';
+		$.ajax({
+			type: 'GET',
+			url: wmCardStarpath_,
+			success: function(result){
+				console.log(result);
+				if(result.card.length>0){
+					var time = new Date(result.updataTime*1000);
+					var y = time.getFullYear();
+					var m = time.getMonth()+1;
+					var d = time.getDate();
+					var h = time.getHours();
+					$('.wm_card_rank_last_time').text(y+'年'+m+'月'+d+'日 '+h+'时');
+					var html_ = '';
+					for(var i=0;i<result.score.length;i++){
+						var rank_ = i+1;
+						if(rank_ == 1){
+							rank_ = '1st';
+						}else if(rank_ == 2){
+							rank_ = '2nd';
+						}else if(rank_ == 3){
+							rank_ = '3rd';
+						}else{
+							rank_ = rank_ + 'th';
+						}
+						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.score[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.score[i].email+'"></div><div class="fr wm_card_rank_point">'+result.score[i].score+'点</div></div>';
+						$('#wmScoreRankBox .wm_card_rank_list').append(html_);
+					}
+					html_ = '';
+					for(var i=0;i<result.level.length;i++){
+						var rank_ = i+1;
+						if(rank_ == 1){
+							rank_ = '1st';
+						}else if(rank_ == 2){
+							rank_ = '2nd';
+						}else if(rank_ == 3){
+							rank_ = '3rd';
+						}else{
+							rank_ = rank_ + 'th';
+						}
+						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.level[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.level[i].email+'"></div><div class="fr wm_card_rank_point">'+result.level[i].level+'级</div></div>';
+						$('#wmLevelRankBox .wm_card_rank_list').append(html_);
+					}
+					for(var i=0;i<result.card.length;i++){
+						var rank_ = i+1;
+						var cardCount = result.card[i].cardID.split(',').length;
+						if(rank_ == 1){
+							rank_ = '1st';
+						}else if(rank_ == 2){
+							rank_ = '2nd';
+						}else if(rank_ == 3){
+							rank_ = '3rd';
+						}else{
+							rank_ = rank_ + 'th';
+						}
+						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.card[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.card[i].email+'"></div><div class="fr wm_card_rank_point">'+cardCount+'种卡牌</div></div>';
+						$('#wmCardRankBox .wm_card_rank_list').append(html_);
+					}
+					var rankSwiper = new Swiper ('#wmCardRankBody .swiper-container', {
+						direction: 'horizontal',
+						loop: true,
+						autoplay : 10000,
+						autoplayDisableOnInteraction : false,
+						paginationClickable :true,	
+						// 如果需要分页器
+						pagination: '.swiper-pagination',
+					});
+				}
+			},
+			error:function(){
+				layer.alert('网络异常！');
+			},
+			dataType: 'json'
+		});
+	}
+	searchWmRank();
+	$('#wmCardRankBody').on('click','.wm_card_rank_box',function(){
+		var wmEmail_ = $(this).find('.wm_card_get_list_avatar_pic').attr('data-md5');
+		$('#wm_tiaozhan_btn').attr('data-md5',wmEmail_);
+		wmsearchCard(wmEmail_,false,true);
+		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+210}, 300);
+	});
 	//幻灯片
 	var mySwiper = new Swiper ('.wm_banner_body .swiper-container', {
 		direction: 'horizontal',
@@ -370,6 +454,7 @@ $(document).ready(function(e) {
 			console.log(wmcardMixNowLength);
 			var cardHtml = '<div class="wm_mix_card_img_item" data-cardid="'+wmcardMixAllInfoArr[wmcardMixNowLength]+'" data-star="'+wmcardDatabase.cardData[wmcardMixAllInfoArr[wmcardMixNowLength]].star+'"><img src="'+wmCardImgPath+wmcardMixAllInfoArr[wmcardMixNowLength]+'.jpg" class="wm_mix_card_img" /></div>'
 			$('#wmCardMixListBox').append(cardHtml);
+			$('#wmCardMixListBox .wm_mix_card_img').last().fadeIn(300);
 			wmpageLength++;
 			if(wmpageLength>=wmcardMixPage){
 				wmcardMixNowLength++
