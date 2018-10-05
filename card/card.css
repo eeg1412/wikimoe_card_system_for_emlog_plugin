@@ -670,7 +670,7 @@ input.wm_card_email:-webkit-autofill {
 		height: 55px;
 		padding: 5px;
 		line-height: 45px;
-		border-radius: 5px;
+		border-radius: 8px;
 		box-sizing: border-box;
 		margin: 10px 2%;
 		min-width: 260px;
@@ -750,6 +750,7 @@ input.wm_card_email:-webkit-autofill {
 	@media only screen and (max-width: 650px) {
 		.wm_card_rank_box{
 			width: 100%;
+			margin: 10px 0;
 		}
 		.wm_card_rank_box:nth-child(even){
 			display: none;
