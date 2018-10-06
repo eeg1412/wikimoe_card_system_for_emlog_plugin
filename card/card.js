@@ -61,7 +61,7 @@ $(document).ready(function(e) {
 			url: wmCardStarpath_,
 			success: function(result){
 				console.log(result);
-				if(result.card.length>0){
+				if(result.card.length==10){
 					var time = new Date(result.updataTime*1000);
 					var y = time.getFullYear();
 					var m = time.getMonth()+1;
