@@ -14,7 +14,7 @@
 			"rightType": 2,
 			"cry": 5,
 			"title":"原书·原书使",
-			"name":"键村叶月"
+			"name":"键村叶月（崩）"
 		},
 		"0003": {
 			"star": 1,
@@ -528,6 +528,30 @@
 			"title":"偶像大师 灰姑娘女孩",
 			"name":"双叶杏"
 		},
+		"0067": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"FGO幼儿园",
+			"name":"冲田总司"
+		},
+		"0068": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 5,
+			"title":"原书·原书使",
+			"name":"键村叶月"
+		},
+		"0069": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 3,
+			"title":"向山进发",
+			"name":"黑崎穗香"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -848,6 +872,22 @@
 			"title":"少女编号",
 			"name":"苑生百花"
 		},
+		"1041": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"闪之轨迹",
+			"name":"薇塔·克洛缇德"
+		},
+		"1042": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 3,
+			"cry": 4,
+			"title":"闪之轨迹",
+			"name":"艾尔芬·莱泽·亚诺尔"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1095,6 +1135,38 @@
 			"cry": 4,
 			"title":"Fate/stay night",
 			"name":"阿尔托莉雅·潘德拉贡"
+		},
+		"2032": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 4,
+			"title":"碧之轨迹",
+			"name":"阿瑞安赫德"
+		},
+		"2033": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"空之轨迹",
+			"name":"玲·海瓦斯"
+		},
+		"2034": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"零之轨迹",
+			"name":"琪雅"
+		},
+		"2035": {
+			"star": 5,
+			"leftType": 4,
+			"rightType": 1,
+			"cry": 5,
+			"title":"闪之轨迹",
+			"name":"菲·克劳塞尔"
 		},
 		"3001": {
 			"star": 6,
