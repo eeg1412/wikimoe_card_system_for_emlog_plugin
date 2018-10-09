@@ -552,6 +552,22 @@
 			"title":"向山进发",
 			"name":"黑崎穗香"
 		},
+		"0070": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 6,
+			"cry": 3,
+			"title":"零之使魔",
+			"name":"依露库库"
+		},
+		"0071": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 3,
+			"cry": 4,
+			"title":"天才麻将少女",
+			"name":"爱丝琳·威夏尔特"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -887,6 +903,22 @@
 			"cry": 4,
 			"title":"闪之轨迹",
 			"name":"艾尔芬·莱泽·亚诺尔"
+		},
+		"1043": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"来自风平浪静的明天",
+			"name":"向井户爱花&比良平千咲"
+		},
+		"1044": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 3,
+			"cry": 3,
+			"title":"天才麻将少女",
+			"name":"竹井久"
 		},
 		"2001": {
 			"star": 5,
@@ -1319,6 +1351,14 @@
 			"cry": 4,
 			"title":"零之使魔",
 			"name":"露易丝·法兰西斯·露·布朗·杜·拉·瓦利埃尔"
+		},
+		"3020": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"四月是你的谎言",
+			"name":"宫园薰"
 		}
 		
 	},

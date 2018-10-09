@@ -66,11 +66,11 @@ function wm_cardWrite(){
 						$randomCardR = mt_rand(1, 100);
 						if($randomCardR>=1&&$randomCardR<=64){
 							//N
-							$randomCardN_ = mt_rand(1, 69);
+							$randomCardN_ = mt_rand(1, 71);
 							array_push($cardChoiseList,'0'.sprintf("%03d", $randomCardN_));
 						}else if($randomCardR>=65&&$randomCardR<=86){
 							//R
-							$randomCardR_ = mt_rand(1, 42);
+							$randomCardR_ = mt_rand(1, 44);
 							array_push($cardChoiseList,'1'.sprintf("%03d", $randomCardR_));
 						}else if($randomCardR>=87&&$randomCardR<=97){
 							//SR
@@ -78,7 +78,7 @@ function wm_cardWrite(){
 							array_push($cardChoiseList,'2'.sprintf("%03d", $randomCardSR_));
 						}else if($randomCardR>97){
 							//SSR
-							$randomCardSSR_ = mt_rand(1, 19);
+							$randomCardSSR_ = mt_rand(1, 20);
 							array_push($cardChoiseList,'3'.sprintf("%03d", $randomCardSSR_));
 						}
 						$testCount = $testCount +1;
