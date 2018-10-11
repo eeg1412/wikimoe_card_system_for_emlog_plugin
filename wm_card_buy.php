@@ -29,13 +29,13 @@ function buyCard(){
                             }
                         }else if($buyType==4){
                             $randomCardRate = 65;
-                            $shouldStar = 200;
+                            $shouldStar = 125;
                             if($starCount<$shouldStar){
                                 $starFlag = true;
                             }
                         }else if($buyType==5){
                             $randomCardRate = 87;
-                            $shouldStar = 400;
+                            $shouldStar = 260;
                             if($starCount<$shouldStar){
                                 $starFlag = true;
                             }

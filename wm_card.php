@@ -79,7 +79,7 @@ function wm_card_loghook() {
 						<p>需要：30星星</p>
 					</div>
 					<div class="wm_starshop_card_list_item">
-						<div class="card selectcard" data-type="4" data-price="200">
+						<div class="card selectcard" data-type="4" data-price="125">
 							<div class="wm_starshop_rebuy_body">
 								<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
 							</div>
@@ -89,10 +89,10 @@ function wm_card_loghook() {
 							</div>
 						</div>
 						<p>4星抽卡</p>
-						<p>需要：200星星</p>
+						<p>需要：125星星</p>
 					</div>
 					<div class="wm_starshop_card_list_item">
-						<div class="card selectcard" data-type="5" data-price="400">
+						<div class="card selectcard" data-type="5" data-price="260">
 							<div class="wm_starshop_rebuy_body">
 								<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
 							</div>
@@ -102,7 +102,7 @@ function wm_card_loghook() {
 							</div>
 						</div>
 						<p>5星抽卡</p>
-						<p>需要：400星星</p>
+						<p>需要：260星星</p>
 					</div>
 					<div class="wm_starshop_card_list_item">
 						<div class="card selectcard" data-type="6" data-price="900">
