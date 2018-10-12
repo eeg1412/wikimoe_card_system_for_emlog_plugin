@@ -443,7 +443,7 @@ function gameStart(){
 					
 			}else if($IsWin==1){//敌方赢了
 				$MyGetScore_ = 10;
-				$EMGetScore = intval(($MyScoreOrigin - $EMScoreOrigin/2));
+				$EMGetScore = intval(($MyScoreOrigin - $EMScoreOrigin)/2);
 				if($EMGetScore<=10){
 					$EMGetScore = 10;
 				}
