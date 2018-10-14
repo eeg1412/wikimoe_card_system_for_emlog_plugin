@@ -1,5 +1,6 @@
 <?php
 require_once('../../../init.php');
+require_once('module.php');
 function mixCard(){
     $data = null;
     $emailAddr = strip_tags($_POST['email']);
@@ -69,18 +70,7 @@ function mixCard(){
                                 $data = json_encode(array('code'=>"202",'addStar'=>$addStarCount,'starCount'=>$starCount,'useCardNumbe'=>$useCardNumber)); //成功
                                 $cardJsonData = array('mailMD5'=>md5($emailAddr),'addStar'=>$addStarCount,'useCardNumbe'=>$useCardNumber,'massageType'=>'mixcard');
                                 //写入或动态列表json
-                                if(file_exists('cardGetList.json')){//判断json文件是否存在
-                                    $cardGetList = json_decode(file_get_contents('cardGetList.json'),true);
-                                    array_unshift($cardGetList,$cardJsonData);
-                                    if(count($cardGetList)>50){//判断数据量是否超过50条
-                                        array_pop($cardGetList);
-                                    }
-                                    $cardJsonDataEncode = json_encode($cardGetList);
-                                    file_put_contents('cardGetList.json', $cardJsonDataEncode);
-                                }else{
-                                    $cardJsonDataEncode = json_encode(array($cardJsonData));
-                                    file_put_contents('cardGetList.json', $cardJsonDataEncode);
-                                }
+                                wmWriteJson($cardJsonData);
                             }
                         }else{
                             $data = json_encode(array('code'=>"201")); //密码有误或者过期
