@@ -1,5 +1,6 @@
 <?php
 require_once('../../../init.php');	
+require_once('module.php');
 function wm_cardWrite(){
 	$DB = MySql::getInstance();
 	$data = null;
@@ -64,23 +65,8 @@ function wm_cardWrite(){
 					$testCount = 0;
 					while (count($cardChoiseList)<3 && $testCount<100) {
 						$randomCardR = mt_rand(1, 100);
-						if($randomCardR>=1&&$randomCardR<=64){
-							//N
-							$randomCardN_ = mt_rand(1, 71);
-							array_push($cardChoiseList,'0'.sprintf("%03d", $randomCardN_));
-						}else if($randomCardR>=65&&$randomCardR<=86){
-							//R
-							$randomCardR_ = mt_rand(1, 44);
-							array_push($cardChoiseList,'1'.sprintf("%03d", $randomCardR_));
-						}else if($randomCardR>=87&&$randomCardR<=97){
-							//SR
-							$randomCardSR_ = mt_rand(1, 35);
-							array_push($cardChoiseList,'2'.sprintf("%03d", $randomCardSR_));
-						}else if($randomCardR>97){
-							//SSR
-							$randomCardSSR_ = mt_rand(1, 20);
-							array_push($cardChoiseList,'3'.sprintf("%03d", $randomCardSSR_));
-						}
+						$randomCardIDArrContent = wmCreatCardId($randomCardR);
+						array_push($cardChoiseList,$randomCardIDArrContent);
 						$testCount = $testCount +1;
 						$cardChoiseList = array_values(array_unique($cardChoiseList,SORT_REGULAR));
 					}
@@ -99,18 +85,7 @@ function wm_cardWrite(){
 						$getCardData = $json_string['cardData'][$randomCardID];//抽中卡牌数据
 						$cardJsonData = array('mailMD5'=>md5($emailAddr),'cardInfo'=>$getCardData,'cardID'=>$randomCardID,'massageType'=>'dailyCard');
 						//写入或更新最新抽奖列表json
-						if(file_exists('cardGetList.json')){//判断json文件是否存在
-							$cardGetList = json_decode(file_get_contents('cardGetList.json'),true);
-							array_unshift($cardGetList,$cardJsonData);
-							if(count($cardGetList)>50){//判断数据量是否超过50条
-								array_pop($cardGetList);
-							}
-							$cardJsonDataEncode = json_encode($cardGetList);
-							file_put_contents('cardGetList.json', $cardJsonDataEncode);
-						}else{
-							$cardJsonDataEncode = json_encode(array($cardJsonData));
-							file_put_contents('cardGetList.json', $cardJsonDataEncode);
-						}
+						wmWriteJson($cardJsonData);
 						//判断数据库是否存在这个用户的抽奖信息
 						if (!$mgidinfo) {
 							$sqli="INSERT INTO ".DB_PREFIX."wm_card (email,cardID,cardCount,timeStamp,todayCount,score,level,exp,battleStamp,exData,starCount,verifyCode,verifyCodeStamp,verifyCodeCount) VALUES(".$comment_author_email.",'".$randomCardID."','1',".$timeStamp.",1,0,0,0,".$timeStamp.",'',0,0,0,0)";

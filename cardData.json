@@ -26,11 +26,11 @@
 		},
 		"0004": {
 			"star": 2,
-			"leftType": 5,
-			"rightType": 4,
-			"cry": 4,
-			"title":"那就是声优",
-			"name":"一之濑双叶&小花铃&萌咲莓"
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"吊带袜天使",
+			"name":"史朵巾&潘迪"
 		},
 		"0005": {
 			"star": 3,
@@ -568,6 +568,30 @@
 			"title":"天才麻将少女",
 			"name":"爱丝琳·威夏尔特"
 		},
+		"0072": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"那就是声优！",
+			"name":"一之濑双叶&小花铃&萌咲莓"
+		},
+		"0073": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 3,
+			"title":"神圣十月",
+			"name":"叶山小十乃&白藤莱月"
+		},
+		"0074": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 2,
+			"title":"死后文",
+			"name":"文伽"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -920,6 +944,22 @@
 			"title":"天才麻将少女",
 			"name":"竹井久"
 		},
+		"1045": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 1,
+			"title":"光明之心～幸福的面包～",
+			"name":"妮莉丝"
+		},
+		"1046": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 2,
+			"title":"光明之心～幸福的面包～",
+			"name":"梅露蒂"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1200,6 +1240,22 @@
 			"title":"闪之轨迹",
 			"name":"菲·克劳塞尔"
 		},
+		"2036": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 5,
+			"title":"回转企鹅罐",
+			"name":"高仓阳毬"
+		},
+		"2037": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"出包王女",
+			"name":"金色暗影"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -1359,6 +1415,38 @@
 			"cry": 4,
 			"title":"四月是你的谎言",
 			"name":"宫园薰"
+		},
+		"3021": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"CLANNAD",
+			"name":"冈崎汐"
+		},
+		"3022": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 1,
+			"title":"东方Project",
+			"name":"博丽灵梦"
+		},
+		"3023": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 1,
+			"title":"魔法少女小圆",
+			"name":"鹿目圆"
+		},
+		"3024": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 1,
+			"title":"地狱少女",
+			"name":"阎魔爱"
 		}
 		
 	},
