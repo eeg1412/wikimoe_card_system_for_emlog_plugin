@@ -183,10 +183,10 @@ function setScore($Score,$emailMD5,$setBattleTime){
 	}
 	$comment_author_email = "\"".$emailMD5."\"";
 	if($setBattleTime==0){
-		$query = "Update wikimoeindex_wm_card set score=".$Score." where email=".$comment_author_email."";
+		$query = "Update ".DB_PREFIX."wm_card set score=".$Score." where email=".$comment_author_email."";
 	}else{
 		$timeStamp = time();
-		$query = "Update wikimoeindex_wm_card set score=".$Score." , battleStamp=".$timeStamp." where email=".$comment_author_email."";
+		$query = "Update ".DB_PREFIX."wm_card set score=".$Score." , battleStamp=".$timeStamp." where email=".$comment_author_email."";
 	}
 	$result=$DB->query($query);
 }
@@ -196,7 +196,7 @@ function setLevel($level,$getexp,$emailMD5){
 		$level = 2147483647;
 	}
 	$comment_author_email = "\"".$emailMD5."\"";
-	$query = "Update wikimoeindex_wm_card set level=".$level." , exp=".$getexp." where email=".$comment_author_email."";
+	$query = "Update ".DB_PREFIX."wm_card set level=".$level." , exp=".$getexp." where email=".$comment_author_email."";
 	$result=$DB->query($query);
 }
 function gameStart(){
