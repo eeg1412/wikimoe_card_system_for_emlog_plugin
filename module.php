@@ -3,19 +3,19 @@ function wmCreatCardId($randomCardRate){
     $randomCardID = null;
     if($randomCardRate>=1&&$randomCardRate<=64){
         //N
-        $randomCardN_ = mt_rand(1, 74);
+        $randomCardN_ = mt_rand(1, 77);
         $randomCardID = '0'.sprintf("%03d", $randomCardN_);
     }else if($randomCardRate>=65&&$randomCardRate<=86){
         //R
-        $randomCardR_ = mt_rand(1, 46);
+        $randomCardR_ = mt_rand(1, 50);
         $randomCardID = '1'.sprintf("%03d", $randomCardR_);
     }else if($randomCardRate>=87&&$randomCardRate<=97){
         //SR
-        $randomCardSR_ = mt_rand(1, 37);
+        $randomCardSR_ = mt_rand(1, 40);
         $randomCardID = '2'.sprintf("%03d", $randomCardSR_);
     }else if($randomCardRate>97){
         //SSR
-        $randomCardSSR_ = mt_rand(1, 24);
+        $randomCardSSR_ = mt_rand(1, 25);
         $randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
     }
     return $randomCardID;

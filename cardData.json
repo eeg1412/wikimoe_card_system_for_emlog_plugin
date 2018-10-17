@@ -592,6 +592,30 @@
 			"title":"死后文",
 			"name":"文伽"
 		},
+		"0075": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 6,
+			"cry": 4,
+			"title":"魔法飞球",
+			"name":"小爱"
+		},
+		"0076": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"咕噜小天使",
+			"name":"帕琳"
+		},
+		"0077": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"魔法飞球",
+			"name":"斯皮卡"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -960,6 +984,38 @@
 			"title":"光明之心～幸福的面包～",
 			"name":"梅露蒂"
 		},
+		"1047": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 4,
+			"title":"双星物语",
+			"name":"皮皮洛"
+		},
+		"1048": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"魔法飞球",
+			"name":"酷儿"
+		},
+		"1049": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"魔法飞球",
+			"name":"奈尔"
+		},
+		"1050": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 2,
+			"title":"NEW GAME!!",
+			"name":"望月红叶"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1256,6 +1312,30 @@
 			"title":"出包王女",
 			"name":"金色暗影"
 		},
+		"2038": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 6,
+			"cry": 4,
+			"title":"魔法少女☆亚丽莎",
+			"name":"亚丽莎"
+		},
+		"2039": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 2,
+			"title":"伊苏Ⅷ：达娜的安魂曲",
+			"name":"达娜"
+		},
+		"2040": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 4,
+			"title":"NEW GAME!",
+			"name":"樱宁宁"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -1447,6 +1527,14 @@
 			"cry": 1,
 			"title":"地狱少女",
 			"name":"阎魔爱"
+		},
+		"3025": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"秋之回忆 -无垢少女-",
+			"name":"嘉神川诺艾尔"
 		}
 		
 	},
