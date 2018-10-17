@@ -425,10 +425,13 @@ function gameStart(){
 					$MyGetScore = 10;
 				}
 				$MyGetScore_ = $MyGetScore;
-				$MyGetScore_post = $MyGetScore;
-				
 				$EMGetScore = -$MyGetScore;
-				
+
+				//随机浮动加分
+				$MyGetScore = $MyGetScore + mt_rand(1, 10);
+
+				$MyGetScore_post = $MyGetScore;
+								
 				$MyGetScore = $MyGetScore + $MyScoreOrigin;
 				$EMGetScore = $EMGetScore + $EMScoreOrigin;
 				
