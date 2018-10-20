@@ -752,8 +752,8 @@ input.wm_card_email:-webkit-autofill {
 		background-color: #f8f8f8;
     border-radius: 5px;
 		margin-bottom: 5px;
-		width: 45px;
-		height: 45px;
+		width: 45px!important;
+		height: 45px!important;
 	}
 	@media only screen and (max-width: 650px) {
 		.wm_card_rank_box{
