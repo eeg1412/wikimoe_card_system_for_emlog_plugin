@@ -294,7 +294,7 @@ input.wm_card_email:-webkit-autofill {
 	background: #f8f8f8;
 	cursor: pointer;
 }
-.wm_card_get_list_body a.wm_card_get_list_card_link{
+.wm_card_get_list_body a.wm_card_get_list_card_link,.wm_card_get_list_body a.wm_getlist_link{
 	color: #ff5364;
 	padding: 0 3px;
 }
@@ -571,7 +571,7 @@ input.wm_card_email:-webkit-autofill {
 		width: 6px;
 		height: 6px;
 	}
-	/* 卡牌合成 */
+	/* 卡牌分解 */
 	.wm_card_cardmix_cardlist_body{
 		text-align: center;
 		display: none;
@@ -746,6 +746,14 @@ input.wm_card_email:-webkit-autofill {
 	.wm_card_rank_point{
 		padding-right: 20px;
     font-size: 14px;
+	}
+	/* 详情头像 */
+	.wm_title_info_avatar_pic{
+		background-color: #f8f8f8;
+    border-radius: 5px;
+		margin-bottom: 5px;
+		width: 45px;
+		height: 45px;
 	}
 	@media only screen and (max-width: 650px) {
 		.wm_card_rank_box{

@@ -496,7 +496,7 @@ function gameStart(){
 			setLevel($levelSet,$GetEXP,$MyemailAddr);
 			
 			//写入或更新最动态列表json
-			$gameJsonData = array('mailMD5'=>$MyemailAddr,'MyGetScore'=>$MyGetScore_post,'GETEXP'=>$MyGetScore_,'Win'=>$IsWin,'massageType'=>'battle');
+			$gameJsonData = array('mailMD5'=>$MyemailAddr,'EMmailMD5'=>$EMemailAddr,'MyGetScore'=>$MyGetScore_post,'GETEXP'=>$MyGetScore_,'Win'=>$IsWin,'massageType'=>'battle');
 			wmWriteJson($gameJsonData);
 			$data = json_encode(array('code'=>"202",'cardData'=>$cardData,'EMCard'=>$EMCard,'MyCard'=>$MyCard,'MyStartStat'=>array($MyHP_,$MyGong_,$MyFang_,$MySu),'EMStartStat'=>array($EMHP_,$EMGong_,$EMFang_,$EMSu),'roundData'=>$roundData,'Win'=>$IsWin,'MyGetScore'=>$MyGetScore_post,'MyScoreOrigin'=>$MyScoreOrigin,'EMGetScore'=>$EMGetScore,'EMScoreOrigin'=>$EMScoreOrigin,'GETEXP'=>$MyGetScore_,'EMLevelOrigin'=>$EMLevelOrigin,'MyLevelOrigin'=>$MyLevelOrigin,'MyEXPOrigin'=>$MyEXPOrigin,'MyLevel'=>$levelSet));
 		}

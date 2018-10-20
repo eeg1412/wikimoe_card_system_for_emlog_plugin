@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.42';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.43';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.42';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.43';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -49,8 +49,8 @@ function wm_card_loghook() {
 			</div>
 			<div class="wm_card_cardmix_cardlist_body" id="wmCardMixListBody">
 				<div class="wm_card_cardmix_cardlist_title">
-					<h3>请选择多出的卡牌来合成星星</h3>
-					<p>Tip:系统已经自动预留一张卡牌 全部合成不影响收集率</p>
+					<h3>请选择多出的卡牌来分解成星星</h3>
+					<p>Tip:系统已经自动预留一张卡牌 全部分解不影响收集率</p>
 				</div>
 				<div class="wm_card_cardmix_cardlist_box" id="wmCardMixListBox"></div>
 				<div class="wm_mixcardmore_body">

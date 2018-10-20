@@ -149,7 +149,7 @@ $(document).ready(function(e) {
 		var wmEmail_ = $(this).find('.wm_card_get_list_avatar_pic').attr('data-md5');
 		$('#wm_tiaozhan_btn').attr('data-md5',wmEmail_);
 		wmsearchCard(wmEmail_,false,true);
-		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+210}, 300);
+		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+200}, 300);
 	});
 	//幻灯片
 	var mySwiper = new Swiper ('.wm_banner_body .swiper-container', {
@@ -432,7 +432,7 @@ $(document).ready(function(e) {
 			openCardMixWindow();
 		}
 	});
-	//合成列表页面生成
+	//分解列表页面生成
 	var wmcardMixAllInfoArr = [];
 	var wmcardDatabase = null;
 	var wmcardMixNowLength = 0;//已经展示了多少
@@ -461,7 +461,7 @@ $(document).ready(function(e) {
 			wmCardMixCardDatabase(showModWindow);
 		}
 	};
-	//显示合成卡牌
+	//显示分解卡牌
 	function wmCardMixListCardShow(){
 		var wmpageLength = 0;
 		for(wmcardMixNowLength;wmcardMixNowLength<wmcardMixAllInfoArr.length;wmcardMixNowLength++){
@@ -507,10 +507,10 @@ $(document).ready(function(e) {
 					wmcardMixWindowIndex = layer.open({
 						type: 1,
 						maxWidth:'100%',
-						title:'卡牌合成',
+						title:'卡牌分解',
 						zIndex:1002,
 						content:$('#wmCardMixListBody'),
-						btn: ['合成','全部合成','关闭'], //按钮
+						btn: ['分解','全部分解','关闭'], //按钮
 						btn1 :function(index){
 							var wmMixcardSendCard = [];
 							var wmMixcardSendCardEl = $('.wm_mix_card_img_item.card_selected');
@@ -519,7 +519,7 @@ $(document).ready(function(e) {
 								wmMixcardSendCard.push(mixcardID);
 							}
 							if(wmMixcardSendCard.length<=0){
-								layer.alert('请选择要合成的卡牌！');
+								layer.alert('请选择要分解的卡牌！');
 							}else{
 								wmMixcardSendData = wmCalcMixcard(wmMixcardSendCard);
 								wmCheckMixCard(wmMixcardSendData[2],wmMixcardSendData[0],wmMixcardSendData[1],false);
@@ -542,21 +542,21 @@ $(document).ready(function(e) {
 			dataType: 'json'
 		});
 	}
-	//二次确认卡牌是否合成
+	//二次确认卡牌是否分解
 	function wmCheckMixCard(star,cardID,cardCount,isAll){
 		var wmMixText = '';
 		if(isAll){
 			wmMixText = '全部';
 		}
-		layer.confirm('确定要合成'+wmMixText+'卡牌吗？合成后所选卡牌将会减少相应数量，并预计会获得'+star+'颗星星。', {
-			btn: ['合成','取消'] //按钮
+		layer.confirm('确定要分解'+wmMixText+'卡牌吗？分解后所选卡牌将会减少相应数量，并预计会获得'+star+'颗星星。', {
+			btn: ['分解','取消'] //按钮
 		  }, function(index){
 			wmMixCardPassword(cardID,cardCount);
 			layer.close(index);
 		  }
 		);
 	}
-	//弹出合成卡牌密码确认
+	//弹出分解卡牌密码确认
 	function wmMixCardPassword(cardID,cardCount){
 		$('#wmGetPassword').attr('data-email',$('#wmCardMixInput').val());
 		var wmSendCardID = cardID.join(',');
@@ -592,7 +592,7 @@ $(document).ready(function(e) {
 						success: function(result){
 							$('#wmCardLoading').stop(true, false).fadeOut(100);
 							if(result.code=="202"){
-								layer.confirm('成功兑换了'+result.useCardNumbe+'张卡牌，获得了'+result.addStar+'颗星星！您现在剩余星星数量有'+result.starCount+'颗了！', {
+								layer.confirm('成功分解了'+result.useCardNumbe+'张卡牌，获得了'+result.addStar+'颗星星！您现在剩余星星数量有'+result.starCount+'颗了！', {
 									btn: ['确定']
 									,btn1: function(index){
 										wmMixSearchCard(index,false);
@@ -626,7 +626,7 @@ $(document).ready(function(e) {
 			}
 		);
 	};
-	//计算提交的合成卡牌
+	//计算提交的分解卡牌
 	function wmCalcMixcard(wmMixcardSendCard){
 		console.log(wmMixcardSendCard);
 		var wmGetStar = 0;
@@ -654,7 +654,7 @@ $(document).ready(function(e) {
 		wmMixcardSendData = [wmMixcardSendDataCardID,wmMixcardSendDataCardCount,wmGetStar]
 		return wmMixcardSendData
 	};
-	//星星合成用到的卡牌查询
+	//星星分解用到的卡牌查询
 	function wmMixSearchCard(alertWindowIndex,showModWindow){
 		var wmMixCardemail = $('#wmCardMixInput').val();
 		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
@@ -689,7 +689,7 @@ $(document).ready(function(e) {
 			});
 		}
 	}
-	// 星星合成
+	// 星星分解
 	function openCardMixWindow(){
 		layer.open({
 			type: 1,
@@ -721,20 +721,20 @@ $(document).ready(function(e) {
 			success: function(result){
 				console.log(result);
 				if(result.code=="202"){
-					$('#wm_mylist_title').text('您的当前信息');
+					$('#wm_mylist_title').html('<img class="wm_title_info_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+emailmd5_+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45"><br />您的当前信息');
 					if(addrsearch){
 						var usernick = GetQueryString('usernick');
 						if(usernick){
 							usernick = urldecode(usernick);
 							$('.wm_tiaozhan_body').show();
-							$('#wm_mylist_title').text(usernick + '的当前信息');
+							$('#wm_mylist_title').html('<img class="wm_title_info_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+emailmd5_+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45"><br />' + usernick + '的当前信息');
 						}else{
 							$('.wm_tiaozhan_body').hide();
-							$('#wm_mylist_title').text('您的当前信息');
+							$('#wm_mylist_title').html('<img class="wm_title_info_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+emailmd5_+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45"><br />您的当前信息');
 						}
 					}else if(newListSearch){
 						$('.wm_tiaozhan_body').show();
-						$('#wm_mylist_title').text('TA的当前信息');
+						$('#wm_mylist_title').html('<img class="wm_title_info_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+emailmd5_+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45"><br />TA的当前信息');
 					}else{
 						$('.wm_tiaozhan_body').hide();
 					}
@@ -896,15 +896,20 @@ $(document).ready(function(e) {
 						wmSixStarCardShake = ' wm_six_star_card_shake'
 					}
 				}
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我使用了'+wmNewListInfoArr[i].useStar+'颗星星抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starshop">星星商店</a>使用了'+wmNewListInfoArr[i].useStar+'颗星星抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 			}else if(wmNewListInfoArr[i].massageType=='battle'){
+				// 兼容老版本是否有对方的邮箱MD5
+				var wmDalaoHtml = '大佬';
+				if(wmNewListInfoArr[i].EMmailMD5 !== undefined){
+					wmDalaoHtml = '<a href="javascript:;" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].EMmailMD5+'" class="wm_getlist_link wm_goto_dalao_info">大佬</a>';
+				}
 				if(wmNewListInfoArr[i].Win == 0){
-					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我成功挑战了一名大佬，并从中获得了'+wmNewListInfoArr[i].MyGetScore+'点竞技点与'+wmNewListInfoArr[i].GETEXP+'点经验值。</div></div>';
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我成功挑战了一名'+wmDalaoHtml+'，并从中获得了'+wmNewListInfoArr[i].MyGetScore+'点竞技点与'+wmNewListInfoArr[i].GETEXP+'点经验值。抱歉，竞技点我收走啦！</div></div>';
 				}else if(wmNewListInfoArr[i].Win == 1){
-					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在对战中败给了一名大佬，失去了'+Math.abs(wmNewListInfoArr[i].MyGetScore)+'点竞技点，获得了'+wmNewListInfoArr[i].GETEXP+'点经验值。</div></div>';
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在对战中败给了一名'+wmDalaoHtml+'，失去了'+Math.abs(wmNewListInfoArr[i].MyGetScore)+'点竞技点，获得了'+wmNewListInfoArr[i].GETEXP+'点经验值。我的竞技点……</div></div>';
 				}
 			}else if(wmNewListInfoArr[i].massageType=='mixcard'){
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过卡牌合成，用'+wmNewListInfoArr[i].useCardNumbe+'张卡牌搓出了'+wmNewListInfoArr[i].addStar+'颗星星！虽然有点可惜，但是我想这些星星能让我得到更好的卡牌！</div></div>';
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过<a href="javascript:;" class="wm_getlist_link wm_goto_mixcard">卡牌分解</a>，用'+wmNewListInfoArr[i].useCardNumbe+'张卡牌分解出了'+wmNewListInfoArr[i].addStar+'颗星星！虽然有点可惜，但是我相信这些星星能让我得到更好的卡牌！</div></div>';
 			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);
@@ -920,6 +925,21 @@ $(document).ready(function(e) {
 		}
 		$('#wm_get_list_more_btn').removeAttr('disabled');
 	}
+	// 点击去卡牌分解动态
+	$('#wmCardGetList').on('click','.wm_goto_mixcard',function(){
+		$('#wmBannerBody .swiper-slide[data-type="cardMix"]').eq(0).trigger('click');
+	});
+	// 点击星星商店动态
+	$('#wmCardGetList').on('click','.wm_goto_starshop',function(){
+		$('#wmBannerBody .swiper-slide[data-type="starShop"]').eq(0).trigger('click');
+	});
+	// 点击动态查看大佬
+	$('#wmCardGetList').on('click','.wm_goto_dalao_info',function(){
+		var addrmd5 = $(this).attr('data-md5');
+		$('#wm_tiaozhan_btn').attr('data-md5',addrmd5);
+		wmsearchCard(addrmd5,false,true);
+		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+200}, 300);
+	});
 	//获取最新抽卡动态
 	function getNewCardList(){
 		var getTimeStamp = new Date().getTime();
@@ -997,7 +1017,7 @@ $(document).ready(function(e) {
 		var addrmd5 = $(this).attr('data-md5');
 		$('#wm_tiaozhan_btn').attr('data-md5',addrmd5);
 		wmsearchCard(addrmd5,false,true);
-		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+210}, 300);
+		$('html, body').animate({scrollTop: $('#wmGetCard').offset().top+200}, 300);
 	})
 	//获取最新抽卡动态
 	getNewCardList();
