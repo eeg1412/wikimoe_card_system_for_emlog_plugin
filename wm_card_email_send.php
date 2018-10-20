@@ -27,7 +27,7 @@ function wm_card_sendmail_do($mailserver, $port, $mailuser, $mailpass, $mailto, 
 	$mail->Subject = $subject;
 	$mail->Body = $content;
 	$mail->AltBody = "This is the body in plain text for non-HTML mail clients";
-	if($mail->Host == 'smtp.gmail.com' || $mail->Host == 'smtp.zoho.com') $mail->SMTPSecure = "ssl";
+	if($mail->Host == 'smtp.gmail.com' || $mail->Host == 'smtp.zoho.com' || $mail->Host == 'smtp.qq.com') $mail->SMTPSecure = "ssl";
 	if(!$mail->Send())
 	{
 		echo $mail->ErrorInfo;
@@ -71,11 +71,10 @@ function wm_card_code_mail(){
                     $blogname = Option::get('blogname');
                     $subject = "您在抽卡系统中的动态密码";
                     $randomPass = mt_rand(12001301, 99999999);
-                    $content = "您在维基萌的抽卡系统中的动态密码为：".$randomPass."，30分钟内有效可多次使用。";
+                    $content = "您在".$blogname."的抽卡系统中的动态密码为：".$randomPass."，30分钟内有效可多次使用。";
 
                     $query = "Update ".DB_PREFIX."wm_card set verifyCode=".$randomPass." , verifyCodeStamp=".$timeStamp." , verifyCodeCount=".$verifyCodeCount."+1 where email=".$emailAddrMd5."";
                     $result=$DB->query($query);
-                    
                     if(wm_card_sendmail_do(KL_MAIL_SMTP, KL_MAIL_PORT, KL_MAIL_SENDEMAIL, KL_MAIL_PASSWORD, $emailAddr, $subject, $content, $blogname)){
                         echo json_encode(array('code'=>"1"));
                     }else{
