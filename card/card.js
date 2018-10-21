@@ -91,10 +91,12 @@ $(document).ready(function(e) {
 				if(wmDemItemInfo == undefined){
 					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item" data-info="'+i+'_'+j+'" data-xy="'+i+'_'+j+'"></div></td>');
 				}else{
+					var wmDemIsStarClass = '';
 					if(wmDemItemInfo == 100){
 						wmDemItemInfo = '★';
+						wmDemIsStarClass = ' is_wmdmstar';
 					}
-					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item type_is_opened" data-info="opened" data-xy="'+i+'_'+j+'">'+wmDemItemInfo+'</div></td>');
+					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item type_is_opened'+wmDemIsStarClass+'" data-info="opened" data-xy="'+i+'_'+j+'">'+wmDemItemInfo+'</div></td>');
 				}
 			}
 		}
