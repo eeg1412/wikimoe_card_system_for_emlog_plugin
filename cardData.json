@@ -616,6 +616,46 @@
 			"title":"魔法飞球",
 			"name":"斯皮卡"
 		},
+		"0078": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"少女与战车",
+			"name":"武部沙织"
+		},
+		"0079": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"少女与战车",
+			"name":"五十铃华"
+		},
+		"0080": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 4,
+			"title":"少女与战车",
+			"name":"秋山优花里"
+		},
+		"0081": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 6,
+			"cry": 2,
+			"title":"少女与战车",
+			"name":"冷泉麻子"
+		},
+		"0082": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 4,
+			"title":"魔法飞球",
+			"name":"露西亚"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -637,7 +677,7 @@
 			"leftType": 5,
 			"rightType": 2,
 			"cry": 2,
-			"title":"从零开始的异世界生活",
+			"title":"Re:从零开始的异世界生活",
 			"name":"艾米利亚"
 		},
 		"1004": {
@@ -1016,6 +1056,22 @@
 			"title":"NEW GAME!!",
 			"name":"望月红叶"
 		},
+		"1051": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"Re:从零开始的异世界生活",
+			"name":"碧翠丝"
+		},
+		"1052": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 2,
+			"title":"闪之轨迹",
+			"name":"劳拉·S·亚尔赛德"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1336,12 +1392,36 @@
 			"title":"NEW GAME!",
 			"name":"樱宁宁"
 		},
+		"2041": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 6,
+			"cry": 2,
+			"title":"索菲的工作室～不可思议之书的炼金术士～",
+			"name":"普拉芙妲"
+		},
+		"2042": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 4,
+			"title":"索菲的工作室～不可思议之书的炼金术士～",
+			"name":"索菲·诺伊恩缪拉"
+		},
+		"2043": {
+			"star": 5,
+			"leftType": 4,
+			"rightType": 2,
+			"cry": 3,
+			"title":"Re:从零开始的异世界生活",
+			"name":"拉姆"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
 			"rightType": 1,
 			"cry": 2,
-			"title":"从零开始的异世界生活",
+			"title":"Re:从零开始的异世界生活",
 			"name":"雷姆"
 		},
 		"3002": {
