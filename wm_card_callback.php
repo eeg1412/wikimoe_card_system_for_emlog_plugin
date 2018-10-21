@@ -23,6 +23,7 @@ function callback_init(){
 		`verifyCode` int(10) NOT NULL default '0',
 		`verifyCodeStamp` bigint(20) NOT NULL,
 		`verifyCodeCount` int(10) NOT NULL,
+		`deminingStamp` bigint(20) NOT NULL,
 		PRIMARY KEY  (`id`)
 )".$add;
 		$DB->query($sql);

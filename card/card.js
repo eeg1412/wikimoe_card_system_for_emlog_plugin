@@ -53,6 +53,124 @@
 
 
 $(document).ready(function(e) {
+	// 挖星星
+	function getwmStarDemMap(){
+
+		var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
+		$('#wmCardLoading').stop(true, false).fadeIn(100);
+		$.ajax({
+			type: 'GET',
+			url: wmCardStarpath_,
+			success: function(result){
+				console.log(result);
+				setwmStarDemMap(result);
+				layer.open({
+					type: 1,
+					title:'星星矿场',
+					maxWidth:'100%',
+					zIndex:1003,
+					content:$('#wmDeminingBody'),
+					btn: ['离开'], //按钮
+					}
+				);
+				$('#wmCardLoading').stop(true, false).fadeOut(100);
+			},
+			error:function(){
+				layer.alert('网络异常！');
+				$('#wmCardLoading').stop(true, false).fadeOut(100);
+			},
+			dataType: 'json'
+		});
+	};
+	function setwmStarDemMap(result){
+		$('#wmDeminingBody table tbody').empty();
+		for(var i =0;i<result.rows;i++){
+			$('#wmDeminingBody table tbody').append('<tr></tr>');
+			for(var j =0;j<result.cols;j++){
+				var wmDemItemInfo = result.map['data'+i+'_'+j];
+				if(wmDemItemInfo == undefined){
+					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item" data-info="'+i+'_'+j+'" data-xy="'+i+'_'+j+'"></div></td>');
+				}else{
+					if(wmDemItemInfo == 100){
+						wmDemItemInfo = '★';
+					}
+					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item type_is_opened" data-info="opened" data-xy="'+i+'_'+j+'">'+wmDemItemInfo+'</div></td>');
+				}
+			}
+		}
+		for(var k=0;k<result.player.length;k++){
+			var wmEemXY = result.player[k].xy;
+			var wmEMHTML = '<img class="wm_demining_img" src="https://cdn.v2ex.com/gravatar/'+result.player[k].emailMD5+'?s=100&d=mm&r=g&d=robohash" width="50" height="50" />';
+			$('.wm_demining_item[data-xy="'+wmEemXY+'"]').append(wmEMHTML);
+		}
+	}
+	$('#wmDeminingBody table').on('click','.wm_demining_item',function(){
+		var wmDMinfo = $(this).attr('data-info');
+		var wmEmail = $('#wmDeminingInput').val();
+		if(wmDMinfo!=='opened'){
+			if($(this).hasClass('selected')){
+				var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+				if(wmEmail === ""){ //输入不能为空
+					layer.alert("邮箱地址不能为空");
+			　　　　return false;
+			　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
+					layer.alert("邮箱地址有误!");
+			　　　　return false;
+			　　}else{
+					var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
+					$('#wmCardLoading').stop(true, false).fadeIn(100);
+					$.ajax({
+						type: 'POST',
+						url: wmCardStarpath_,
+						data: {type:'open',node:wmDMinfo,email:wmEmail},
+						success: function(result){
+							if(result.code == 202){
+								if(result.boom==0){
+									layer.alert('很可惜什么都没有挖到！');
+								}else{
+									var lastText = '';
+									if(result.lastBoom==1){
+										lastText = '另外数据显示这已经是最后一片星矿了，换个矿场吧！';
+									}
+									layer.alert('感觉地底在发光，挖开一看，发现了'+result.getStar+'颗星星！'+lastText);
+									getNewCardList();
+								}
+								setwmStarDemMap(result);
+							}else if(result.code == 2){
+								layer.alert('邮箱地址有误！');
+							}else if(result.code == 3){
+								layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
+							}else if(result.code == 203){
+								var wmNextTime = result.deminingStamp+7200;
+								var wmNextTimeDate = new Date(wmNextTime * 1000);    //根据时间戳生成的时间对象
+								var wmNextTimeText = (wmNextTimeDate.getFullYear()) + "-" + 
+										(wmNextTimeDate.getMonth() + 1) + "-" +
+										(wmNextTimeDate.getDate()) + " " + 
+										(wmNextTimeDate.getHours()) + ":" + 
+										(wmNextTimeDate.getMinutes()) + ":" + 
+										(wmNextTimeDate.getSeconds());
+								layer.alert('感觉身体被掏空，会在 '+wmNextTimeText+' 后恢复！请在这个点后再来！');
+							}else if(result.code == 0){
+								layer.alert('传入的信息有误，不要搞事情喔！');
+							}else if(result.code == 101){
+								layer.alert('这片矿区可能已经被人抢先了！重新选择矿区吧！');
+								setwmStarDemMap(result);
+							}
+							$('#wmCardLoading').stop(true, false).fadeOut(100);
+						},
+						error:function(){
+							$('#wmCardLoading').stop(true, false).fadeOut(100);
+							layer.alert('网络异常！');
+						},
+						dataType: 'json'
+					});
+				}
+			}else{
+				$('#wmDeminingBody table .wm_demining_item.selected').removeClass('selected');
+				$(this).addClass('selected');
+			}
+		}
+	});
 	// 查询排行榜
 	function searchWmRank(){
 		var wmCardStarpath_ = wmCardPluginpath + 'wm_card_rank.php';
@@ -430,6 +548,8 @@ $(document).ready(function(e) {
 			);
 		}else if(bannerType=="cardMix"){
 			openCardMixWindow();
+		}else if(bannerType=="starDemining"){
+			getwmStarDemMap();
 		}
 	});
 	//分解列表页面生成
@@ -909,7 +1029,9 @@ $(document).ready(function(e) {
 					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在对战中败给了一名'+wmDalaoHtml+'，失去了'+Math.abs(wmNewListInfoArr[i].MyGetScore)+'点竞技点，获得了'+wmNewListInfoArr[i].GETEXP+'点经验值。我的竞技点……</div></div>';
 				}
 			}else if(wmNewListInfoArr[i].massageType=='mixcard'){
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过<a href="javascript:;" class="wm_getlist_link wm_goto_mixcard">卡牌分解</a>，用'+wmNewListInfoArr[i].useCardNumbe+'张卡牌分解出了'+wmNewListInfoArr[i].addStar+'颗星星！虽然有点可惜，但是我相信这些星星能让我得到更好的卡牌！</div></div>';
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过<a href="javascript:;" class="wm_getlist_link wm_goto_mixcard">卡牌分解</a>，用公式2NaAlO2+CO2+3H2O+'+wmNewListInfoArr[i].useCardNumbe+'张卡牌分解出了2Al(OH)3↓+Na2CO3+'+wmNewListInfoArr[i].addStar+'颗星星！</div></div>';
+			}else if(wmNewListInfoArr[i].massageType=='demining'){
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">真是功夫不负有心人，我在<a href="javascript:;" class="wm_getlist_link wm_goto_stardemining">星星矿场</a>，挖出了'+wmNewListInfoArr[i].getStar+'颗星星！！看来我已经是一名专业的矿工了呢！</div></div>';
 			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);
@@ -925,6 +1047,10 @@ $(document).ready(function(e) {
 		}
 		$('#wm_get_list_more_btn').removeAttr('disabled');
 	}
+	//点击去星星矿场
+	$('#wmCardGetList').on('click','.wm_goto_stardemining',function(){
+		$('#wmBannerBody .swiper-slide[data-type="starDemining"]').eq(0).trigger('click');
+	});
 	// 点击去卡牌分解动态
 	$('#wmCardGetList').on('click','.wm_goto_mixcard',function(){
 		$('#wmBannerBody .swiper-slide[data-type="cardMix"]').eq(0).trigger('click');

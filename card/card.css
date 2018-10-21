@@ -8,6 +8,8 @@
 	overflow-y: hidden;
 	text-align: center;
 	margin: 15px 0 10px 0;
+	/* padding-bottom: 15px;
+  border-bottom: 1px dashed #ccc; */
 }
 @media only screen and (min-width: 767px) {
 	.cardList::-webkit-scrollbar-track-piece {
@@ -77,7 +79,7 @@
 .card.reverse .back {
 	display: none;
 }
-.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix{
+.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix,.wm_card_email_demining{
 	border:1px solid #333;
 	height:16px;
 	width:200px;
@@ -755,6 +757,69 @@ input.wm_card_email:-webkit-autofill {
 		width: 45px!important;
 		height: 45px!important;
 	}
+	/* 挖星星 */
+	.wm_card_demining_body{
+		overflow: auto;
+		padding: 20px;
+		text-align: center;
+		display: none;
+		box-sizing: border-box;
+	}
+	.wm_card_demining_table_box{
+		max-width: calc(100vw - 40px);
+		overflow: auto;
+	}
+	.wm_card_demining_table td{
+		border: 1px solid #fff;
+	}
+	.wm_card_demining_table {
+		border-collapse: collapse;
+		border-spacing: 0;
+		margin: 10px auto;
+	}
+	.wm_card_demining_table .wm_demining_item{
+		width: 50px;
+		height: 50px;
+		text-align: center;
+		line-height: 50px;
+		cursor: pointer;
+		background-color: #464646;
+		position: relative;
+		z-index: 1;
+		text-shadow:0px 0px 5px #000;
+	}
+	.wm_card_demining_table .wm_demining_item.selected{
+		-webkit-animation-name: pikapika;
+		-webkit-animation-duration: 1s;
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: infinite;
+		animation-name: pikapika;
+		animation-duration: 1s;
+		animation-timing-function: ease-in-out;
+		animation-iteration-count: infinite;
+	}
+	.wm_card_demining_table .wm_demining_item.type_is_opened {
+    	background-color: #a4a4a4;
+		color: #fff;
+		cursor: default;
+	}
+	img.wm_demining_img {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 50px;
+		height: 50px;
+		opacity: 0.2;
+		transition: all 0.3s linear 0.4s;
+		-webkit-transition: all 0.3s linear;
+		-moz-transition: all 0.3s linear;
+	}
+	.wm_card_demining_table .wm_demining_item:hover img.wm_demining_img{
+		opacity: 1;
+	}
+	.wm_card_demining_tip{
+		padding-bottom: 10px;
+	}
 	@media only screen and (max-width: 650px) {
 		.wm_card_rank_box{
 			width: 100%;
@@ -764,7 +829,33 @@ input.wm_card_email:-webkit-autofill {
 			display: none;
 		}
 	}
-  /* css动画 */
+	/* css动画 */
+	 @-webkit-keyframes pikapika {
+		0% {
+			background-color: #464646;
+		}
+		
+		50% {
+			background-color: #a09c98;
+		}
+		100%{
+			background-color: #464646;
+		}
+  }
+  
+  @keyframes pikapika {
+		0% {
+			background-color: #464646;
+		}
+		
+		50% {
+			background-color: #a09c98;
+		}
+		100%{
+			background-color: #464646;
+		}
+  }
+  
   @-webkit-keyframes fadeInDown {
 	from {
 	  opacity: 0;

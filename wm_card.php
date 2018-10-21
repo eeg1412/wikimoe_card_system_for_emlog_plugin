@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.2.6
+Version: 2.3.8
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.43';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.5';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.43';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.5';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -46,6 +46,19 @@ function wm_card_loghook() {
 			</div>
 			<div class="wm_card_cardmix_input_body" id="wmCardMixInputBody">
 				<input type="text" name="email" class="wm_card_email_cardmix" id="wmCardMixInput" placeholder="请先输入邮箱查询卡牌" />
+			</div>
+			<div class="wm_card_demining_body" id="wmDeminingBody">
+				<p class="wm_card_demining_tip">Tip:第一次点击选中矿区，再次点击挖开矿区！</p>
+				<div class="wm_card_demining_input_body" id="wmDeminingInputBody">
+					<input type="text" name="email" class="wm_card_email_demining" id="wmDeminingInput" placeholder="请先输入邮箱然后挖掘星星" />
+				</div>
+				<div class="wm_card_demining_table_box">
+					<table class="wm_card_demining_table">
+						<tbody>
+
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<div class="wm_card_cardmix_cardlist_body" id="wmCardMixListBody">
 				<div class="wm_card_cardmix_cardlist_title">
@@ -179,6 +192,9 @@ function wm_card_loghook() {
 		<div class="wm_banner_body" id="wmBannerBody">
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
+					<div class="swiper-slide" data-type="starDemining">
+						<img src="'.$wm_card_pluginpath.'/banner/banner4.jpg" />
+					</div>
 					<div class="swiper-slide" data-type="starShop">
 						<img src="'.$wm_card_pluginpath.'/banner/banner1.jpg" />
 					</div>
