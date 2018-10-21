@@ -117,53 +117,76 @@ $(document).ready(function(e) {
 					layer.alert("邮箱地址有误!");
 			　　　　return false;
 			　　}else{
-					var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
-					$('#wmCardLoading').stop(true, false).fadeIn(100);
-					$.ajax({
-						type: 'POST',
-						url: wmCardStarpath_,
-						data: {type:'open',node:wmDMinfo,email:wmEmail},
-						success: function(result){
-							if(result.code == 202){
-								if(result.boom==0){
-									layer.alert('很可惜什么都没有挖到！');
-								}else{
-									var lastText = '';
-									if(result.lastBoom==1){
-										lastText = '另外数据显示这已经是最后一片星矿了，换个矿场吧！';
+					$('#wmGetPassword').attr('data-email',wmEmail);
+					layer.open({
+						type: 1,
+						title:'请输入动态密码',
+						zIndex:1003,
+						content:$('#wmMailCheckBody'),
+						btn: ['确定','取消'], //按钮
+						btn1 :function(index){
+							var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
+							var wmPassword = $('#wmPassword').val();
+							$('#wmCardLoading').stop(true, false).fadeIn(100);
+							$.ajax({
+								type: 'POST',
+								url: wmCardStarpath_,
+								data: {type:'open',node:wmDMinfo,email:wmEmail,password:wmPassword},
+								success: function(result){
+									if(result.code == 202){
+										if(result.boom==0){
+											layer.alert('很可惜什么都没有挖到！');
+										}else{
+											var lastText = '';
+											if(result.lastBoom==1){
+												lastText = '另外数据显示这已经是最后一片星矿了，换个矿场吧！';
+											}
+											layer.alert('感觉地底在发光，挖开一看，发现了'+result.getStar+'颗星星！'+lastText);
+											getNewCardList();
+										}
+										setwmStarDemMap(result);
+										layer.close(index);
+									}else if(result.code == 2){
+										layer.alert('邮箱地址有误！');
+										layer.close(index);
+									}else if(result.code == 3){
+										layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
+										layer.close(index);
+									}else if(result.code == 203){
+										var wmNextTime = result.deminingStamp+7200;
+										var wmNextTimeDate = new Date(wmNextTime * 1000);    //根据时间戳生成的时间对象
+										var wmNextTimeText = (wmNextTimeDate.getFullYear()) + "-" + 
+												(wmNextTimeDate.getMonth() + 1) + "-" +
+												(wmNextTimeDate.getDate()) + " " + 
+												(wmNextTimeDate.getHours()) + ":" + 
+												(wmNextTimeDate.getMinutes()) + ":" + 
+												(wmNextTimeDate.getSeconds());
+										layer.alert('感觉身体被掏空，会在 '+wmNextTimeText+' 后恢复！请在这个点后再来！');
+										layer.close(index);
+									}else if(result.code == 0){
+										layer.alert('传入的信息有误，不要搞事情喔！');
+										layer.close(index);
+									}else if(result.code == 101){
+										layer.alert('这片矿区可能已经被人抢先了！重新选择矿区吧！');
+										setwmStarDemMap(result);
+										layer.close(index);
+									}else if(result.code == 4){
+										layer.alert('动态密码有误！');
+									}else if(result.code == 5){
+										layer.alert('动态密码已过期请重新获取！');
 									}
-									layer.alert('感觉地底在发光，挖开一看，发现了'+result.getStar+'颗星星！'+lastText);
-									getNewCardList();
-								}
-								setwmStarDemMap(result);
-							}else if(result.code == 2){
-								layer.alert('邮箱地址有误！');
-							}else if(result.code == 3){
-								layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
-							}else if(result.code == 203){
-								var wmNextTime = result.deminingStamp+7200;
-								var wmNextTimeDate = new Date(wmNextTime * 1000);    //根据时间戳生成的时间对象
-								var wmNextTimeText = (wmNextTimeDate.getFullYear()) + "-" + 
-										(wmNextTimeDate.getMonth() + 1) + "-" +
-										(wmNextTimeDate.getDate()) + " " + 
-										(wmNextTimeDate.getHours()) + ":" + 
-										(wmNextTimeDate.getMinutes()) + ":" + 
-										(wmNextTimeDate.getSeconds());
-								layer.alert('感觉身体被掏空，会在 '+wmNextTimeText+' 后恢复！请在这个点后再来！');
-							}else if(result.code == 0){
-								layer.alert('传入的信息有误，不要搞事情喔！');
-							}else if(result.code == 101){
-								layer.alert('这片矿区可能已经被人抢先了！重新选择矿区吧！');
-								setwmStarDemMap(result);
-							}
-							$('#wmCardLoading').stop(true, false).fadeOut(100);
-						},
-						error:function(){
-							$('#wmCardLoading').stop(true, false).fadeOut(100);
-							layer.alert('网络异常！');
-						},
-						dataType: 'json'
-					});
+									$('#wmCardLoading').stop(true, false).fadeOut(100);
+								},
+								error:function(){
+									$('#wmCardLoading').stop(true, false).fadeOut(100);
+									layer.alert('网络异常！');
+								},
+								dataType: 'json'
+							});
+						}
+						}
+					);
+					
 				}
 			}else{
 				$('#wmDeminingBody table .wm_demining_item.selected').removeClass('selected');
