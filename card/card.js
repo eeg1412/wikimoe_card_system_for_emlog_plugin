@@ -120,78 +120,57 @@ $(document).ready(function(e) {
 			　　　　return false;
 			　　}else{
 					function getPasswordAndDem(){
-						$('#wmGetPassword').attr('data-email',wmEmail);
-						layer.open({
-							type: 1,
-							title:'请输入动态密码',
-							zIndex:1003,
-							content:$('#wmMailCheckBody'),
-							btn: ['确定','取消'], //按钮
-							btn1 :function(index){
-								var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
-								var wmPassword = $('#wmPassword').val();
-								$('#wmCardLoading').stop(true, false).fadeIn(100);
-								$.ajax({
-									type: 'POST',
-									url: wmCardStarpath_,
-									data: {type:'open',node:wmDMinfo,email:wmEmail,password:wmPassword},
-									success: function(result){
-										if(result.code == 202){
-											if(result.boom==0){
-												layer.alert('很可惜什么都没有挖到！');
-											}else{
-												var lastText = '';
-												if(result.lastBoom==1){
-													lastText = '另外数据显示这已经是最后一片星矿了，换个矿场吧！';
-												}
-												layer.alert('感觉地底在发光，挖开一看，发现了'+result.getStar+'颗星星！'+lastText);
-												getNewCardList();
-											}
-											setwmStarDemMap(result);
-											var wmNowTime = new Date().getTime();
-											localStorage.setItem("demining" + md5(wmEmail),wmNowTime);
-											layer.close(index);
-										}else if(result.code == 2){
-											layer.alert('邮箱地址有误！');
-											layer.close(index);
-										}else if(result.code == 3){
-											layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
-											layer.close(index);
-										}else if(result.code == 203){
-											var wmNextTime = result.deminingStamp+7200;
-											var wmNextTimeDate = new Date(wmNextTime * 1000);    //根据时间戳生成的时间对象
-											var wmNextTimeText = (wmNextTimeDate.getFullYear()) + "年" + 
-													(wmNextTimeDate.getMonth() + 1) + "月" +
-													(wmNextTimeDate.getDate()) + "日" + 
-													(wmNextTimeDate.getHours()) + "点" + 
-													(wmNextTimeDate.getMinutes()) + "分" + 
-													(wmNextTimeDate.getSeconds()) + "秒";
-											layer.alert('感觉身体被掏空，会在 '+wmNextTimeText+' 后恢复！请在这个点后再来！');
-											localStorage.setItem("demining" + md5(wmEmail),result.deminingStamp*1000);
-											layer.close(index);
-										}else if(result.code == 0){
-											layer.alert('传入的信息有误，不要搞事情喔！');
-											layer.close(index);
-										}else if(result.code == 101){
-											layer.alert('这片矿区可能已经被人抢先了！重新选择矿区吧！');
-											setwmStarDemMap(result);
-											layer.close(index);
-										}else if(result.code == 4){
-											layer.alert('动态密码有误！');
-										}else if(result.code == 5){
-											layer.alert('动态密码已过期请重新获取！');
+						var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
+						var wmPassword = $('#wmPassword').val();
+						$('#wmCardLoading').stop(true, false).fadeIn(100);
+						$.ajax({
+							type: 'POST',
+							url: wmCardStarpath_,
+							data: {type:'open',node:wmDMinfo,email:wmEmail,password:wmPassword},
+							success: function(result){
+								if(result.code == 202){
+									if(result.boom==0){
+										layer.alert('很可惜什么都没有挖到！');
+									}else{
+										var lastText = '';
+										if(result.lastBoom==1){
+											lastText = '另外数据显示这已经是最后一片星矿了，换个矿场吧！';
 										}
-										$('#wmCardLoading').stop(true, false).fadeOut(100);
-									},
-									error:function(){
-										$('#wmCardLoading').stop(true, false).fadeOut(100);
-										layer.alert('网络异常！');
-									},
-									dataType: 'json'
-								});
-							}
-							}
-						);
+										layer.alert('感觉地底在发光，挖开一看，发现了'+result.getStar+'颗星星！'+lastText);
+										getNewCardList();
+									}
+									setwmStarDemMap(result);
+									var wmNowTime = new Date().getTime();
+									localStorage.setItem("demining" + md5(wmEmail),wmNowTime);
+								}else if(result.code == 2){
+									layer.alert('邮箱地址有误！');
+								}else if(result.code == 3){
+									layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
+								}else if(result.code == 203){
+									var wmNextTime = result.deminingStamp+7200;
+									var wmNextTimeDate = new Date(wmNextTime * 1000);    //根据时间戳生成的时间对象
+									var wmNextTimeText = (wmNextTimeDate.getFullYear()) + "年" + 
+											(wmNextTimeDate.getMonth() + 1) + "月" +
+											(wmNextTimeDate.getDate()) + "日" + 
+											(wmNextTimeDate.getHours()) + "点" + 
+											(wmNextTimeDate.getMinutes()) + "分" + 
+											(wmNextTimeDate.getSeconds()) + "秒";
+									layer.alert('感觉身体被掏空，会在 '+wmNextTimeText+' 后恢复！请在这个点后再来！');
+									localStorage.setItem("demining" + md5(wmEmail),result.deminingStamp*1000);
+								}else if(result.code == 0){
+									layer.alert('传入的信息有误，不要搞事情喔！');
+								}else if(result.code == 101){
+									layer.alert('这片矿区可能已经被人抢先了！重新选择矿区吧！');
+									setwmStarDemMap(result);
+								}
+								$('#wmCardLoading').stop(true, false).fadeOut(100);
+							},
+							error:function(){
+								$('#wmCardLoading').stop(true, false).fadeOut(100);
+								layer.alert('网络异常！');
+							},
+							dataType: 'json'
+						});
 					}
 					var deminingTime = Number(localStorage.getItem("demining" + md5(wmEmail)));
 					if(deminingTime == null){

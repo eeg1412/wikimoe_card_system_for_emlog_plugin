@@ -86,7 +86,7 @@ function wxportWmDeminingGameMap(){
 function wmCheckDemNode($wmClickNode){
     $DB = MySql::getInstance();
     $emailAddr = strip_tags($_POST['email']);
-    $password = strip_tags($_POST['password']);
+    // $password = strip_tags($_POST['password']);
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
     if(isset($emailAddr) && $emailAddr!=""){
         if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断  
@@ -96,80 +96,66 @@ function wmCheckDemNode($wmClickNode){
             if ($mgidinfo) {
                 //有该用户
                 $timeStamp = time();//获取当前时间
-                $bdPassword = intval($mgidinfo['verifyCode']);
-                if($password==$bdPassword&&$bdPassword!=0){
-                    //密码正确
-                    $passwordTime = intval($mgidinfo['verifyCodeStamp']);
-                    if(($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0){
-                        //密码没有过期
-                        $deminingStamp = intval ($mgidinfo['deminingStamp']);//获取上次挖矿时间
-                        if($timeStamp-$deminingStamp>7200){
-                            //已经冷却开始挖矿
-                            //检查点击的节点
-                            $wmNodeData = null;
-                            $checkNodeText="/^[0-9_]{1,}$/";//定义正则表达式
-                            if(preg_match($checkNodeText,$wmClickNode)){
-                                //传入参数符合正则
-                                $wmDeminingGameData=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/DeminingGame.com.php'),'<?php die; ?>'));//获取信息
-                                $wmDeminingGameDataMap = $wmDeminingGameData['map'];
-                                $node = explode("_", $wmClickNode);//get the node of click 
-                                $rows = $wmDeminingGameData['rows'];
-                                $cols = $wmDeminingGameData['cols'];
-                                $num = $wmDeminingGameData['boomNum'];
-                                $players = $wmDeminingGameData['player'];
-                                $boomedNum = $wmDeminingGameData['boomedNum'];//已经挖到了多少次星星
-                                $wmopenedData = openNode($node[0],$node[1],$rows,$cols,$wmDeminingGameData,$wmDeminingGameDataMap);//校验节点是否存在并尝试打开节点
-                                if($wmopenedData){
-                                    //节点正常
-                                    array_push($players,array('xy'=>$wmClickNode,'emailMD5'=>md5($emailAddr)));
-                                    $wmNodeDataStatu = 0;
-                                    $wmNodeLastBoom = 0;
-                                    $randomStar = 0;
-                                    if($wmDeminingGameDataMap["data".$wmClickNode] == 100){
-                                        $wmNodeDataStatu = 1;//中了！
-                                        $boomedNum = $boomedNum+1;
-                                        $randomStar = mt_rand(5,40);
-                                        $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'massageType'=>'demining');
-                                        wmWriteJson($gameJsonData);
-                                    }
-                                    if($boomedNum == $num){
-                                        deminingInit();
-                                        $wmNodeLastBoom = 1;
-                                        //所有星星被挖光
-                                    }else{
-                                        $wmNodeData = array('map'=>$wmopenedData,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>$boomedNum,'player'=>$players);
-                                        wmDeminingGameWrite($wmNodeData);
-                                    }
-                                    //更新数据库
-                                    $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar." where email=".$emailAddrMd5."";
-                                    $result=$DB->query($query);
-                                    //更新缓存数据
-                                    $clickNodeResault = wxportWmDeminingGameMap();
-                                    $clickNodeResault['code'] = 202;
-                                    $clickNodeResault['boom'] = $wmNodeDataStatu;
-                                    $clickNodeResault['lastBoom'] = $wmNodeLastBoom;
-                                    $clickNodeResault['getStar'] = $randomStar;
-                                    echo json_encode($clickNodeResault);
-                                }else{
-                                    $NowNodeResault = wxportWmDeminingGameMap();
-                                    $NowNodeResault['code'] = 101;;//不是一个节点或者节点已经打开了
-                                    echo json_encode($NowNodeResault);
-                                }
-                            }else{
-                                $wmNodeData = array('code'=>0);//字符串有误
-                                echo json_encode($wmNodeData);
+                $deminingStamp = intval ($mgidinfo['deminingStamp']);//获取上次挖矿时间
+                if($timeStamp-$deminingStamp>7200){
+                    //已经冷却开始挖矿
+                    //检查点击的节点
+                    $wmNodeData = null;
+                    $checkNodeText="/^[0-9_]{1,}$/";//定义正则表达式
+                    if(preg_match($checkNodeText,$wmClickNode)){
+                        //传入参数符合正则
+                        $wmDeminingGameData=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/DeminingGame.com.php'),'<?php die; ?>'));//获取信息
+                        $wmDeminingGameDataMap = $wmDeminingGameData['map'];
+                        $node = explode("_", $wmClickNode);//get the node of click 
+                        $rows = $wmDeminingGameData['rows'];
+                        $cols = $wmDeminingGameData['cols'];
+                        $num = $wmDeminingGameData['boomNum'];
+                        $players = $wmDeminingGameData['player'];
+                        $boomedNum = $wmDeminingGameData['boomedNum'];//已经挖到了多少次星星
+                        $wmopenedData = openNode($node[0],$node[1],$rows,$cols,$wmDeminingGameData,$wmDeminingGameDataMap);//校验节点是否存在并尝试打开节点
+                        if($wmopenedData){
+                            //节点正常
+                            array_push($players,array('xy'=>$wmClickNode,'emailMD5'=>md5($emailAddr)));
+                            $wmNodeDataStatu = 0;
+                            $wmNodeLastBoom = 0;
+                            $randomStar = 0;
+                            if($wmDeminingGameDataMap["data".$wmClickNode] == 100){
+                                $wmNodeDataStatu = 1;//中了！
+                                $boomedNum = $boomedNum+1;
+                                $randomStar = mt_rand(5,40);
+                                $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'massageType'=>'demining');
+                                wmWriteJson($gameJsonData);
                             }
-                            
+                            if($boomedNum == $num){
+                                deminingInit();
+                                $wmNodeLastBoom = 1;
+                                //所有星星被挖光
+                            }else{
+                                $wmNodeData = array('map'=>$wmopenedData,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>$boomedNum,'player'=>$players);
+                                wmDeminingGameWrite($wmNodeData);
+                            }
+                            //更新数据库
+                            $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar." where email=".$emailAddrMd5."";
+                            $result=$DB->query($query);
+                            //更新缓存数据
+                            $clickNodeResault = wxportWmDeminingGameMap();
+                            $clickNodeResault['code'] = 202;
+                            $clickNodeResault['boom'] = $wmNodeDataStatu;
+                            $clickNodeResault['lastBoom'] = $wmNodeLastBoom;
+                            $clickNodeResault['getStar'] = $randomStar;
+                            echo json_encode($clickNodeResault);
                         }else{
-                            $wmNodeData = array('code'=>203,'deminingStamp'=>$deminingStamp);//还在冷却
-                            echo json_encode($wmNodeData);
+                            $NowNodeResault = wxportWmDeminingGameMap();
+                            $NowNodeResault['code'] = 101;;//不是一个节点或者节点已经打开了
+                            echo json_encode($NowNodeResault);
                         }
                     }else{
-                        $wmNodeData = array('code'=>5);//密码过期
+                        $wmNodeData = array('code'=>0);//字符串有误
                         echo json_encode($wmNodeData);
                     }
+                    
                 }else{
-                    $wmNodeData = array('code'=>4);//密码错误
+                    $wmNodeData = array('code'=>203,'deminingStamp'=>$deminingStamp);//还在冷却
                     echo json_encode($wmNodeData);
                 }
             }else{
@@ -196,7 +182,7 @@ function openNode($i,$j,$rows,$cols,$wmDeminingGameData,$wmDeminingGameDataMap){
     $data["open".$i."_".$j] = 1;//打开节点
     return $data;
   } 
-if(isset($_POST['type'])=='open' && isset($_POST['email']) && isset($_POST['password'])){
+if(isset($_POST['type'])=='open' && isset($_POST['email'])){
     if(strip_tags($_POST['type'])=='open'){
         $wmClickNode = $_POST['node'];
         wmCheckDemNode($wmClickNode);
