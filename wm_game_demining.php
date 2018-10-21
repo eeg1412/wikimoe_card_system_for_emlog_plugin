@@ -196,9 +196,13 @@ function openNode($i,$j,$rows,$cols,$wmDeminingGameData,$wmDeminingGameDataMap){
     $data["open".$i."_".$j] = 1;//打开节点
     return $data;
   } 
-if(strip_tags($_POST['type'])=='open' && isset($_POST['email']) && isset($_POST['password'])){
-    $wmClickNode = $_POST['node'];
-    wmCheckDemNode($wmClickNode);
+if(isset($_POST['type'])=='open' && isset($_POST['email']) && isset($_POST['password'])){
+    if(strip_tags($_POST['type'])=='open'){
+        $wmClickNode = $_POST['node'];
+        wmCheckDemNode($wmClickNode);
+    }else{
+        startWmDeminingGame();
+    }
 }else{
     startWmDeminingGame();
 }
