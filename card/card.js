@@ -53,6 +53,22 @@
 
 
 $(document).ready(function(e) {
+	//设置默认邮箱地址
+	function wmSetDefaultMaillAddress(mailAddr){
+		$('#wm_card_email').val(mailAddr);
+		$('#wmDeminingInput').val(mailAddr);
+		$('#wmStarSearchInput').val(mailAddr);
+		$('#wmCardMixInput').val(mailAddr);
+		sessionStorage.setItem("wmSetDefaultMaillAddress", mailAddr);
+	}
+	function wmSetsessionStorageMail(){
+		var wmSetsessionStorageMailCache = sessionStorage.getItem("wmSetDefaultMaillAddress");
+		if(wmSetsessionStorageMailCache!=null&&wmSetsessionStorageMailCache!=undefined&&wmSetsessionStorageMailCache!=''){
+			wmSetDefaultMaillAddress(wmSetsessionStorageMailCache);
+		}
+	}
+	// 判断是否有缓存地址
+	wmSetsessionStorageMail();
 	// 挖星星
 	function getwmStarDemMap(){
 
@@ -1235,12 +1251,14 @@ $(document).ready(function(e) {
 					  alertTitle('您已经超过每天的抽卡次数')
 					  chiosed = false;
 					  var emailmd5_ = result.emailmd5;
+					  wmSetDefaultMaillAddress(wmEmail);
 					  wmsearchCard(emailmd5_);
 				  }else if(result.code == '3'){
 					  layer.alert('请先在文章中评论并等待管理员审核后抽卡');
 					  chiosed = false;
 				  }else if(result.code == '202'){
-					  alertTitle('快看看都抽到了什么吧')
+					  alertTitle('快看看都抽到了什么吧');
+					  wmSetDefaultMaillAddress(wmEmail);
 					  var emailmd5_ = result.emailmd5;
 					  for(var i=0;i<result.cardChoiseList.length;i++){
 						var cardId = result.cardChoiseList[i];

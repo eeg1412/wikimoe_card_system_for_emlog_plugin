@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.3.9
+Version: 2.3.10
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.53';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.54';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.53';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.54';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -21,7 +21,7 @@ function wm_card_loghook() {
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<link href="'.$wm_card_layercssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" type="text/css" />';
-	echo '<div class="wm_card_body">
+	echo '<div class="wm_card_body" id="wmCardBody">
 			<div class="jar_loading_body" id="wmCardLoading">
 				<div class="jar_loading_content">
 					<div class="jar_loading_box">
