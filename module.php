@@ -29,10 +29,10 @@ function wmWriteJson($cardJsonData){
             array_pop($cardGetList);
         }
         $cardJsonDataEncode = json_encode($cardGetList);
-        file_put_contents('cardGetList.json', $cardJsonDataEncode);
+        file_put_contents('cardGetList.json', $cardJsonDataEncode,LOCK_EX);
     }else{
         $cardJsonDataEncode = json_encode(array($cardJsonData));
-        file_put_contents('cardGetList.json', $cardJsonDataEncode);
+        file_put_contents('cardGetList.json', $cardJsonDataEncode,LOCK_EX);
     }    
 }
 ?>

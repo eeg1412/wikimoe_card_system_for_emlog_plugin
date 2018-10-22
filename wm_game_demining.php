@@ -119,12 +119,11 @@ function wmCheckDemNode($wmClickNode){
                             $wmNodeDataStatu = 0;
                             $wmNodeLastBoom = 0;
                             $randomStar = 0;
-                            if($wmDeminingGameDataMap["data".$wmClickNode] == 100){
+                            $wmAttackData = $wmDeminingGameDataMap["data".$wmClickNode];
+                            if($wmAttackData == 100){
                                 $wmNodeDataStatu = 1;//中了！
                                 $boomedNum = $boomedNum+1;
                                 $randomStar = mt_rand(5,40);
-                                $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'massageType'=>'demining');
-                                wmWriteJson($gameJsonData);
                             }
                             if($boomedNum == $num){
                                 deminingInit();
@@ -134,11 +133,17 @@ function wmCheckDemNode($wmClickNode){
                                 $wmNodeData = array('map'=>$wmopenedData,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>$boomedNum,'player'=>$players);
                                 wmDeminingGameWrite($wmNodeData);
                             }
+                            //写入动态JSON
+                            $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'attackNum'=>$wmAttackData,'massageType'=>'demining');
+                            wmWriteJson($gameJsonData);
                             //更新数据库
                             $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar." where email=".$emailAddrMd5."";
                             $result=$DB->query($query);
                             //更新缓存数据
                             $clickNodeResault = wxportWmDeminingGameMap();
+                            //定义Json发送内容
+                            $clickNodeResault['timeStamp'] = $timeStamp;
+                            $clickNodeResault['clickNum'] = $wmAttackData;
                             $clickNodeResault['code'] = 202;
                             $clickNodeResault['boom'] = $wmNodeDataStatu;
                             $clickNodeResault['lastBoom'] = $wmNodeLastBoom;
