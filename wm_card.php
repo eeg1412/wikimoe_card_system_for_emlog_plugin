@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.3.10
+Version: 2.3.11
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.54';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.55';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.54';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.55';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -133,7 +133,12 @@ function wm_card_loghook() {
 				</div>
 			</div>
 			<h5 class="wm_card_chiose_title" id="alertTitle">每天一次神抽</h5>
-			<div class="wm_card_email_body"><input type="text" name="email" class="wm_card_email" id="wm_card_email" placeholder="请先输入邮箱地址再点击卡片"></div>
+			<div class="wm_card_email_body" id="wmCardChioseInputBody">
+				<input type="text" name="email" class="wm_card_email" id="wm_card_email" placeholder="请先输入邮箱地址再点击卡片">
+				<div class="wm_card_remember_body">
+					<div class="wm_card_remember_box" title="公共场合慎用！" id="wmRememberEmail">抽卡并保存邮箱地址</div>
+				</div>
+			</div>
 			<div class="wm_card_restart_body">
 				<button type="button" class="wm_restart_btn" id="wm_card_restart_btn">换号重来</button><button type="button" class="wm_restart_btn" id="wm_card_rechiose_btn">再抽一次</button></div>
 			<div class="cardList" id="wmCardList">

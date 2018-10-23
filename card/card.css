@@ -7,7 +7,7 @@
 	overflow-x: auto;
 	overflow-y: hidden;
 	text-align: center;
-	margin: 15px 0 10px 0;
+	margin: 4px 0 10px 0;
 	/* padding-bottom: 15px;
   border-bottom: 1px dashed #ccc; */
 }
@@ -824,6 +824,24 @@ input.wm_card_email:-webkit-autofill {
 	}
 	.wm_card_demining_table .wm_demining_item.type_is_opened.is_wmdmstar{
 		color: #ffc800;
+	}
+	/* 记住邮箱 */
+	.wm_card_remember_body{
+		text-align: center;
+		margin-top: 8px;
+	}
+	.wm_card_remember_box{
+		font-size: 14px;
+		line-height: 18px;
+		padding-left: 24px;
+		background-image: url('../icon/checkboxstar.png');
+		background-position: left center;
+		background-repeat: no-repeat;
+		background-size: contain;
+		display: inline-block;
+	}
+	.wm_card_remember_box.active{
+		background-image: url('../icon/checkboxstarchecked.png');
 	}
 	@media only screen and (max-width: 650px) {
 		.wm_card_rank_box{

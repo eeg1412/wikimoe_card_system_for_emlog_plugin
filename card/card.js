@@ -53,16 +53,32 @@
 
 
 $(document).ready(function(e) {
+	$('#wmRememberEmail').on('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}else{
+			$(this).addClass('active');
+		}
+	});
 	//设置默认邮箱地址
 	function wmSetDefaultMaillAddress(mailAddr){
 		$('#wm_card_email').val(mailAddr);
 		$('#wmDeminingInput').val(mailAddr);
 		$('#wmStarSearchInput').val(mailAddr);
 		$('#wmCardMixInput').val(mailAddr);
-		sessionStorage.setItem("wmSetDefaultMaillAddress", mailAddr);
+		$('#wm_tiaozhan_email').val(mailAddr);
+		localStorage.setItem("wmSetDefaultMaillAddress", mailAddr);
+		$('#wmRememberEmail').addClass('active');
+	}
+	function wmDelDefaultMaillAddress(){
+		$('#wmDeminingInput').val('');
+		$('#wmStarSearchInput').val('');
+		$('#wmCardMixInput').val('');
+		$('#wm_tiaozhan_email').val('');
+		localStorage.removeItem("wmSetDefaultMaillAddress");
 	}
 	function wmSetsessionStorageMail(){
-		var wmSetsessionStorageMailCache = sessionStorage.getItem("wmSetDefaultMaillAddress");
+		var wmSetsessionStorageMailCache = localStorage.getItem("wmSetDefaultMaillAddress");
 		if(wmSetsessionStorageMailCache!=null&&wmSetsessionStorageMailCache!=undefined&&wmSetsessionStorageMailCache!=''){
 			wmSetDefaultMaillAddress(wmSetsessionStorageMailCache);
 		}
@@ -1171,7 +1187,7 @@ $(document).ready(function(e) {
 				$('#wmGetCard').removeClass('fadeInDown').removeClass('animated');
 				if(shouldAccount){
 					$('.wm_card_restart_body').hide();
-					$('#wm_card_email').fadeIn(300);
+					$('#wmCardChioseInputBody').fadeIn(300);
 				}
 				$('#wm_card_restart_btn').removeAttr('disabled');
 				$('#alertTitle').text('继续神抽吧');
@@ -1265,21 +1281,29 @@ $(document).ready(function(e) {
 					  alertTitle('您已经超过每天的抽卡次数')
 					  chiosed = false;
 					  var emailmd5_ = result.emailmd5;
-					  wmSetDefaultMaillAddress(wmEmail);
+					  if($('#wmRememberEmail').hasClass('active')){
+						wmSetDefaultMaillAddress(wmEmail);
+					  }else{
+						wmDelDefaultMaillAddress();
+					  }
 					  wmsearchCard(emailmd5_);
 				  }else if(result.code == '3'){
 					  layer.alert('请先在文章中评论并等待管理员审核后抽卡');
 					  chiosed = false;
 				  }else if(result.code == '202'){
 					  alertTitle('快看看都抽到了什么吧');
-					  wmSetDefaultMaillAddress(wmEmail);
+					  if($('#wmRememberEmail').hasClass('active')){
+						wmSetDefaultMaillAddress(wmEmail);
+					  }else{
+						wmDelDefaultMaillAddress();
+					  }
 					  var emailmd5_ = result.emailmd5;
 					  for(var i=0;i<result.cardChoiseList.length;i++){
 						var cardId = result.cardChoiseList[i];
 						var imgSrc = wmCardImgPath+ cardId+'.jpg';
 						$('#wmGetCard').find('.selectcard .wm_card_img').eq(i).attr('src',imgSrc);
 					  }
-					  $('#wm_card_email').fadeOut(300,function(){
+					  $('#wmCardChioseInputBody').fadeOut(300,function(){
 						if(result.leftGetChance<=0){
 							$('#wm_card_rechiose_btn').attr('disabled','true');
 						}else{
