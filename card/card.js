@@ -1101,7 +1101,7 @@ $(document).ready(function(e) {
 				if(wmNewListInfoArr[i].getStar>0){
 					var wmLastBoomText = '';
 					if(wmNewListInfoArr[i].lastBoom==1){
-						wmLastBoomText = '另外这已经是最后一片星星矿了，我将带大家去新的矿场。当然，新的矿场将由我来下这第一铲，嘻嘻！';
+						wmLastBoomText = '另外这已经是最后一片星星矿了，我将带大家去新的矿场。当然，新的矿场将由我来铲下这第一铲，嘻嘻！';
 					}
 					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">真是功夫不负有心人，我在<a href="javascript:;" class="wm_getlist_link wm_goto_stardemining">星星矿场</a>，挖出了'+wmNewListInfoArr[i].getStar+'颗星星！！看来我已经是一名专业的矿工了呢！'+wmLastBoomText+'</div></div>';
 				}else{
