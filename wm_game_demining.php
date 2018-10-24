@@ -134,8 +134,12 @@ function wmCheckDemNode($wmClickNode){
                                 wmDeminingGameWrite($wmNodeData);
                             }
                             //写入动态JSON
-                            $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'attackNum'=>$wmAttackData,'massageType'=>'demining');
+                            $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'attackNum'=>$wmAttackData,'lastBoom'=>$wmNodeLastBoom,'massageType'=>'demining');
                             wmWriteJson($gameJsonData);
+                            if($wmNodeLastBoom==1){
+                                //如果是最后一片矿，则不更新时间戳也就是说可以连续挖。
+                                $timeStamp = $deminingStamp;
+                            }
                             //更新数据库
                             $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar." where email=".$emailAddrMd5."";
                             $result=$DB->query($query);

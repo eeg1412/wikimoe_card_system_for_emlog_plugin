@@ -71,7 +71,7 @@ function wm_card_code_mail(){
                     $blogname = Option::get('blogname');
                     $subject = "您在抽卡系统中的动态密码";
                     $randomPass = mt_rand(12001301, 99999999);
-                    $content = "<p>尊敬的大佬，您好</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您在".$blogname."的抽卡系统中的动态密码为：<".$randomPass.">，30分钟内有效可多次使用。</p><p>祝您抽卡愉快!</p>";
+                    $content = "<p>尊敬的大佬，您好</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您在".$blogname."的抽卡系统中的动态密码为：&lt;".$randomPass."&gt;，30分钟内有效可多次使用。</p><p>祝您抽卡愉快!</p>";
 
                     $query = "Update ".DB_PREFIX."wm_card set verifyCode=".$randomPass." , verifyCodeStamp=".$timeStamp." , verifyCodeCount=".$verifyCodeCount."+1 where email=".$emailAddrMd5."";
                     $result=$DB->query($query);

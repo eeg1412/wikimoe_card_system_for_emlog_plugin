@@ -172,7 +172,7 @@ $(document).ready(function(e) {
 									}else{
 										var lastText = '';
 										if(result.lastBoom==1){
-											lastText = '另外数据显示这已经是最后一片星矿了，换个矿场吧！';
+											lastText = '另外数据显示这已经是最后一片星矿了！新的矿场已经为您准备，同时您获得了额外1次挖掘机会！！';
 										}
 										layer.alert('感觉地底在发光，挖开一看，发现了'+result.getStar+'颗星星！'+lastText);
 									}
@@ -1099,7 +1099,11 @@ $(document).ready(function(e) {
 				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我通过<a href="javascript:;" class="wm_getlist_link wm_goto_mixcard">卡牌分解</a>，用公式2NaAlO2+CO2+3H2O+'+wmNewListInfoArr[i].useCardNumbe+'张卡牌分解出了2Al(OH)3↓+Na2CO3+'+wmNewListInfoArr[i].addStar+'颗星星！</div></div>';
 			}else if(wmNewListInfoArr[i].massageType=='demining'){
 				if(wmNewListInfoArr[i].getStar>0){
-					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">真是功夫不负有心人，我在<a href="javascript:;" class="wm_getlist_link wm_goto_stardemining">星星矿场</a>，挖出了'+wmNewListInfoArr[i].getStar+'颗星星！！看来我已经是一名专业的矿工了呢！</div></div>';
+					var wmLastBoomText = '';
+					if(wmNewListInfoArr[i].lastBoom==1){
+						wmLastBoomText = '另外这已经是最后一片星星矿了，我将带大家去新的矿场。当然，新的矿场将由我来下这第一铲，嘻嘻！';
+					}
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">真是功夫不负有心人，我在<a href="javascript:;" class="wm_getlist_link wm_goto_stardemining">星星矿场</a>，挖出了'+wmNewListInfoArr[i].getStar+'颗星星！！看来我已经是一名专业的矿工了呢！'+wmLastBoomText+'</div></div>';
 				}else{
 					if(wmNewListInfoArr[i].attackNum>0){
 						listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我尝试在<a href="javascript:;" class="wm_getlist_link wm_goto_stardemining">星星矿场</a>挖星星，但是很可惜什么都没挖到。不过根据探测器显示，我的周围有'+wmNewListInfoArr[i].attackNum+'片星星矿！到时候大佬们不要和我抢呀！</div></div>';
