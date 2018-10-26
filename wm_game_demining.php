@@ -3,9 +3,11 @@ require_once('../../../init.php');
 require_once('module.php');
 function deminingInit(){
     //初始化埋藏的星星生成星星地图
-    $rows = 10;//get rows 
-    $cols = 10;//get cols 
-    $num = 10;//get num 
+    $randomRowsCols = mt_rand(10,15);
+    $randomBoomNum = mt_rand(12,20);
+    $rows = $randomRowsCols;//get rows 
+    $cols = $randomRowsCols;//get cols 
+    $num = $randomBoomNum;//get num 
     $data = array();//data initialization 
     for($i=0;$i<$rows;$i++){//all the rows 
         for($j=0;$j<$cols;$j++){//all the cols 
@@ -54,7 +56,9 @@ function deminingInit(){
             $data["data".$i."_".$j] = $cnt;//set number 
         } 
     }
-    $wmDeminingData = array('map'=>$data,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>0,'player'=>array());
+    $randomMapType = mt_rand(1,17);
+    $mapCreatTime = time();
+    $wmDeminingData = array('mapType'=>$randomMapType,'creatTime'=>$mapCreatTime,'map'=>$data,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>0,'player'=>array());
     wmDeminingGameWrite($wmDeminingData);
     //echo json_encode($data); 
 }
@@ -80,7 +84,7 @@ function wxportWmDeminingGameMap(){
             }
         }
     }
-    $wmExportDeminingGameMap = array('map' => $wmExportMap ,'rows'=>$wmExportDeminingGameData['rows'],'cols'=>$wmExportDeminingGameData['cols'],'player'=>$wmExportDeminingGameData['player']);
+    $wmExportDeminingGameMap = array('mapType'=>$wmExportDeminingGameData['mapType'],'creatTime'=>$wmExportDeminingGameData['creatTime'],'map' => $wmExportMap ,'rows'=>$wmExportDeminingGameData['rows'],'cols'=>$wmExportDeminingGameData['cols'],'player'=>$wmExportDeminingGameData['player']);
     return $wmExportDeminingGameMap; 
 }
 function wmCheckDemNode($wmClickNode){
@@ -97,6 +101,7 @@ function wmCheckDemNode($wmClickNode){
                 //有该用户
                 $timeStamp = time();//获取当前时间
                 $deminingStamp = intval ($mgidinfo['deminingStamp']);//获取上次挖矿时间
+                //7200
                 if($timeStamp-$deminingStamp>7200){
                     //已经冷却开始挖矿
                     //检查点击的节点
@@ -112,6 +117,8 @@ function wmCheckDemNode($wmClickNode){
                         $num = $wmDeminingGameData['boomNum'];
                         $players = $wmDeminingGameData['player'];
                         $boomedNum = $wmDeminingGameData['boomedNum'];//已经挖到了多少次星星
+                        $mapTypeCache = $wmDeminingGameData['mapType'];
+                        $creatTimeCache = $wmDeminingGameData['creatTime'];
                         $wmopenedData = openNode($node[0],$node[1],$rows,$cols,$wmDeminingGameData,$wmDeminingGameDataMap);//校验节点是否存在并尝试打开节点
                         if($wmopenedData){
                             //节点正常
@@ -123,14 +130,14 @@ function wmCheckDemNode($wmClickNode){
                             if($wmAttackData == 100){
                                 $wmNodeDataStatu = 1;//中了！
                                 $boomedNum = $boomedNum+1;
-                                $randomStar = mt_rand(5,40);
+                                $randomStar = mt_rand(10,40);
                             }
                             if($boomedNum == $num){
                                 deminingInit();
                                 $wmNodeLastBoom = 1;
                                 //所有星星被挖光
                             }else{
-                                $wmNodeData = array('map'=>$wmopenedData,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>$boomedNum,'player'=>$players);
+                                $wmNodeData = array('mapType'=>$mapTypeCache,'creatTime'=>$creatTimeCache,'map'=>$wmopenedData,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>$boomedNum,'player'=>$players);
                                 wmDeminingGameWrite($wmNodeData);
                             }
                             //写入动态JSON

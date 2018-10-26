@@ -116,19 +116,20 @@ $(document).ready(function(e) {
 	};
 	function setwmStarDemMap(result){
 		$('#wmDeminingBody table tbody').empty();
+		var wmSearDemMapWidth = Math.floor(10/result.cols*50);
 		for(var i =0;i<result.rows;i++){
 			$('#wmDeminingBody table tbody').append('<tr></tr>');
 			for(var j =0;j<result.cols;j++){
 				var wmDemItemInfo = result.map['data'+i+'_'+j];
 				if(wmDemItemInfo == undefined){
-					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item" data-info="'+i+'_'+j+'" data-xy="'+i+'_'+j+'"></div></td>');
+					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div style="width:'+wmSearDemMapWidth+'px;height:'+wmSearDemMapWidth+'px;line-height:'+wmSearDemMapWidth+'px;background-image: url('+wmCardPluginpath+'icon/demining/bg'+result.mapType+'.png'+');" class="wm_demining_item" data-info="'+i+'_'+j+'" data-xy="'+i+'_'+j+'"></div></td>');
 				}else{
 					var wmDemIsStarClass = '';
 					if(wmDemItemInfo == 100){
 						wmDemItemInfo = '★';
 						wmDemIsStarClass = ' is_wmdmstar';
 					}
-					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div class="wm_demining_item type_is_opened'+wmDemIsStarClass+'" data-info="opened" data-xy="'+i+'_'+j+'">'+wmDemItemInfo+'</div></td>');
+					$('#wmDeminingBody table tbody tr').eq(i).append('<td><div style="width:'+wmSearDemMapWidth+'px;height:'+wmSearDemMapWidth+'px;line-height:'+wmSearDemMapWidth+'px;background-image: url('+wmCardPluginpath+'icon/demining/bg'+result.mapType+'.png'+');" class="wm_demining_item type_is_opened'+wmDemIsStarClass+'" data-info="opened" data-xy="'+i+'_'+j+'">'+wmDemItemInfo+'</div></td>');
 				}
 			}
 		}

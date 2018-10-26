@@ -768,6 +768,8 @@ input.wm_card_email:-webkit-autofill {
 	}
 	.wm_card_demining_table_box{
 		max-width: calc(100vw - 40px);
+		width: 530px;
+		height: 530px;
 		overflow: auto;
 	}
 	.wm_card_demining_table td{
@@ -783,8 +785,9 @@ input.wm_card_email:-webkit-autofill {
 		height: 50px;
 		text-align: center;
 		line-height: 50px;
-		cursor: pointer;
+		cursor: url(../icon/demining/pickaxe.cur),pointer;
 		background-color: #464646;
+		background-size: cover;
 		position: relative;
 		z-index: 1;
 		text-shadow:0px 0px 5px #000;
@@ -804,13 +807,16 @@ input.wm_card_email:-webkit-autofill {
     	background-color: #a4a4a4;
 		color: #fff;
 		cursor: default;
+		background-image: none!important;
+		box-sizing: border-box;
+		border:1px solid #727272;
 	}
 	img.wm_demining_img {
 		position: absolute;
 		left: 0;
 		top: 0;
-		width: 50px;
-		height: 50px;
+		width: 100%;
+		height: 100%;
 		opacity: 0.2;
 		transition: all 0.3s linear 0.4s;
 		-webkit-transition: all 0.3s linear;
@@ -855,27 +861,27 @@ input.wm_card_email:-webkit-autofill {
 	/* css动画 */
 	 @-webkit-keyframes pikapika {
 		0% {
-			background-color: #464646;
+			opacity: 1;
 		}
 		
 		50% {
-			background-color: #a09c98;
+			opacity: 0.65;
 		}
 		100%{
-			background-color: #464646;
+			opacity: 1;
 		}
   }
   
   @keyframes pikapika {
 		0% {
-			background-color: #464646;
+			opacity: 1;
 		}
 		
 		50% {
-			background-color: #a09c98;
+			opacity: 0.65;
 		}
 		100%{
-			background-color: #464646;
+			opacity: 1;
 		}
   }
   
