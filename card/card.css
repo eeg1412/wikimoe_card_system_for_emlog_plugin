@@ -116,6 +116,7 @@
 	width:20%;
 }
 .wm_getcard_box:hover .wm_getcard_img{
+	filter: saturate(150%);
 	-webkit-filter: saturate(150%);
     -moz-filter: saturate(150%);
     -o-filter: saturate(150%);
