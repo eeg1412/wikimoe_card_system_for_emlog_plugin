@@ -7,15 +7,15 @@ function wmCreatCardId($randomCardRate){
         $randomCardID = '0'.sprintf("%03d", $randomCardN_);
     }else if($randomCardRate>=65&&$randomCardRate<=86){
         //R
-        $randomCardR_ = mt_rand(1, 52);
+        $randomCardR_ = mt_rand(1, 61);
         $randomCardID = '1'.sprintf("%03d", $randomCardR_);
     }else if($randomCardRate>=87&&$randomCardRate<=97){
         //SR
-        $randomCardSR_ = mt_rand(1, 43);
+        $randomCardSR_ = mt_rand(1, 47);
         $randomCardID = '2'.sprintf("%03d", $randomCardSR_);
     }else if($randomCardRate>97){
         //SSR
-        $randomCardSSR_ = mt_rand(1, 25);
+        $randomCardSSR_ = mt_rand(1, 26);
         $randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
     }
     return $randomCardID;

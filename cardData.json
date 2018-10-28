@@ -1072,6 +1072,78 @@
 			"title":"闪之轨迹",
 			"name":"劳拉·S·亚尔赛德"
 		},
+		"1053": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 3,
+			"cry": 3,
+			"title":"守望先锋",
+			"name":"宋哈娜"
+		},
+		"1054": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"守望先锋",
+			"name":"安吉拉·齐格勒"
+		},
+		"1055": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"紫罗兰永恒花园",
+			"name":"薇尔莉特·伊芙加登"
+		},
+		"1056": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 3,
+			"title":"NEW GAME!",
+			"name":"篠田初"
+		},
+		"1057": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"神次元游戏：海王星V",
+			"name":"普兰"
+		},
+		"1058": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"神次元游戏：海王星V",
+			"name":"普露露特"
+		},
+		"1059": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 3,
+			"title":"神次元游戏：海王星V",
+			"name":"贝露"
+		},
+		"1060": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"A Channel",
+			"name":"一井透&百木伦"
+		},
+		"1061": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 2,
+			"title":"梅露可物语",
+			"name":"梅露可"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1416,6 +1488,38 @@
 			"title":"Re:从零开始的异世界生活",
 			"name":"拉姆"
 		},
+		"2044": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"妖精剑士F",
+			"name":"缇亚拉&艾琳"
+		},
+		"2045": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"VOCALOID",
+			"name":"洛天依"
+		},
+		"2046": {
+			"star": 5,
+			"leftType": 1,
+			"rightType": 2,
+			"cry": 5,
+			"title":"东方Project",
+			"name":"帕秋莉·诺蕾姬"
+		},
+		"2047": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"东方Project",
+			"name":"十六夜咲夜"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -1429,7 +1533,7 @@
 			"leftType": 2,
 			"rightType": 7,
 			"cry": 5,
-			"title":"超次元游戏",
+			"title":"超次元游戏：海王星",
 			"name":"诺瓦露"
 		},
 		"3003": {
@@ -1615,6 +1719,14 @@
 			"cry": 4,
 			"title":"秋之回忆 -无垢少女-",
 			"name":"嘉神川诺艾尔"
+		},
+		"3026": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
+			"title":"超次元游戏：海王星",
+			"name":"涅普迪努&涅普基雅"
 		}
 		
 	},
