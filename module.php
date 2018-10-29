@@ -35,4 +35,29 @@ function wmWriteJson($cardJsonData){
         file_put_contents('cardGetList.json', $cardJsonDataEncode,LOCK_EX);
     }    
 }
+function wmAddCard($originCarID,$originCardCount,$randomCardID){//原卡牌ID、原卡牌数量、随机卡牌ID或者卡牌ID
+    //循环遍历卡组
+    $originCarIDArr = explode(",",$originCarID);//1001,1002,1003
+    $originCarCountArr = explode(",",$originCardCount);//1,2,1
+    $hasReapt = false;
+    for ($i=0; $i<count($originCarIDArr); $i++)
+    {
+        if(intval($originCarIDArr[$i])==intval($randomCardID)){
+            $originCarCountArr[$i] = intval($originCarCountArr[$i])+1;
+            $hasReapt = true;
+            break;
+        }
+    }
+    $originCarIDText = '';
+    $originCardCountText = '';
+    if($hasReapt){
+        $originCarIDText = $originCarID;
+        $originCardCountText = implode(",",$originCarCountArr);
+    }else{
+        $originCarIDText = $originCarID.",".$randomCardID;
+        $originCardCountText = $originCardCount.",1";
+    }
+    $callBackCardInfo = array('originCarIDText'=>$originCarIDText,'originCardCountText'=>$originCardCountText);
+    return $callBackCardInfo;
+}
 ?>

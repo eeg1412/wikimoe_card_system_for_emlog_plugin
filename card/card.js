@@ -485,6 +485,13 @@ $(document).ready(function(e) {
 			});
 		});
 	});
+	// 连抽点击结果
+	$('#wmCardChainChoiseList').on('click','.selectcard',function(){
+		if(!$(this).hasClass('selectedcard')){
+			$(this).rotate_box();
+			$(this).addClass('selectedcard');
+		}
+	});
 	//星星抽卡
 	$('#wmStarshopBody').on('click','.selectcard',function(){
 		var this_ = $(this);
@@ -545,20 +552,51 @@ $(document).ready(function(e) {
 									success: function(result){
 										$('#wmCardLoading').stop(true, false).fadeOut(100);
 										if(result.code=="202"){
-											var cardId = result.card;
-											var imgSrc = wmCardImgPath+ cardId+'.jpg';
-											this_.find('.wm_card_img').attr('src',imgSrc);
-											this_.addClass('selectedcard');
-											setTimeout(function(){
-												this_.rotate_box();
-											},200);
-											if($('#wm_card_email').val()==$('#wm_my_star').attr('data-mail')){
-												wmsearchCard(md5(embuyemail));
+											if(result.buyClass == 2){
+												$('#wmCardChainChoiseList').empty();
+												for(var i=0;i<result.card.length;i++){
+													var cardHtml = '<div class="card selectcard" data-type="3" data-price="30"><div class="inner"><div class="face"><img src="'+wmCardImgPath+result.card[i]+'.jpg" alt="" class="wm_card_img"></div><div class="back"></div></div></div>';
+													$('#wmCardChainChoiseList').append(cardHtml);
+												}
+												layer.open({
+													type: 1,
+													title:'查看卡牌',
+													zIndex:1004,
+													maxWidth:'100%',
+													content:$('#wmCardChainChoiseBody'),
+													btn: ['全部翻开','离开'], //按钮
+													btn1 :function(index){
+														$('#wmCardChainChoiseList .selectcard').trigger('click');
+													},
+													btn2 :function(){
+														if($('#wm_card_email').val()==$('#wm_my_star').attr('data-mail')){
+															wmsearchCard(md5(embuyemail));
+														}
+														getNewCardList();
+													},
+													cancel: function(){ 
+														if($('#wm_card_email').val()==$('#wm_my_star').attr('data-mail')){
+															wmsearchCard(md5(embuyemail));
+														}
+														getNewCardList();
+													}
+												});
+											}else{
+												var cardId = result.card;
+												var imgSrc = wmCardImgPath+ cardId+'.jpg';
+												this_.find('.wm_card_img').attr('src',imgSrc);
+												this_.addClass('selectedcard');
+												setTimeout(function(){
+													this_.rotate_box();
+												},200);
+												if($('#wm_card_email').val()==$('#wm_my_star').attr('data-mail')){
+													wmsearchCard(md5(embuyemail));
+												}
+												getNewCardList();
 											}
 											$('#wm_my_star').empty();
 											$('#wm_my_star').attr('data-star',result.starCountAfter);
 											$('#wm_my_star').text(result.starCountAfter);
-											getNewCardList();
 											layer.close(index);
 										}else if(result.code=="0"){
 											layer.alert('邮箱地址为空！');
@@ -591,8 +629,7 @@ $(document).ready(function(e) {
 								});	
 							}
 						}
-						}
-					);
+					});
 					layer.close(index);
 	
 				}, function(){
@@ -1063,28 +1100,58 @@ $(document).ready(function(e) {
 				}
 				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 			}else if(wmNewListInfoArr[i].massageType=='buy'){
-				var getText = '虽然卡牌星级不高，但是我也很喜欢！';
-				var wmSixStarCardShake = '';
-				if(wmNewListInfoArr[i].useStar<=30){
-					if(wmNewListInfoArr[i].cardInfo.star===4){
-						getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
-					}else if(wmNewListInfoArr[i].cardInfo.star===5){
-						getText = '运气不错，距离欧皇就差一点点。'
-					}else if(wmNewListInfoArr[i].cardInfo.star>=6){
-						getText = '欧气满满，欧耶~';
-						wmSixStarCardShake = ' wm_six_star_card_shake'
-					}
+				if(wmNewListInfoArr[i].buyClass == 2){
+					var wmbuy2_6Card = 0;
+					var wmbuy2_5Card = 0;
+					var wmbuy2_4Card = 0;
+					var wmbuy2_3Card = 0;
+					var wmbuy2_6CardArr = [];
+					var wmbuy2_5CardArr = [];
+					var wmbuy2_4CardArr = [];
+					var wmbuy2_3CardArr = [];
+					wmcardChioseAllInfoArr = wmNewListInfoArr[i].card;
+					wmcardChioseAllInfoArr.sort(function(a,b){return a<b?1:-1});//从卡牌ID大到小排列
+					for(var k =0;k<wmcardChioseAllInfoArr.length;k++){
+						if(Number(wmcardChioseAllInfoArr[k])>3000){//是六星卡
+							wmbuy2_6Card = wmbuy2_6Card+1;
+							wmbuy2_6CardArr.push(wmcardChioseAllInfoArr[k]);
+						}else if(Number(wmcardChioseAllInfoArr[k])>2000){
+							wmbuy2_5Card = wmbuy2_5Card+1;
+							wmbuy2_5CardArr.push(wmcardChioseAllInfoArr[k]);
+						}else if(Number(wmcardChioseAllInfoArr[k])>1000){
+							wmbuy2_4Card = wmbuy2_4Card+1;
+							wmbuy2_4CardArr.push(wmcardChioseAllInfoArr[k]);
+						}else{
+							wmbuy2_3Card = wmbuy2_3Card+1;
+							wmbuy2_3CardArr.push(wmcardChioseAllInfoArr[k]);
+						}
+					};
+					
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starshop">星星商店</a>使用了'+wmNewListInfoArr[i].useStar+'颗星星进行了'+wmNewListInfoArr[i].chinChioseCardNum+'连抽。一共抽中了<a href="javascript:;" class="goto_wm_chiose_card" target="_blank" data-card="'+wmbuy2_6CardArr.join(',')+'">'+wmbuy2_6Card+'</a>张六星卡，<a href="javascript:;" class="goto_wm_chiose_card" target="_blank" data-card="'+wmbuy2_5CardArr.join(',')+'">'+wmbuy2_5Card+'</a>张五星卡，<a href="javascript:;" class="goto_wm_chiose_card" target="_blank" data-card="'+wmbuy2_4CardArr.join(',')+'">'+wmbuy2_4Card+'</a>张四星卡，<a href="javascript:;" class="goto_wm_chiose_card" target="_blank" data-card="'+wmbuy2_3CardArr.join(',')+'">'+wmbuy2_3Card+'</a>张三星及其以下的卡。</div></div>';
 				}else{
-					if(wmNewListInfoArr[i].cardInfo.star===4){
-						getText = '哪怕是4星卡，我也要用星星抽！'
-					}else if(wmNewListInfoArr[i].cardInfo.star===5){
-						getText = '我要用尽我的星星来抽出我喜欢的5星卡！'
-					}else if(wmNewListInfoArr[i].cardInfo.star>=6){
-						getText = '有星星6星卡也随便抽！';
-						wmSixStarCardShake = ' wm_six_star_card_shake'
+					var getText = '虽然卡牌星级不高，但是我也很喜欢！';
+					var wmSixStarCardShake = '';
+					if(wmNewListInfoArr[i].useStar<=30){
+						if(wmNewListInfoArr[i].cardInfo.star===4){
+							getText = '不好不差，证明我既不是非洲人也不是欧洲人。'
+						}else if(wmNewListInfoArr[i].cardInfo.star===5){
+							getText = '运气不错，距离欧皇就差一点点。'
+						}else if(wmNewListInfoArr[i].cardInfo.star>=6){
+							getText = '欧气满满，欧耶~';
+							wmSixStarCardShake = ' wm_six_star_card_shake'
+						}
+					}else{
+						if(wmNewListInfoArr[i].cardInfo.star===4){
+							getText = '哪怕是4星卡，我也要用星星抽！'
+						}else if(wmNewListInfoArr[i].cardInfo.star===5){
+							getText = '我要用尽我的星星来抽出我喜欢的5星卡！'
+						}else if(wmNewListInfoArr[i].cardInfo.star>=6){
+							getText = '有星星6星卡也随便抽！';
+							wmSixStarCardShake = ' wm_six_star_card_shake'
+						}
 					}
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starshop">星星商店</a>使用了'+wmNewListInfoArr[i].useStar+'颗星星抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>';
 				}
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starshop">星星商店</a>使用了'+wmNewListInfoArr[i].useStar+'颗星星抽中了出自作品《'+wmNewListInfoArr[i].cardInfo.title+'》的'+wmNewListInfoArr[i].cardInfo.star+'星卡<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID+'.jpg" class="wm_card_get_list_card_link'+wmSixStarCardShake+'" target="_blank">'+wmNewListInfoArr[i].cardInfo.name+'</a>。'+getText+'</div></div>'
 			}else if(wmNewListInfoArr[i].massageType=='battle'){
 				// 兼容老版本是否有对方的邮箱MD5
 				var wmDalaoHtml = '大佬';
@@ -1138,6 +1205,25 @@ $(document).ready(function(e) {
 	// 点击星星商店动态
 	$('#wmCardGetList').on('click','.wm_goto_starshop',function(){
 		$('#wmBannerBody .swiper-slide[data-type="starShop"]').eq(0).trigger('click');
+	});
+	//查看连抽卡牌
+	$('#wmCardGetList').on('click','.goto_wm_chiose_card',function(){
+		if($(this).attr('data-card')!=''){
+			var wmChioseCardList = $(this).attr('data-card').split(",");
+			var wmCardHtml = '';
+			for(var i=0;i<wmChioseCardList.length;i++){
+				wmCardHtml = wmCardHtml + '<a href="'+wmCardImgPath+wmChioseCardList[i]+'.jpg" class="wm_getcard_box" style="width:170px;height:271px;" target="_blank"><img class="wm_getcard_img" src="'+wmCardImgPath+wmChioseCardList[i]+'.jpg"><br><span class="wm_card_nums">×1</span></a>';
+				
+			}
+			wmCardHtml = '<div class="wm_card_getlist_watch_card">'+wmCardHtml+'</div>';
+			layer.open({
+				type: 1,
+				title:'查看卡牌',
+				maxWidth: '100%', //宽高
+				content: wmCardHtml,
+				btn: ['离开'], //按钮
+			});
+		}
 	});
 	// 点击动态查看大佬
 	$('#wmCardGetList').on('click','.wm_goto_dalao_info',function(){

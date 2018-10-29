@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.3.13
+Version: 2.4.0
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.57';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.6';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.57';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.6';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
@@ -70,6 +70,10 @@ function wm_card_loghook() {
 					<button type="button" class="wm_mixcardmore_btn" id="wm_mixcardmore_btn">加载更多卡牌</button>
 				</div>
 			</div>
+			<div class="wm_card_chain_choise_body" id="wmCardChainChoiseBody">
+				<h3>快翻牌看看都抽中什么了吧！</h3>
+				<div class="wm_card_chain_choise_list" id="wmCardChainChoiseList"></div>
+			</div>
 			<div class="wm_card_starshop_input_body" id="wmStarSearchInputBody">
 				<input type="text" name="email" class="wm_card_email_starshop" id="wmStarSearchInput" placeholder="请先输入邮箱查询星星" />
 			</div>
@@ -78,57 +82,88 @@ function wm_card_loghook() {
 					星星 × <span id="wm_my_star" data-star="0" data-mail="">--<span>
 				</div>
 				<div class="wm_starshop_card_list" id="wmStarshopBody">
-					<div class="wm_starshop_card_list_item">
-						<div class="card selectcard" data-type="3" data-price="30">
-							<div class="wm_starshop_rebuy_body">
-								<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+					<div class="wm_starshop_card_list_type">
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard" data-type="3" data-price="30">
+								<div class="wm_starshop_rebuy_body">
+									<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+								</div>
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+									<div class="back"></div>
+								</div>
 							</div>
-							<div class="inner">
-								<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
-								<div class="back"></div>
-							</div>
+							<p>普通抽卡</p>
+							<p>需要：30星星</p>
 						</div>
-						<p>普通抽卡</p>
-						<p>需要：30星星</p>
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard" data-type="4" data-price="90">
+								<div class="wm_starshop_rebuy_body">
+									<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+								</div>
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+									<div class="back"></div>
+								</div>
+							</div>
+							<p>4星抽卡</p>
+							<p>需要：90星星</p>
+						</div>
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard" data-type="5" data-price="200">
+								<div class="wm_starshop_rebuy_body">
+									<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+								</div>
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+									<div class="back"></div>
+								</div>
+							</div>
+							<p>5星抽卡</p>
+							<p>需要：200星星</p>
+						</div>
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard" data-type="6" data-price="600">
+								<div class="wm_starshop_rebuy_body">
+									<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+								</div>
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+									<div class="back"></div>
+								</div>
+							</div>
+							<p>6星抽卡</p>
+							<p>需要：600星星</p>
+						</div>
 					</div>
-					<div class="wm_starshop_card_list_item">
-						<div class="card selectcard" data-type="4" data-price="125">
-							<div class="wm_starshop_rebuy_body">
-								<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+					<div class="wm_starshop_card_list_type">
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard type_2" data-type="1001" data-price="270">
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+								</div>
 							</div>
-							<div class="inner">
-								<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
-								<div class="back"></div>
-							</div>
+							<p>十连抽</p>
+							<p>需要：270星星</p>
 						</div>
-						<p>4星抽卡</p>
-						<p>需要：125星星</p>
-					</div>
-					<div class="wm_starshop_card_list_item">
-						<div class="card selectcard" data-type="5" data-price="260">
-							<div class="wm_starshop_rebuy_body">
-								<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard type_2" data-type="1002" data-price="780">
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+								</div>
 							</div>
-							<div class="inner">
-								<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
-								<div class="back"></div>
-							</div>
+							<p>三十连抽</p>
+							<p>需要：780星星</p>
 						</div>
-						<p>5星抽卡</p>
-						<p>需要：260星星</p>
-					</div>
-					<div class="wm_starshop_card_list_item">
-						<div class="card selectcard" data-type="6" data-price="900">
-							<div class="wm_starshop_rebuy_body">
-								<button type="button" class="wm_search_star_btn wm_rebuy_btn">重置</button>
+						<div class="wm_starshop_card_list_item">
+							<div class="card selectcard type_2" data-type="1003" data-price="1250">
+								<div class="inner">
+									<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
+								</div>
 							</div>
-							<div class="inner">
-								<div class="face"><img src="'.$wm_card_pluginpath.'/card/img/back.jpg" alt="" class="wm_card_img"></div>
-								<div class="back"></div>
-							</div>
+							<p>五十连抽</p>
+							<p>需要：1250星星</p>
 						</div>
-						<p>6星抽卡</p>
-						<p>需要：900星星</p>
 					</div>
 				</div>
 			</div>

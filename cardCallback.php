@@ -94,27 +94,9 @@ function wm_cardWrite(){
 							$originCarID = $mgidinfo['cardID'];
 							$originCardCount = $mgidinfo['cardCount'];
 							//循环遍历卡组
-							$originCarIDArr = explode(",",$originCarID);//1001,1002,1003
-							$originCarCountArr = explode(",",$originCardCount);//1,2,1
-							$hasReapt = false;
-							for ($i=0; $i<count($originCarIDArr); $i++)
-							{
-								if(intval($originCarIDArr[$i])==intval($randomCardID)){
-									$originCarCountArr[$i] = intval($originCarCountArr[$i])+1;
-									$hasReapt = true;
-									break;
-								}
-							}
-							$originCarIDText = '';
-							$originCardCountText = '';
-							if($hasReapt){
-								$originCarIDText = $originCarID;
-								$originCardCountText = implode(",",$originCarCountArr);
-							}else{
-								$originCarIDText = $originCarID.",".$randomCardID;
-								$originCardCountText = $originCardCount.",1";
-							}
-							$query = "Update ".DB_PREFIX."wm_card set cardID='".$originCarIDText."' , cardCount='".$originCardCountText."' , timeStamp=".$timeStamp." , todayCount=todayCount+1 where email=".$comment_author_email."";
+							$callBackCardInfo = wmAddCard($originCarID,$originCardCount,$randomCardID);
+
+							$query = "Update ".DB_PREFIX."wm_card set cardID='".$callBackCardInfo['originCarIDText']."' , cardCount='".$callBackCardInfo['originCardCountText']."' , timeStamp=".$timeStamp." , todayCount=todayCount+1 where email=".$comment_author_email."";
 							$result=$DB->query($query);
 						}
 						$data = json_encode(array('code'=>"202",'card'=>$randomCardID,'emailmd5'=>md5($emailAddr),'todaycount'=>$originToday,'cardChoiseList'=>$cardChoiseList,'choiseIndex'=>$choiseIndex,'leftGetChance'=>$leftGetChance));

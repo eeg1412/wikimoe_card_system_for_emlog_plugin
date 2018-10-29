@@ -23,58 +23,73 @@ function buyCard(){
                         $starFlag = false;//true为星星不足
                         $starCount = intval ($mgidinfo['starCount']);
                         $shouldStar = 9999;
+                        $buyClass = 0;//哪一类型的商品，1为指定抽卡、2为连抽、3为CD相关商品
+                        $chinChioseCardNum = 0;//连抽几次
+
                         if($buyType==3){
                             $shouldStar = 30;
+                            $buyClass = 1;
                             if($starCount<$shouldStar){
                                 $starFlag = true;
                             }
                         }else if($buyType==4){
                             $randomCardRate = 65;
-                            $shouldStar = 125;
+                            $shouldStar = 90;
+                            $buyClass = 1;
                             if($starCount<$shouldStar){
                                 $starFlag = true;
                             }
                         }else if($buyType==5){
                             $randomCardRate = 87;
-                            $shouldStar = 260;
+                            $shouldStar = 200;
+                            $buyClass = 1;
                             if($starCount<$shouldStar){
                                 $starFlag = true;
                             }
                         }else if($buyType==6){
                             $randomCardRate = 100;
-                            $shouldStar = 900;
+                            $shouldStar = 600;
+                            $buyClass = 1;
+                            if($starCount<$shouldStar){
+                                $starFlag = true;
+                            }
+                        }else if($buyType==1001){
+                            $chinChioseCardNum = 10;
+                            $shouldStar = 270;
+                            $buyClass = 2;
+                            if($starCount<$shouldStar){
+                                $starFlag = true;
+                            }
+                        }
+                        else if($buyType==1002){
+                            $chinChioseCardNum = 30;
+                            $shouldStar = 780;
+                            $buyClass = 2;
+                            if($starCount<$shouldStar){
+                                $starFlag = true;
+                            }
+                        }
+                        else if($buyType==1003){
+                            $chinChioseCardNum = 50;
+                            $shouldStar = 1250;
+                            $buyClass = 2;
                             if($starCount<$shouldStar){
                                 $starFlag = true;
                             }
                         }else{
                             $randomCardRate = -1;
                         }
-                        if($randomCardRate!=-1&&!$starFlag){
+                        if(!$starFlag&&$buyClass==1){
                             //正常抽
                             $randomCardID = wmCreatCardId($randomCardRate);
                             $originCarID = $mgidinfo['cardID'];
                             $originCardCount = $mgidinfo['cardCount'];
+
                             //循环遍历卡组
-                            $originCarIDArr = explode(",",$originCarID);//1001,1002,1003
-                            $originCarCountArr = explode(",",$originCardCount);//1,2,1
-                            $hasReapt = false;
-                            for ($i=0; $i<count($originCarIDArr); $i++)
-                            {
-                                if(intval($originCarIDArr[$i])==$randomCardID){
-                                    $originCarCountArr[$i] = intval($originCarCountArr[$i])+1;
-                                    $hasReapt = true;
-                                    break;
-                                }
-                            }
-                            $originCarIDText = '';
-                            $originCardCountText = '';
-                            if($hasReapt){
-                                $originCarIDText = $originCarID;
-                                $originCardCountText = implode(",",$originCarCountArr);
-                            }else{
-                                $originCarIDText = $originCarID.",".$randomCardID;
-                                $originCardCountText = $originCardCount.",1";
-                            }
+                            $callBackCardInfo = wmAddCard($originCarID,$originCardCount,$randomCardID);
+                            $originCarIDText = $callBackCardInfo['originCarIDText'];
+                            $originCardCountText = $callBackCardInfo['originCardCountText'];
+
                             $starCountAfter = $starCount - $shouldStar;
                             if($starCountAfter<0){
                                 $starCountAfter = 0;
@@ -85,12 +100,36 @@ function buyCard(){
                             $json_string = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
                             
                             $getCardData = $json_string['cardData'][$randomCardID];//抽中卡牌数据
-                            $cardJsonData = array('mailMD5'=>md5($emailAddr),'cardInfo'=>$getCardData,'cardID'=>$randomCardID,'useStar'=>$shouldStar,'massageType'=>'buy');
+                            $cardJsonData = array('mailMD5'=>md5($emailAddr),'cardInfo'=>$getCardData,'cardID'=>$randomCardID,'useStar'=>$shouldStar,'massageType'=>'buy','buyClass'=>$buyClass);
                             wmWriteJson($cardJsonData);
 
-                            $data = json_encode(array('code'=>"202" , 'card'=>$randomCardID ,'starCountAfter'=>$starCountAfter)); 
+                            $data = json_encode(array('code'=>"202" , 'card'=>$randomCardID ,'starCountAfter'=>$starCountAfter ,'buyClass'=>$buyClass)); 
 
-                        }else if($starFlag){
+                        }else if(!$starFlag&&$buyClass==2){
+                            //多连抽
+                            $originCarID = $mgidinfo['cardID'];
+                            $originCardCount = $mgidinfo['cardCount'];
+                            $chainChioseCardId = array();
+                            for($i=0;$i<$chinChioseCardNum;$i++){
+                                $randomCardRate = mt_rand(1, 100);
+                                $randomCardID = wmCreatCardId($randomCardRate);
+                                array_push($chainChioseCardId,$randomCardID);
+                                //循环遍历卡组
+                                $callBackCardInfo = wmAddCard($originCarID,$originCardCount,$randomCardID);
+                                $originCarID = $callBackCardInfo['originCarIDText'];
+                                $originCardCount = $callBackCardInfo['originCardCountText'];
+                            }
+                            $cardJsonData = array('mailMD5'=>md5($emailAddr),'chinChioseCardNum'=>$chinChioseCardNum,'card'=>$chainChioseCardId,'useStar'=>$shouldStar,'massageType'=>'buy','buyClass'=>$buyClass);
+                            wmWriteJson($cardJsonData);
+                            $starCountAfter = $starCount - $shouldStar;
+                            if($starCountAfter<0){
+                                $starCountAfter = 0;
+                            }
+                            $query = "Update ".DB_PREFIX."wm_card set cardID='".$originCarID."' , cardCount='".$originCardCount."' , starCount=".$starCountAfter." where email=".$emailAddrMD5."";
+                            $result=$DB->query($query);
+                            $data = json_encode(array('code'=>"202" , 'card'=>$chainChioseCardId ,'starCountAfter'=>$starCountAfter ,'buyClass'=>$buyClass));
+
+                        }else if($buyClass!=0&&$starFlag){
                             //星星不够
                             $data = json_encode(array('code'=>"5",'starCount'=>$starCount,'shouldStar'=>$shouldStar));  
                         }else{
