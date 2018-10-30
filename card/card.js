@@ -1212,7 +1212,7 @@ $(document).ready(function(e) {
 			var wmChioseCardList = $(this).attr('data-card').split(",");
 			var wmCardHtml = '';
 			for(var i=0;i<wmChioseCardList.length;i++){
-				wmCardHtml = wmCardHtml + '<a href="'+wmCardImgPath+wmChioseCardList[i]+'.jpg" class="wm_getcard_box" style="width:170px;height:271px;" target="_blank"><img class="wm_getcard_img" style="width:170px;height:239px;" src="'+wmCardImgPath+wmChioseCardList[i]+'.jpg"><br><span class="wm_card_nums">×1</span></a>';
+				wmCardHtml = wmCardHtml + '<a href="'+wmCardImgPath+wmChioseCardList[i]+'.jpg" class="wm_getcard_box" style="width:170px;height:239px;" target="_blank"><img class="wm_getcard_img" style="width:170px;height:239px;" src="'+wmCardImgPath+wmChioseCardList[i]+'.jpg"></a>';
 				
 			}
 			wmCardHtml = '<div class="wm_card_getlist_watch_card">'+wmCardHtml+'</div>';
