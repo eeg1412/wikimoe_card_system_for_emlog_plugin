@@ -148,7 +148,7 @@ function wmCheckDemNode($wmClickNode){
                                 $timeStamp = $deminingStamp;
                             }
                             //更新数据库
-                            $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar." where email=".$emailAddrMd5."";
+                            $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar.", deminingStarCount=deminingStarCount+".$randomStar." where email=".$emailAddrMd5."";
                             $result=$DB->query($query);
                             //更新缓存数据
                             $clickNodeResault = wxportWmDeminingGameMap();

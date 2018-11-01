@@ -24,6 +24,7 @@ function callback_init(){
 		`verifyCodeStamp` bigint(20) NOT NULL,
 		`verifyCodeCount` int(10) NOT NULL,
 		`deminingStamp` bigint(20) NOT NULL,
+		`deminingStarCount` bigint(20) NOT NULL default '0',
 		PRIMARY KEY  (`id`)
 )".$add;
 		$DB->query($sql);
