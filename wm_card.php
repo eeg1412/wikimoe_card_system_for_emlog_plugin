@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.4.2
+Version: 2.5.0
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,7 +9,7 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.61';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.62';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
 	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.62';
@@ -261,6 +261,11 @@ function wm_card_loghook() {
 					</div>
 					<div class="swiper-slide wm_card_rank_item_box" id="wmCardRankBox">
 						<h5 class="wm_card_chiose_title" id="wm_card_rank_title">卡牌收集排行榜</h5>
+						<p class="wm_card_rank_last_updata">最后更新：<span class="wm_card_rank_last_time"></span></p>
+						<div class="wm_card_rank_list"></div>
+					</div>
+					<div class="swiper-slide wm_card_rank_item_box" id="wmDeminingRankBox">
+						<h5 class="wm_card_chiose_title" id="wm_card_rank_title">掘星排行榜</h5>
 						<p class="wm_card_rank_last_updata">最后更新：<span class="wm_card_rank_last_time"></span></p>
 						<div class="wm_card_rank_list"></div>
 					</div>

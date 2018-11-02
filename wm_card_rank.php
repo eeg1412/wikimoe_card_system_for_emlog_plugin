@@ -35,9 +35,16 @@ function searchWmDataBaseByRank(){
         ORDER BY `".DB_PREFIX."wm_card`.`level` DESC
         LIMIT 0 , 10
     ");
+    $mgidDeminingStarCount=$DB->query("
+        SELECT *
+        FROM `".DB_PREFIX."wm_card`
+        ORDER BY `".DB_PREFIX."wm_card`.`deminingStarCount` DESC
+        LIMIT 0 , 10
+    ");
     $wmRankScoreArr = array();
     $wmRankCardArr = array();
     $wmRankLevel = array();
+    $wmRankDeminingStarCount = array();
     $timeStamp = time();
     while($result=$DB->fetch_array($mgidScore)){
         array_push($wmRankScoreArr,array('score'=>$result['score'],'email'=>$result['email']));
@@ -48,7 +55,10 @@ function searchWmDataBaseByRank(){
     while($result=$DB->fetch_array($mgidLevel)){
         array_push($wmRankLevel,array('level'=>$result['level'],'email'=>$result['email']));
     }
-    $wmRankJsonData = array('score'=>$wmRankScoreArr,'card'=>$wmRankCardArr,'level'=>$wmRankLevel,'updataTime'=>$timeStamp);
+    while($result=$DB->fetch_array($mgidDeminingStarCount)){
+        array_push($wmRankDeminingStarCount,array('deminingStarCount'=>$result['deminingStarCount'],'email'=>$result['email']));
+    }
+    $wmRankJsonData = array('score'=>$wmRankScoreArr,'card'=>$wmRankCardArr,'level'=>$wmRankLevel,'deminingStarCount'=>$wmRankDeminingStarCount,'updataTime'=>$timeStamp);
     file_put_contents('cardRank.json', json_encode($wmRankJsonData));
     return $wmRankJsonData;
 };

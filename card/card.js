@@ -311,11 +311,30 @@ $(document).ready(function(e) {
 							$('#wmCardRankBox .wm_card_rank_list .wm_card_rank_box').eq((i-5)*2).after(html_);
 						}
 					}
+					for(var i=0;i<result.deminingStarCount.length;i++){
+						var rank_ = i+1;
+						if(rank_ == 1){
+							rank_ = '1st';
+						}else if(rank_ == 2){
+							rank_ = '2nd';
+						}else if(rank_ == 3){
+							rank_ = '3rd';
+						}else{
+							rank_ = rank_ + 'th';
+						}
+						html_ = '<div class="clearfix wm_card_rank_box" title="查看TA的卡牌"><div class="fl wm_card_rank_text">'+rank_+'</div><div class="fl wm_card_rank_img"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+result.deminingStarCount[i].email+'?s=100&amp;d=mm&amp;r=g&amp;d=robohash" width="45" height="45" data-md5="'+result.deminingStarCount[i].email+'"></div><div class="fr wm_card_rank_point">'+result.deminingStarCount[i].deminingStarCount+'颗星星</div></div>';
+						if(i<=4){
+							$('#wmDeminingRankBox .wm_card_rank_list').append(html_);
+						}else{
+							$('#wmDeminingRankBox .wm_card_rank_list .wm_card_rank_box').eq((i-5)*2).after(html_);
+						}
+					}
 					$('#wmCardRankBody').fadeIn(300,function(){
 						var rankSwiper = new Swiper ('#wmCardRankBody .swiper-container', {
 							direction: 'horizontal',
 							loop: true,
 							autoplay : 10000,
+							mousewheelControl : true,
 							autoplayDisableOnInteraction : false,
 							paginationClickable :true,	
 							// 如果需要分页器
@@ -341,6 +360,7 @@ $(document).ready(function(e) {
 	var mySwiper = new Swiper ('.wm_banner_body .swiper-container', {
 		direction: 'horizontal',
 		loop: true,
+		mousewheelControl : true,
 		autoplay : 5000,
 		autoplayDisableOnInteraction : false,
 		paginationClickable :true,	
