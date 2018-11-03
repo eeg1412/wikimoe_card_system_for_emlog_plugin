@@ -656,6 +656,22 @@
 			"title":"魔法飞球",
 			"name":"露西亚"
 		},
+		"0083": {
+			"star": 3,
+			"leftType": 4,
+			"rightType": 1,
+			"cry": 3,
+			"title":"超次元大战海王星VS世嘉少女梦之合体特别版",
+			"name":"艾伊爱弗"
+		},
+		"0084": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"超次元游戏：海王星",
+			"name":"尤妮"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -1144,6 +1160,22 @@
 			"title":"梅露可物语",
 			"name":"梅露可"
 		},
+		"1062": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"四女神Online CYBER DIMENSION NEPTUNE",
+			"name":"康帕"
+		},
+		"1063": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"超次元游戏：海王星",
+			"name":"伊斯特瓦尔"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1519,6 +1551,14 @@
 			"cry": 5,
 			"title":"东方Project",
 			"name":"十六夜咲夜"
+		},
+		"2048": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 2,
+			"title":"超次元游戏：海王星",
+			"name":"罗姆&拉姆"
 		},
 		"3001": {
 			"star": 6,
