@@ -1765,8 +1765,32 @@
 			"leftType": 2,
 			"rightType": 1,
 			"cry": 4,
+			"title":"新次元游戏海王星VII",
+			"name":"涅普迪努"
+		},
+		"3027": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 4,
 			"title":"超次元游戏：海王星",
-			"name":"涅普迪努&涅普基雅"
+			"name":"涅普基雅"
+		},
+		"3028": {
+			"star": 6,
+			"leftType": 3,
+			"rightType": 2,
+			"cry": 5,
+			"title":"我的妹妹哪有这么可爱！",
+			"name":"五更琉璃"
+		},
+		"3029": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"NEKOPARA",
+			"name":"巧克力&香草"
 		}
 		
 	},

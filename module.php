@@ -15,7 +15,7 @@ function wmCreatCardId($randomCardRate){
         $randomCardID = '2'.sprintf("%03d", $randomCardSR_);
     }else if($randomCardRate>97){
         //SSR
-        $randomCardSSR_ = mt_rand(1, 26);
+        $randomCardSSR_ = mt_rand(1, 29);
         $randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
     }
     return $randomCardID;
