@@ -60,4 +60,35 @@ function wmAddCard($originCarID,$originCardCount,$randomCardID){//原卡牌ID、
     $callBackCardInfo = array('originCarIDText'=>$originCarIDText,'originCardCountText'=>$originCardCountText);
     return $callBackCardInfo;
 }
+function wmSetLevel($MyLevelOrigin,$MyEXPOrigin,$MyGetScore_){
+    $json_string = file_get_contents('cardData.json');
+	$cardData = json_decode($json_string, true); 
+    $levelData = $cardData["level"];
+    $shouldEXP = 0;//所需经验值
+    $levelSet = $MyLevelOrigin;//升级后的等级
+    $nextLevelData = $MyLevelOrigin;//下一个等级的数据获取条件等级
+    $GetEXP = $MyGetScore_+$MyEXPOrigin;//获取的经验值
+    
+    if($MyLevelOrigin>5){
+        $nextLevelData = 5;
+    }
+    $shouldEXP = $levelData[$nextLevelData];
+    $GetEXP_ = $GetEXP;
+    if($GetEXP>=$shouldEXP){
+        $levelSet = $levelSet+1;
+        $GetEXP = $GetEXP - $shouldEXP;
+        $nextLevelData = $nextLevelData+1;
+        if($nextLevelData>5){
+            $nextLevelData = 5;
+        }
+        $shouldEXP = $levelData[$nextLevelData];
+        if($GetEXP>$shouldEXP){
+            $GetEXP = $shouldEXP -1;
+        }
+    }else{
+        $GetEXP = $GetEXP;
+    }
+    $setLevelInfo = array('level'=>$levelSet,'GetEXP'=>$GetEXP);
+    return $setLevelInfo;
+}
 ?>

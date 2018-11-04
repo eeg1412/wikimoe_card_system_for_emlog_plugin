@@ -468,31 +468,9 @@ function gameStart(){
 				setScore($EMGetScore,$EMemailAddr,0);
 				setScore($MyGetScore,$MyemailAddr,1);
 			}
-			
-			$shouldEXP = 0;//所需经验值
-			$levelSet = $MyLevelOrigin;//升级后的等级
-			$nextLevelData = $MyLevelOrigin;//下一个等级的数据获取条件等级
-			$GetEXP = $MyGetScore_+$MyEXPOrigin;//获取的经验值
-			
-			if($MyLevelOrigin>5){
-				$nextLevelData = 5;
-			}
-			$shouldEXP = $levelData[$nextLevelData];
-			$GetEXP_ = $GetEXP;
-			if($GetEXP>=$shouldEXP){
-				$levelSet = $levelSet+1;
-				$GetEXP = $GetEXP - $shouldEXP;
-				$nextLevelData = $nextLevelData+1;
-				if($nextLevelData>5){
-					$nextLevelData = 5;
-				}
-				$shouldEXP = $levelData[$nextLevelData];
-				if($GetEXP>$shouldEXP){
-					$GetEXP = $shouldEXP -1;
-				}
-			}else{
-				$GetEXP = $GetEXP;
-			}
+			$setLevelInfo = wmSetLevel($MyLevelOrigin,$MyEXPOrigin,$MyGetScore_);
+			$levelSet = $setLevelInfo['level'];
+			$GetEXP = $setLevelInfo['GetEXP'];
 			setLevel($levelSet,$GetEXP,$MyemailAddr);
 			
 			//写入或更新最动态列表json

@@ -140,15 +140,25 @@ function wmCheckDemNode($wmClickNode){
                                 $wmNodeData = array('mapType'=>$mapTypeCache,'creatTime'=>$creatTimeCache,'map'=>$wmopenedData,'rows'=>$rows,'cols'=>$cols,'boomNum'=>$num,'boomedNum'=>$boomedNum,'player'=>$players);
                                 wmDeminingGameWrite($wmNodeData);
                             }
+                            //经验等级计算
+                            $MyLevelOrigin = intval($mgidinfo["level"]);
+                            $MyEXPOrigin = intval($mgidinfo["exp"]);
+                            $MyGetExp = 10 + $wmAttackData;
+                            if($MyGetExp>20){
+                                $MyGetExp = 10+$randomStar;
+                            }
+                            $setLevelInfo = wmSetLevel($MyLevelOrigin,$MyEXPOrigin,$MyGetExp);
+                            $levelSet = $setLevelInfo['level'];
+			                $GetEXPSet = $setLevelInfo['GetEXP'];
                             //写入动态JSON
-                            $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'attackNum'=>$wmAttackData,'lastBoom'=>$wmNodeLastBoom,'massageType'=>'demining');
+                            $gameJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$randomStar,'attackNum'=>$wmAttackData,'lastBoom'=>$wmNodeLastBoom,'MyGetExp'=>$MyGetExp,'massageType'=>'demining');
                             wmWriteJson($gameJsonData);
                             if($wmNodeLastBoom==1){
                                 //如果是最后一片矿，则不更新时间戳也就是说可以连续挖。
                                 $timeStamp = $deminingStamp;
                             }
                             //更新数据库
-                            $query = "Update ".DB_PREFIX."wm_card set deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar.", deminingStarCount=deminingStarCount+".$randomStar." where email=".$emailAddrMd5."";
+                            $query = "Update ".DB_PREFIX."wm_card set level=".$levelSet." , exp=".$GetEXPSet.", deminingStamp=".$timeStamp.", starCount=starCount+".$randomStar.", deminingStarCount=deminingStarCount+".$randomStar." where email=".$emailAddrMd5."";
                             $result=$DB->query($query);
                             //更新缓存数据
                             $clickNodeResault = wxportWmDeminingGameMap();
