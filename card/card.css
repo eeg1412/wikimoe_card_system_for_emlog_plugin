@@ -11,6 +11,24 @@
 	/* padding-bottom: 15px;
   border-bottom: 1px dashed #ccc; */
 }
+.wm_card_big_body{
+	cursor: url(../icon/cur/default.cur),default;
+}
+.wm_card_big_body a{
+	cursor: url(../icon/cur/pointer.cur),pointer;
+}
+.wm_card_big_body input{
+	cursor: url(../icon/cur/text.cur),text;
+}
+.wm_card_big_body .layui-layer-btn a{
+	cursor: url(../icon/cur/pointer.cur),pointer;
+}
+.wm_card_big_body .layui-layer-setwin .layui-layer-close1 {
+    cursor: url(../icon/cur/pointer.cur),pointer;
+}
+.jar_loading_body{
+	cursor: url(../icon/cur/wait.cur),default;
+}
 @media only screen and (min-width: 767px) {
 	.cardList::-webkit-scrollbar-track-piece {
 		background: #eee
@@ -46,7 +64,7 @@
 	-webkit-perspective: 800px;
 }
 .inner {
-	cursor: pointer;
+	cursor: url(../icon/cur/pointer.cur),pointer;
 	overflow: hidden;
 	box-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
@@ -186,7 +204,7 @@ input.wm_card_email:-webkit-autofill {
     height: 38px;
     line-height: 38px;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: url(../icon/cur/pointer.cur),pointer;
 	margin-top: 10px;
 }
 .wm_card_get_list_body{
@@ -295,7 +313,7 @@ input.wm_card_email:-webkit-autofill {
 	width: 45px;
 	height: 45px;
 	background: #f8f8f8;
-	cursor: pointer;
+	cursor: url(../icon/cur/pointer.cur),pointer;
 }
 .wm_card_get_list_body a.wm_card_get_list_card_link,.wm_card_get_list_body a.wm_getlist_link,.wm_card_get_list_body a.goto_wm_chiose_card{
 	color: #ff5364;
@@ -312,7 +330,7 @@ input.wm_card_email:-webkit-autofill {
     height: 38px;
     line-height: 38px;
     border-radius: 5px;
-	cursor: pointer;
+	cursor: url(../icon/cur/pointer.cur),pointer;
 	margin: 20px 0px;
 	display: none;
 }
@@ -333,7 +351,7 @@ input.wm_card_email:-webkit-autofill {
 	opacity: 0.5;
 }
 .selectedcard .inner,.no-selectedcard .inner{
-	cursor: default;
+	cursor: url(../icon/cur/pointer.cur),pointer;
 }
 /* loading */
 #wmCardLoading{
@@ -476,7 +494,7 @@ input.wm_card_email:-webkit-autofill {
     height: 38px;
     line-height: 38px;
     border-radius: 5px;
-		cursor: pointer;
+	cursor: url(../icon/cur/pointer.cur),pointer;
 		margin:0 5px;
 		opacity: 1;
 		transition: all 0.3s linear;
@@ -485,7 +503,7 @@ input.wm_card_email:-webkit-autofill {
 	}
 	.wm_restart_btn[disabled],.wm_get_list_more_btn[disabled]{
 		opacity: 0.3;
-		cursor: default;
+		cursor: url(../icon/cur/default.cur),default;
 	}
   .wm_card_restart_body{
 	  text-align: center;
@@ -562,7 +580,7 @@ input.wm_card_email:-webkit-autofill {
 	.wm_banner_body .swiper-container .swiper-slide img{
 		width: 100%;
 		height: auto;
-		cursor: pointer;
+		cursor: url(../icon/cur/pointer.cur),pointer;
 	}
 	.wm_banner_body{
 		margin: 20px 0;
@@ -609,7 +627,7 @@ input.wm_card_email:-webkit-autofill {
     text-align: center;
 		width: 130px;
 		height: 183px;
-		cursor: pointer;
+		cursor: url(../icon/cur/pointer.cur),pointer;
 		opacity: 0.3;
 	}
 	.wm_mix_card_img_item.card_selected{
@@ -694,7 +712,7 @@ input.wm_card_email:-webkit-autofill {
 		margin: 10px 2%;
 		min-width: 260px;
 		background-image:repeating-linear-gradient(45deg,hsla(0,0%,100%,.3),hsla(0,0%,100%,.3)15px,transparent 0,transparent 30px);
-		cursor: pointer;
+		cursor: url(../icon/cur/pointer.cur),pointer;
 		display: inline-block;
 		width: 46%;
 	}
