@@ -153,13 +153,15 @@ $(document).ready(function(e) {
 			　　　　return false;
 			　　}else{
 					function getPasswordAndDem(){
+						console.log($('#clicaptcha-submit-info').val());
+						var captcha = $('#clicaptcha-submit-info').val();
 						var wmCardStarpath_ = wmCardPluginpath + 'wm_game_demining.php';
 						var wmPassword = $('#wmPassword').val();
 						$('#wmCardLoading').stop(true, false).fadeIn(100);
 						$.ajax({
 							type: 'POST',
 							url: wmCardStarpath_,
-							data: {type:'open',node:wmDMinfo,email:wmEmail,password:wmPassword},
+							data: {type:'open',node:wmDMinfo,email:wmEmail,password:wmPassword,captcha:captcha},
 							success: function(result){
 								if(result.code == 202){
 									if(result.boom==0){
@@ -198,6 +200,8 @@ $(document).ready(function(e) {
 									localStorage.setItem("demining" + md5(wmEmail),result.deminingStamp*1000);
 								}else if(result.code == 0){
 									layer.alert('传入的信息有误，不要搞事情喔！');
+								}else if(result.code == 403){
+									layer.alert('验证失败！请刷新页面后尝试！');
 								}else if(result.code == 101){
 									layer.alert('这片矿区可能已经被人抢先了！重新选择矿区吧！');
 									setwmStarDemMap(result);
@@ -211,9 +215,23 @@ $(document).ready(function(e) {
 							dataType: 'json'
 						});
 					}
+					function wmDeminingCaptchaFcuntion(){
+						if(wmDeminingCaptcha=='1'){
+							$('#clicaptcha-submit-info').clicaptcha({
+								src: wmCardPluginpath + 'clicaptcha/clicaptcha.php',
+								success_tip: '验证成功！',
+								error_tip: '未点中正确区域，请重试！',
+								callback: function(){
+									getPasswordAndDem();
+								}
+							});
+						}else{
+							getPasswordAndDem();
+						}
+					}
 					var deminingTime = Number(localStorage.getItem("demining" + md5(wmEmail)));
 					if(deminingTime == null){
-						getPasswordAndDem();
+						wmDeminingCaptchaFcuntion();
 					}else{
 						var wmNowTime = new Date().getTime();
 						if(wmNowTime - deminingTime <7200*1000){
@@ -222,13 +240,13 @@ $(document).ready(function(e) {
 								btn: ['继续','不了'] //按钮
 								}, function(index){
 									layer.close(index);
-									getPasswordAndDem();
+									wmDeminingCaptchaFcuntion();
 								}, function(){
 									
 								}
 							);
 						}else{
-							getPasswordAndDem();
+							wmDeminingCaptchaFcuntion();
 						}
 
 					}

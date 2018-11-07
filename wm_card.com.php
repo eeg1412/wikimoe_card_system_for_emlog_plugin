@@ -1,1 +1,1 @@
-<?php die; ?>a:4:{s:6:"chance";s:1:"1";s:3:"cdn";s:0:"";s:11:"delDatabase";i:0;s:6:"donate";s:35:"https://www.wikimoe.com/donate.html";}
+<?php die; ?>a:5:{s:6:"chance";s:1:"1";s:3:"cdn";s:0:"";s:11:"delDatabase";i:0;s:15:"deminingCaptcha";s:1:"1";s:6:"donate";s:35:"https://www.wikimoe.com/donate.html";}

@@ -1,4 +1,23 @@
 <?php
+function wmCaptchaCheck($wmCaptcha){
+    require_once('clicaptcha/clicaptcha.class.php');
+    $wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
+    if($wmCard_set['deminingCaptcha']=='1'){
+        if(empty($wmCaptcha)){   
+            return false;
+        }else{
+            $clicaptcha = new clicaptcha();
+            $wmClicaptchaRes =  $clicaptcha->check($wmCaptcha);
+            if(!$wmClicaptchaRes){
+                return false;
+            }else{
+                return true;
+            }
+        }
+    }else{
+        return true;
+    }
+}
 function wmCreatCardId($randomCardRate){
     $randomCardID = null;
     if($randomCardRate>=1&&$randomCardRate<=64){
