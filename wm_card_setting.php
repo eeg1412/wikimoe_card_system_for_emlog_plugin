@@ -50,7 +50,7 @@ function plugin_setting_view(){
                 <label>每日抽卡次数：<input type="text" autocomplete="off" name="chance" value="<?php echo $wmCard_set['chance']; ?>" /></label>
                 <label>卡牌CDN(注意末尾斜杆)：<input type="text" name="cdn" placeholder="不填写则为本地" value="<?php echo $wmCard_set['cdn']; ?>" /></label>
                 <label>关闭插件后删除表(1为删除 0为不删除)：<input type="number" name="delDatabase" autocomplete="off" placeholder="1为删除 0为不删除" value="<?php echo $wmCard_set['delDatabase']; ?>" /></label>
-                <label>设置挖矿设置验证码：(1为设置 0为不设置)：<input type="number" name="deminingCaptcha" autocomplete="off" placeholder="1为设置 0为不设置" value="<?php echo $wmCard_set['deminingCaptcha']; ?>" /></label>
+                <label>挖矿设置验证码(1为设置 0为不设置)：<input type="number" name="deminingCaptcha" autocomplete="off" placeholder="1为设置 0为不设置" value="<?php echo $wmCard_set['deminingCaptcha']; ?>" /></label>
                 <label>捐赠地址：<input type="text" name="donate" placeholder="填写用于捐赠显示的页面地址" value="<?php echo $wmCard_set['donate']; ?>" /></label>
                 <br />
                 <input type="submit" value="更改设置" />
