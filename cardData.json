@@ -672,6 +672,46 @@
 			"title":"超次元游戏：海王星",
 			"name":"尤妮"
 		},
+		"0085": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 2,
+			"cry": 5,
+			"title":"变态王子与不笑猫",
+			"name":"艾玛努爱拉·珀尔拉萝拉"
+		},
+		"0086": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 2,
+			"title":"变态王子与不笑猫",
+			"name":"舞牧麻衣"
+		},
+		"0087": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"四女神Online CYBER DIMENSION NEPTUNE",
+			"name":"布凯"
+		},
+		"0088": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 1,
+			"cry": 4,
+			"title":"四女神Online CYBER DIMENSION NEPTUNE",
+			"name":"黑猫公主"
+		},
+		"0089": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 3,
+			"title":"四女神Online CYBER DIMENSION NEPTUNE",
+			"name":"桐雅"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -1176,6 +1216,38 @@
 			"title":"超次元游戏：海王星",
 			"name":"伊斯特瓦尔"
 		},
+		"1064": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 2,
+			"title":"闪之轨迹",
+			"name":"缪洁·伊格雷特"
+		},
+		"1065": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 1,
+			"cry": 4,
+			"title":"闪之轨迹",
+			"name":"尤娜·克罗弗德"
+		},
+		"1066": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 4,
+			"title":"变态王子与不笑猫",
+			"name":"小豆梓"
+		},
+		"1067": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"变态王子与不笑猫",
+			"name":"筒隐月子"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1560,6 +1632,46 @@
 			"title":"超次元游戏：海王星",
 			"name":"罗姆&拉姆"
 		},
+		"2049": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 4,
+			"title":"闪之轨迹",
+			"name":"提妲·拉塞尔"
+		},
+		"2050": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"闪之轨迹",
+			"name":"亚尔缇娜·奥莱恩"
+		},
+		"2051": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 4,
+			"title":"我的妹妹哪有这么可爱！",
+			"name":"高坂桐乃"
+		},
+		"2052": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 2,
+			"cry": 4,
+			"title":"我的妹妹哪有这么可爱！",
+			"name":"新垣绫濑"
+		},
+		"2053": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 5,
+			"title":"东方Project",
+			"name":"魂魄妖梦"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -1791,6 +1903,14 @@
 			"cry": 4,
 			"title":"NEKOPARA",
 			"name":"巧克力&香草"
+		},
+		"3030": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 4,
+			"title":"东方Project",
+			"name":"雾雨魔理沙"
 		}
 		
 	},
