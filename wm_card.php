@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.7.0
+Version: 2.7.1
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -9,19 +9,19 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.64';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.65';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
 	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.63';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
-	$wmClicaptchaJs = BLOG_URL.'content/plugins/wm_card/clicaptcha/clicaptcha.js';
-	$wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';
+	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
+	// $wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	$wm_card_img_path = empty($wmCard_set['cdn'])?$wm_card_pluginpath.'card/img/':$wmCard_set['cdn'];
 	$wm_donate_el = empty($wmCard_set['donate'])?'':'<div class="swiper-slide" data-type="donate" data-address="'.$wmCard_set['donate'].'"><img src="'.$wm_card_pluginpath.'/banner/banner2.jpg" /></div>';
 	
 	echo '<link href="'.$wm_card_cssfile.'" rel="stylesheet" type="text/css" />';
-	echo '<link href="'.$wmClicaptchaCSS.'" rel="stylesheet" type="text/css" />';
+	// echo '<link href="'.$wmClicaptchaCSS.'" rel="stylesheet" type="text/css" />';
 	echo '<link href="'.$wm_card_layercssfile.'" rel="stylesheet" type="text/css" />';
 	echo '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/css/swiper.min.css" type="text/css" />';
 	echo '<div class="wm_card_big_body">
@@ -294,7 +294,7 @@ function wm_card_loghook() {
 	echo '<script src="'.$wm_card_jsfile.'"></script>';
 	echo '<script>var wmCardPluginpath = "'.$wm_card_pluginpath.'"</script>';
 	echo '<script>var wmCardImgPath = "'.$wm_card_img_path.'"</script>';
-	echo '<script>var wmDeminingCaptcha = "'.$wmCard_set['deminingCaptcha'].'"</script>';
+	echo '<script>var wmDeminingCaptcha = "'.$wmCard_set['deminingCaptcha'].'";var wmDeminingCaptchaAppId = "'.$wmCard_set['appID'].'"</script>';
 }
 addAction('wm_card_plugin','wm_card_loghook');
 function wm_card_menu()

@@ -51,6 +51,9 @@ function plugin_setting_view(){
                 <label>卡牌CDN(注意末尾斜杆)：<input type="text" name="cdn" placeholder="不填写则为本地" value="<?php echo $wmCard_set['cdn']; ?>" /></label>
                 <label>关闭插件后删除表(1为删除 0为不删除)：<input type="number" name="delDatabase" autocomplete="off" placeholder="1为删除 0为不删除" value="<?php echo $wmCard_set['delDatabase']; ?>" /></label>
                 <label>挖矿设置验证码(1为设置 0为不设置)：<input type="number" name="deminingCaptcha" autocomplete="off" placeholder="1为设置 0为不设置" value="<?php echo $wmCard_set['deminingCaptcha']; ?>" /></label>
+                <label>腾讯防水墙App Secret Key：<input type="text" name="appSecretKey" placeholder="请填写App Secret Key" value="<?php echo $wmCard_set['appSecretKey']; ?>" /></label>
+                <label>腾讯防水墙App ID：<input type="text" name="appID" placeholder="请填写App ID" value="<?php echo $wmCard_set['appID']; ?>" /></label>
+                <label>腾讯防水墙注册：<a href="http://007.qq.com" target="_blank">http://007.qq.com</a></label>
                 <label>捐赠地址：<input type="text" name="donate" placeholder="填写用于捐赠显示的页面地址" value="<?php echo $wmCard_set['donate']; ?>" /></label>
                 <br />
                 <input type="submit" value="更改设置" />
@@ -73,6 +76,8 @@ if(!empty($_POST)&&valid_wmtoken()){
                 $delDatabase=empty($_POST['delDatabase'])?0:trim($_POST['delDatabase']);
                 $deminingCaptcha=empty($_POST['deminingCaptcha'])?0:trim($_POST['deminingCaptcha']);
                 $donate=empty($_POST['donate'])?'':trim($_POST['donate']);
+                $appSecretKey=empty($_POST['appSecretKey'])?'':trim($_POST['appSecretKey']);
+                $appID=empty($_POST['appID'])?'':trim($_POST['appID']);
 
                 file_put_contents(dirname(__FILE__).'/wm_card.com.php','<?php die; ?>'.serialize(array(
                 'chance'=>$chance,
@@ -80,6 +85,8 @@ if(!empty($_POST)&&valid_wmtoken()){
                 'delDatabase'=>$delDatabase,
                 'deminingCaptcha'=>$deminingCaptcha,
                 'donate'=>$donate,
+                'appSecretKey'=>$appSecretKey,
+                'appID'=>$appID,
                 )));
                 echo '<div class="success_alert">设置成功</div>'; 
         }else if($_POST['settingType']=='postStar'){

@@ -88,8 +88,11 @@ function wxportWmDeminingGameMap(){
     return $wmExportDeminingGameMap; 
 }
 function wmCheckDemNode($wmClickNode){
-    $wmCaptcha = $_POST['captcha'];
-    if(!wmCaptchaCheck($wmCaptcha)){
+    // $wmCaptcha = $_POST['captcha'];
+    $Ticket = strip_tags($_POST['Ticket']);
+    $Randstr = strip_tags($_POST['Randstr']);
+    $UserIP = getIp();
+    if(!wmCaptchaCheck($Ticket,$Randstr,$UserIP)){
         $wmNodeData = array('code'=>403);//验证码失败
         echo json_encode($wmNodeData);
         return false;
