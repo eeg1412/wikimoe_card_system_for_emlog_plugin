@@ -97,19 +97,19 @@ function wmCreatCardId($randomCardRate){
     $randomCardID = null;
     if($randomCardRate>=1&&$randomCardRate<=64){
         //N
-        $randomCardN_ = mt_rand(1, 89);
+        $randomCardN_ = mt_rand(1, 93);
         $randomCardID = '0'.sprintf("%03d", $randomCardN_);
     }else if($randomCardRate>=65&&$randomCardRate<=86){
         //R
-        $randomCardR_ = mt_rand(1, 67);
+        $randomCardR_ = mt_rand(1, 74);
         $randomCardID = '1'.sprintf("%03d", $randomCardR_);
     }else if($randomCardRate>=87&&$randomCardRate<=97){
         //SR
-        $randomCardSR_ = mt_rand(1, 53);
+        $randomCardSR_ = mt_rand(1, 57);
         $randomCardID = '2'.sprintf("%03d", $randomCardSR_);
     }else if($randomCardRate>97){
         //SSR
-        $randomCardSSR_ = mt_rand(1, 30);
+        $randomCardSSR_ = mt_rand(1, 31);
         $randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
     }
     return $randomCardID;

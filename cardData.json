@@ -712,6 +712,38 @@
 			"title":"四女神Online CYBER DIMENSION NEPTUNE",
 			"name":"桐雅"
 		},
+		"0090": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 6,
+			"cry": 4,
+			"title":"天使的3P!",
+			"name":"贯井胡桃"
+		},
+		"0091": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"天使的3P!",
+			"name":"尾城小梅&相江柚叶"
+		},
+		"0092": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"闪之轨迹",
+			"name":"艾奈丝"
+		},
+		"0093": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 2,
+			"title":"闪之轨迹",
+			"name":"安妮雅"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -1248,6 +1280,62 @@
 			"title":"变态王子与不笑猫",
 			"name":"筒隐月子"
 		},
+		"1068": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"天使的3P!",
+			"name":"五岛润"
+		},
+		"1069": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"天使的3P!",
+			"name":"红叶谷希美"
+		},
+		"1070": {
+			"star": 4,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"天使的3P!",
+			"name":"金城空"
+		},
+		"1071": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 2,
+			"title":"你的名字。",
+			"name":"宫水三叶"
+		},
+		"1072": {
+			"star": 4,
+			"leftType": 4,
+			"rightType": 6,
+			"cry": 2,
+			"title":"萝球社！",
+			"name":"永冢纱季"
+		},
+		"1073": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 1,
+			"title":"萝球社！",
+			"name":"香椎爱莉"
+		},
+		"1074": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"萝球社！",
+			"name":"三泽真帆"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1672,6 +1760,38 @@
 			"title":"东方Project",
 			"name":"魂魄妖梦"
 		},
+		"2054": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"缘之空",
+			"name":"春日野穹"
+		},
+		"2055": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"黄金拼图",
+			"name":"田中真奈美"
+		},
+		"2056": {
+			"star": 5,
+			"leftType": 5,
+			"rightType": 4,
+			"cry": 4,
+			"title":"萝球社！",
+			"name":"袴田日向"
+		},
+		"2057": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"萝球社！",
+			"name":"凑智花"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -1911,6 +2031,14 @@
 			"cry": 4,
 			"title":"东方Project",
 			"name":"雾雨魔理沙"
+		},
+		"3031": {
+			"star": 6,
+			"leftType": 1,
+			"rightType": 7,
+			"cry": 5,
+			"title":"Fate/kaleid liner 魔法少女☆伊莉雅",
+			"name":"伊莉雅丝菲尔·冯·爱因兹贝伦"
 		}
 		
 	},
