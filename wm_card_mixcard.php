@@ -5,6 +5,7 @@ function mixCard(){
     $data = null;
     $emailAddr = strip_tags($_POST['email']);
     $password = strip_tags($_POST['password']);
+    $rememberPass = intval($_POST['rememberPass']);
     $cardIDArr = explode(",",strip_tags($_POST['cardID']));//1001,1002,1003
     $cardCountArr = explode(",",strip_tags($_POST['cardCount']));//1,2,1
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
@@ -21,12 +22,18 @@ function mixCard(){
                     if($password==$bdPassword&&$bdPassword!=0){
                         $timeStamp = time();
                         $passwordTime = intval($mgidinfo['verifyCodeStamp']);
-                        if(($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0){
+                        $verifyCodeRemember = intval($mgidinfo['verifyCodeRemember']);
+                        if((($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0)||$verifyCodeRemember==1){
                             $json_string = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
                             $useCardNumber = 0;
                             $addStarCount = 0;//增加的星星
                             $originCarID = $mgidinfo['cardID'];
                             $originCardCount = $mgidinfo['cardCount'];
+                            //如果保存密码的话则verifyCodeRemember为1
+                            $verifyCodeRemember = 0;
+                            if($rememberPass==1){
+                                $verifyCodeRemember = 1;
+                            }
                             //循环遍历卡组
                             $originCarIDArr = explode(",",$originCarID);//1001,1002,1003
                             $originCarCountArr = explode(",",$originCardCount);//1,2,1
@@ -65,7 +72,7 @@ function mixCard(){
                                 $originCardCountText = implode(",",$originCarCountArr);
                                 //写入数据库
                                 $starCount = intval($mgidinfo['starCount'])+$addStarCount;
-                                $query = "Update ".DB_PREFIX."wm_card set cardCount='".$originCardCountText."' , starCount=".$starCount." where email=".$emailAddrMd5."";
+                                $query = "Update ".DB_PREFIX."wm_card set verifyCodeRemember='".$verifyCodeRemember."' , cardCount='".$originCardCountText."' , starCount=".$starCount." where email=".$emailAddrMd5."";
                                 $result=$DB->query($query);
                                 $data = json_encode(array('code'=>"202",'addStar'=>$addStarCount,'starCount'=>$starCount,'useCardNumbe'=>$useCardNumber)); //成功
                                 $cardJsonData = array('mailMD5'=>md5($emailAddr),'addStar'=>$addStarCount,'useCardNumbe'=>$useCardNumber,'massageType'=>'mixcard');

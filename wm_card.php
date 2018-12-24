@@ -9,10 +9,10 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.65';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.66';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.63';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.64';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
 	// $wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';
@@ -46,7 +46,10 @@ function wm_card_loghook() {
 					</div>
 				</div>
 				<div class="wm_card_mailcheck" id="wmMailCheckBody">
-					<input type="password" name="email" class="wm_card_email_starshop" id="wmPassword" placeholder="请输入动态密码"><button type="button" class="wm_search_star_btn" id="wmGetPassword" data-email="">获取</button>
+					<input type="password" name="email" class="wm_card_email_starshop" id="wmPassword" placeholder="请输入密码或动态密码"><button type="button" class="wm_search_star_btn" id="wmGetPassword" data-email="">获取</button>
+					<div class="wm_card_remember_body type_left">
+						<div class="wm_card_remember_box" title="公共场合慎用！" id="wmRememberPass">保存并永久使用该动态密码</div>
+					</div>
 				</div>
 				<div class="wm_card_cardmix_input_body" id="wmCardMixInputBody">
 					<input type="text" name="email" class="wm_card_email_cardmix" id="wmCardMixInput" placeholder="请先输入邮箱查询卡牌" />

@@ -562,6 +562,9 @@ input.wm_card_email:-webkit-autofill {
 		padding: 20px;
 		text-align: center;
 	}
+	.wm_card_mailcheck{
+		padding-bottom: 0px;
+	}
 	#wmMailCheckBody,#starshopBody{
 		display: none;
 	}
@@ -872,6 +875,9 @@ input.wm_card_email:-webkit-autofill {
 	.wm_card_remember_body{
 		text-align: center;
 		margin-top: 8px;
+	}
+	.wm_card_remember_body.type_left{
+		text-align: left;
 	}
 	.wm_card_remember_box{
 		font-size: 14px;

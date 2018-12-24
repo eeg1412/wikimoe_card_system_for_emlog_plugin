@@ -21,6 +21,7 @@ function callback_init(){
 		`exData` longtext NOT NULL,
 		`starCount` bigint(20) NOT NULL default '0',
 		`verifyCode` int(10) NOT NULL default '0',
+		`verifyCodeRemember` int(10) NOT NULL default '0',
 		`verifyCodeStamp` bigint(20) NOT NULL,
 		`verifyCodeCount` int(10) NOT NULL,
 		`deminingStamp` bigint(20) NOT NULL,

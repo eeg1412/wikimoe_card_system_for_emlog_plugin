@@ -59,6 +59,28 @@ $(document).ready(function(e) {
 			$(this).addClass('active');
 		}
 	});
+	$('#wmRememberPass').on('click',function(){
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}else{
+			$(this).addClass('active');
+		}
+	});
+	// 设置默认密码
+	function wmSetDefaultPassWord(passWord){
+		$('#wmPassword').val(passWord);
+		localStorage.setItem("wmSetDefaultMaillPassWord", passWord);
+		$('#wmRememberPass').addClass('active');
+	};
+	function wmDelDefaultMaillPassWord(){
+		localStorage.removeItem("wmSetDefaultMaillPassWord");
+	}
+	function wmSetStoragePassWord(){
+		var wmStorangePassWord = localStorage.getItem("wmSetDefaultMaillPassWord");
+		if(wmStorangePassWord!=null&&wmStorangePassWord!=undefined&&wmStorangePassWord!=''){
+			wmSetDefaultPassWord(wmStorangePassWord);
+		}
+	}
 	//设置默认邮箱地址
 	function wmSetDefaultMaillAddress(mailAddr){
 		$('#wm_card_email').val(mailAddr);
@@ -84,6 +106,8 @@ $(document).ready(function(e) {
 	}
 	// 判断是否有缓存地址
 	wmSetsessionStorageMail();
+	// 判断是否保存密码
+	wmSetStoragePassWord();
 	// 挖星星
 	function getwmStarDemMap(){
 
@@ -497,7 +521,7 @@ $(document).ready(function(e) {
 				data: {email:wmStarSearchInput},
 				success: function(result){
 					if(result.code=="1"){
-						layer.alert('邮件发送成功！如果长时间没有收到请检查是否进入了垃圾邮件中。');
+						layer.alert('动态密码已经成功发送到邮箱！如果长时间没有收到请检查是否进入了垃圾邮件中。');
 					}else if(result.code=="0"){
 						layer.alert('邮件发送失败！');
 					}else if(result.code=="2"){
@@ -573,7 +597,7 @@ $(document).ready(function(e) {
 					$('#wmGetPassword').attr('data-email',$('#wm_my_star').attr('data-mail'));
 					layer.open({
 						type: 1,
-						title:'请输入动态密码',
+						title:'请输入密码或动态密码',
 						zIndex:1003,
 						content:$('#wmMailCheckBody'),
 						btn: ['确定','取消'], //按钮
@@ -589,18 +613,27 @@ $(document).ready(function(e) {
 								layer.alert("邮箱地址有误!");
 						　　　　return false;
 						　　}else if(empassword==''){
-								layer.alert("请输入动态密码!");
+								layer.alert("请输入密码!");
 							　　return false;
 							}else{
 								var wmCardStarpath_ = wmCardPluginpath + 'wm_card_buy.php';
 								$('#wmCardLoading').stop(true, false).fadeIn(100);
+								var wmRememberPass = 0;
+								if($('#wmRememberPass').hasClass('active')){
+									wmRememberPass = 1;
+								}
 								$.ajax({
 									type: 'POST',
 									url: wmCardStarpath_,
-									data: {email:embuyemail,password:empassword,type:emBuyType},
+									data: {email:embuyemail,password:empassword,type:emBuyType,rememberPass:wmRememberPass},
 									success: function(result){
 										$('#wmCardLoading').stop(true, false).fadeOut(100);
 										if(result.code=="202"){
+											if($('#wmRememberPass').hasClass('active')){
+												wmSetDefaultPassWord(empassword)
+											}else{
+												wmDelDefaultMaillPassWord();
+											}
 											if(result.buyClass == 2){
 												$('#wmCardChainChoiseList').empty();
 												for(var i=0;i<result.card.length;i++){
@@ -839,7 +872,7 @@ $(document).ready(function(e) {
 		console.log(wmSendCardCount);
 		layer.open({
 			type: 1,
-			title:'请输入动态密码',
+			title:'请输入密码或动态密码',
 			zIndex:1003,
 			content:$('#wmMailCheckBody'),
 			btn: ['确定','取消'], //按钮
@@ -854,18 +887,27 @@ $(document).ready(function(e) {
 					layer.alert("邮箱地址有误!");
 			　　　　return false;
 			　　}else if(wmMixcardPassword==''){
-					layer.alert("请输入动态密码!");
+					layer.alert("请输入密码!");
 				　　return false;
 				}else{
 					var wmCardStarpath_ = wmCardPluginpath + 'wm_card_mixcard.php';
 					$('#wmCardLoading').stop(true, false).fadeIn(100);
+					var wmRememberPass = 0;
+					if($('#wmRememberPass').hasClass('active')){
+						wmRememberPass = 1;
+					}
 					$.ajax({
 						type: 'POST',
 						url: wmCardStarpath_,
-						data: {email:wmMixcardEmail,password:wmMixcardPassword,cardID:wmSendCardID,cardCount:wmSendCardCount},
+						data: {email:wmMixcardEmail,password:wmMixcardPassword,cardID:wmSendCardID,cardCount:wmSendCardCount,rememberPass:wmRememberPass},
 						success: function(result){
 							$('#wmCardLoading').stop(true, false).fadeOut(100);
 							if(result.code=="202"){
+								if($('#wmRememberPass').hasClass('active')){
+									wmSetDefaultPassWord(wmMixcardPassword);
+								}else{
+									wmDelDefaultMaillPassWord();
+								}
 								layer.confirm('成功分解了'+result.useCardNumbe+'张卡牌，获得了'+result.addStar+'颗星星！您现在剩余星星数量有'+result.starCount+'颗了！', {
 									btn: ['确定']
 									,btn1: function(index){

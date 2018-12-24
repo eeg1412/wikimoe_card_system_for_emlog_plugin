@@ -5,6 +5,7 @@ function buyCard(){
     $emailAddr = strip_tags($_POST['email']);
     $buyType = intval($_POST['type']);
     $password = intval($_POST['password']);
+    $rememberPass = intval($_POST['rememberPass']);
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
     $data = null;
     if(isset($emailAddr) && $emailAddr!=""){
@@ -18,14 +19,19 @@ function buyCard(){
                 if($password==$bdPassword&&$bdPassword!=0){
                     $timeStamp = time();
                     $passwordTime = intval($mgidinfo['verifyCodeStamp']);
-                    if(($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0){
+                    $verifyCodeRemember = intval($mgidinfo['verifyCodeRemember']);
+                    if((($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0)||$verifyCodeRemember==1){
                         $randomCardRate = mt_rand(1, 100);
                         $starFlag = false;//true为星星不足
                         $starCount = intval ($mgidinfo['starCount']);
                         $shouldStar = 9999;
                         $buyClass = 0;//哪一类型的商品，1为指定抽卡、2为连抽、3为CD相关商品
                         $chinChioseCardNum = 0;//连抽几次
-
+                        //如果保存密码的话则verifyCodeRemember为1
+                        $verifyCodeRemember = 0;
+                        if($rememberPass==1){
+                            $verifyCodeRemember = 1;
+                        }
                         if($buyType==3){
                             $shouldStar = 30;
                             $buyClass = 1;
@@ -94,7 +100,7 @@ function buyCard(){
                             if($starCountAfter<0){
                                 $starCountAfter = 0;
                             }
-                            $query = "Update ".DB_PREFIX."wm_card set cardID='".$originCarIDText."' , cardCount='".$originCardCountText."' , starCount=".$starCountAfter." where email=".$emailAddrMD5."";
+                            $query = "Update ".DB_PREFIX."wm_card set verifyCodeRemember='".$verifyCodeRemember."' , cardID='".$originCarIDText."' , cardCount='".$originCardCountText."' , starCount=".$starCountAfter." where email=".$emailAddrMD5."";
                             $result=$DB->query($query);
 
                             $json_string = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
@@ -125,7 +131,7 @@ function buyCard(){
                             if($starCountAfter<0){
                                 $starCountAfter = 0;
                             }
-                            $query = "Update ".DB_PREFIX."wm_card set cardID='".$originCarID."' , cardCount='".$originCardCount."' , starCount=".$starCountAfter." where email=".$emailAddrMD5."";
+                            $query = "Update ".DB_PREFIX."wm_card set verifyCodeRemember='".$verifyCodeRemember."' , cardID='".$originCarID."' , cardCount='".$originCardCount."' , starCount=".$starCountAfter." where email=".$emailAddrMD5."";
                             $result=$DB->query($query);
                             $data = json_encode(array('code'=>"202" , 'card'=>$chainChioseCardId ,'starCountAfter'=>$starCountAfter ,'buyClass'=>$buyClass));
 
@@ -160,7 +166,7 @@ function buyCard(){
     }
     echo $data;
 }
-if(isset($_POST['email'])&&isset($_POST['password'])&&isset($_POST['type'])){
+if(isset($_POST['email'])&&isset($_POST['password'])&&isset($_POST['type'])&&isset($_POST['rememberPass'])){
     buyCard();
 }
 
