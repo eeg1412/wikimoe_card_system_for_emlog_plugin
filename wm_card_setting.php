@@ -47,7 +47,8 @@ function plugin_setting_view(){
         <form class="card_setting" method="post">  
                 <input type="hidden" name="wmtoken" value="<?php echo $_SESSION['wmtoken']?>">
                 <input type="hidden" name="settingType" value="setting" />
-                <label>每日抽卡次数：<input type="text" autocomplete="off" name="chance" value="<?php echo $wmCard_set['chance']; ?>" /></label>
+                <label>每日抽卡次数：<input type="number" autocomplete="off" name="chance" value="<?php echo $wmCard_set['chance']; ?>" /></label>
+                <label>挖矿所获星星倍率：<input type="number" autocomplete="off" name="deminingStar" value="<?php echo $wmCard_set['deminingStar']; ?>" /></label>
                 <label>卡牌CDN(注意末尾斜杆)：<input type="text" name="cdn" placeholder="不填写则为本地" value="<?php echo $wmCard_set['cdn']; ?>" /></label>
                 <label>关闭插件后删除表(1为删除 0为不删除)：<input type="number" name="delDatabase" autocomplete="off" placeholder="1为删除 0为不删除" value="<?php echo $wmCard_set['delDatabase']; ?>" /></label>
                 <label>挖矿设置验证码(1为设置 0为不设置)：<input type="number" name="deminingCaptcha" autocomplete="off" placeholder="1为设置 0为不设置" value="<?php echo $wmCard_set['deminingCaptcha']; ?>" /></label>
@@ -71,7 +72,8 @@ function plugin_setting_view(){
 
 if(!empty($_POST)&&valid_wmtoken()){
         if($_POST['settingType']=='setting'){
-                $chance=empty($_POST['chance'])?'':trim($_POST['chance']);
+                $chance=empty(intval($_POST['chance']))?'1':trim($_POST['chance']);
+                $deminingStar=empty(intval($_POST['deminingStar']))?'1':trim($_POST['deminingStar']);
                 $cdn=empty($_POST['cdn'])?'':trim($_POST['cdn']);
                 $delDatabase=empty($_POST['delDatabase'])?0:trim($_POST['delDatabase']);
                 $deminingCaptcha=empty($_POST['deminingCaptcha'])?0:trim($_POST['deminingCaptcha']);
@@ -81,6 +83,7 @@ if(!empty($_POST)&&valid_wmtoken()){
 
                 file_put_contents(dirname(__FILE__).'/wm_card.com.php','<?php die; ?>'.serialize(array(
                 'chance'=>$chance,
+                'deminingStar'=>$deminingStar,
                 'cdn'=>$cdn,
                 'delDatabase'=>$delDatabase,
                 'deminingCaptcha'=>$deminingCaptcha,

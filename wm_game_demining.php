@@ -141,6 +141,10 @@ function wmCheckDemNode($wmClickNode){
                                 $wmNodeDataStatu = 1;//中了！
                                 $boomedNum = $boomedNum+1;
                                 $randomStar = mt_rand(10,40);
+                                $wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
+                                if(intval($wmCard_set['deminingStar'])>1){
+                                    $randomStar = $randomStar * intval($wmCard_set['deminingStar']);
+                                }
                             }
                             if($boomedNum == $num){
                                 deminingInit();

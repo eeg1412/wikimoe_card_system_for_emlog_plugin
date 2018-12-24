@@ -1,1 +1,1 @@
-<?php die; ?>a:5:{s:6:"chance";s:1:"1";s:3:"cdn";s:0:"";s:11:"delDatabase";i:0;s:15:"deminingCaptcha";s:1:"1";s:6:"donate";s:35:"https://www.wikimoe.com/donate.html";}
+<?php die; ?>a:8:{s:6:"chance";s:1:"1";s:12:"deminingStar";s:1:"1";s:3:"cdn";s:0:"";s:11:"delDatabase";i:0;s:15:"deminingCaptcha";i:0;s:6:"donate";s:35:"https://www.wikimoe.com/donate.html";s:12:"appSecretKey";s:0:"";s:5:"appID";s:0:"";}
