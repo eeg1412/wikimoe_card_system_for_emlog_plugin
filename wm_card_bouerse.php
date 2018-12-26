@@ -1,5 +1,6 @@
 <?php
-require_once('../../../init.php');	
+require_once('../../../init.php');
+require_once('module.php');
 function wmBouerse($getMode){
     if(file_exists('bouerse.json')){//判断json文件是否存在
 		$bourseList = json_decode(file_get_contents('bouerse.json'),true);
@@ -13,8 +14,17 @@ function wmBouerse($getMode){
 			$bourseList = $bourseList['data'];
 			for($j=0;$j<$bourseRunTime;$j++){
 				for($i=0; $i<count($bourseList); $i++){
-					$upOrDown = BouerseGailv();
-					$upDownLiang = mt_rand(1, 5);
+					$gailvYinzi = 0;
+					if($bourseList[$i]['preTrans']!=0){
+						$gailvYinzi = $bourseList[$i]['trans'] - $bourseList[$i]['preTrans'];
+						if($gailvYinzi>200){
+							$gailvYinzi = 200;
+						}else if($gailvYinzi<-200){
+							$gailvYinzi = -200;
+						}
+					}
+					$upOrDown = BouerseGailv($gailvYinzi);
+					$upDownLiang = mt_rand(0, 5);
 					if($upOrDown===0){
 						$bourseList[$i]['prePrice'] = $bourseList[$i]['price'];
 						$bourseList[$i]['price'] = $bourseList[$i]['price'] + $upDownLiang>999?999:$bourseList[$i]['price'] + $upDownLiang;
@@ -30,6 +40,7 @@ function wmBouerse($getMode){
 							array_shift($bourseList[$i]['history']);
 						}
 					}
+					$bourseList[$i]['preTrans'] = $bourseList[$i]['trans'];
 				}
 			}
 			$bourseNowTime_ = intval($bourseNowTime - ($bourseNowTime%1800));//矫正到三十分
@@ -85,9 +96,10 @@ function initBouerse(){
 	$initBouerseData['updateTime'] = $initNowTime - ($initNowTime % 1800);
     file_put_contents('bouerse.json', json_encode($initBouerseData),LOCK_EX);
 }
-function BouerseGailv(){
-    $randN = mt_rand(1, 1000);
-    if($randN>400){
+function BouerseGailv($gailvYinzi){
+	$randN = mt_rand(1, 1000);
+	
+    if($randN>(500-$gailvYinzi)){
         return 0;
     }else{
         return 1;
@@ -114,8 +126,8 @@ function wmBuyBouerse(){
 						$buyId = intval($_POST['id']);
 						$buyPrice = intval($_POST['price']);
 						$buyValue = intval($_POST['value']);
-						$bourseList = json_decode(file_get_contents('bouerse.json'),true);
-						$bourseList = $bourseList['data'];
+						$bourseListOrigin = json_decode(file_get_contents('bouerse.json'),true);
+						$bourseList = $bourseListOrigin['data'];
 						$myStar = intval($mgidinfo['starCount']);
 						if(!isset($bourseList[$buyId])){
 							
@@ -123,7 +135,7 @@ function wmBuyBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<20){
+						if($bourseList[$buyId]['price']<15){
 							$bouerseOutData = array('code'=>5);//价格过低无法购买
 							echo json_encode($bouerseOutData);
 							return false;
@@ -168,6 +180,11 @@ function wmBuyBouerse(){
 						if($rememberPass==1){
 							$verifyCodeRemember = 1;
 						}
+						$wmBourseNowTrans = $bourseListOrigin['data'][$buyId]['trans'] + $buyValue;
+						$bourseListOrigin['data'][$buyId]['trans'] = $wmBourseNowTrans;
+						file_put_contents('bouerse.json', json_encode($bourseListOrigin),LOCK_EX);
+						$cardJsonData = array('mailMD5'=>md5($emailAddr),'name'=>$bourseList[$buyId]['name'],'value'=>$buyValue,'useStar'=>$shoudStar,'massageType'=>'bouerseBuy');
+						wmWriteJson($cardJsonData);
 						$query = "Update ".DB_PREFIX."wm_card set verifyCodeRemember='".$verifyCodeRemember."' , starCount=".$starCountAfter." , bouerse='".$databaseBouerse."' where email=".$emailAddrMd5."";
 						$result=$DB->query($query);
 						$bouerseOutData = array('code'=>202);//成功
@@ -216,8 +233,8 @@ function wmSellBouerse(){
 						$buyId = intval($_POST['id']);
 						$buyPrice = intval($_POST['price']);
 						$buyValue = intval($_POST['value']);
-						$bourseList = json_decode(file_get_contents('bouerse.json'),true);
-						$bourseList = $bourseList['data'];
+						$bourseListOrigin = json_decode(file_get_contents('bouerse.json'),true);
+						$bourseList = $bourseListOrigin['data'];
 						$myStar = intval($mgidinfo['starCount']);
 						if(!isset($bourseList[$buyId])){
 							
@@ -257,6 +274,11 @@ function wmSellBouerse(){
 						if($rememberPass==1){
 							$verifyCodeRemember = 1;
 						}
+						$wmBourseNowTrans = $bourseListOrigin['data'][$buyId]['trans'] - $buyValue;
+						$bourseListOrigin['data'][$buyId]['trans'] = $wmBourseNowTrans;
+						file_put_contents('bouerse.json', json_encode($bourseListOrigin),LOCK_EX);
+						$cardJsonData = array('mailMD5'=>md5($emailAddr),'name'=>$bourseList[$buyId]['name'],'value'=>$buyValue,'useStar'=>$getStar,'massageType'=>'bouerseSell');
+						wmWriteJson($cardJsonData);
 						$query = "Update ".DB_PREFIX."wm_card set verifyCodeRemember='".$verifyCodeRemember."' , starCount=".$starCountAfter." , bouerse='".$databaseBouerse."' where email=".$emailAddrMd5."";
 						$result=$DB->query($query);
 						$bouerseOutData = array('code'=>202);//成功

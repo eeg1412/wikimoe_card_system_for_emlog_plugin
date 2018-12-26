@@ -1631,3 +1631,28 @@ transform:translate(0) rotate(0deg)
 .wm_card_bouerse_tip{
 	padding: 10px 0;
 }
+.wm_card_bouerse_detail_img_box{
+	height: 100px;
+	text-align: center;
+}
+.wm_card_bouerse_detail_img_box .wm_card_bouerse_ico{
+	width: 100px;
+	height: 100px;
+}
+.wm_card_bouers_info_table{
+	width: 100%;
+    margin: 20px auto 0 auto;
+}
+.wm_card_bouers_info_table th,.wm_card_bouers_info_table td{
+	padding: 8px;
+    border: 1px solid #ccc;
+	text-align: left;
+}
+.wm_card_bouers_info_table th{
+	width: 72px;
+    background-color: #e5e5e5;
+}
+.bouerse_should_star_body{
+	padding-top: 10px;
+    margin-bottom: -20px;
+}

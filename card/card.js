@@ -99,14 +99,15 @@ $(document).ready(function(e) {
 								}
 							}
 							var wmBouerseHistory = JSON.stringify(result.listData.data[i].history);
-							var bouerseHtml = '<tr data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+i+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
+							var wmBouerseInfo = [result.listData.data[i].price,bouerseZD,result.listData.data[i].trans,wmBuyed].join(',');
+							var bouerseHtml = '<tr data-info="'+wmBouerseInfo+'" data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+i+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
 							$('#wmBouersTable tbody').append(bouerseHtml);
 						}
 						$('#wm_my_star_bouerse').text(result.starCount);
 						if(index!==null){
 							layer.open({
 								type: 1,
-								title:'星星股市',
+								title:'星星股票交易所',
 								maxWidth:'100%',
 								zIndex:1003,
 								content:$('#wmBouerseBody'),
@@ -158,13 +159,26 @@ $(document).ready(function(e) {
 		myChart.setOption(option);
 	};
 	//按钮绑定
+	$('#wmBouerseBuySellInput').on('input',function(){
+		var wmBouerseBuySellInput = Number($('#wmBouerseBuySellInput').val());
+		if(isNaN(wmBouerseBuySellInput)){
+			$('#bouerseShouldStarCount').text('0');
+		}else{
+			wmBouerseBuySellInput = Math.floor(wmBouerseBuySellInput);
+			$('#wmBouerseBuySellInput').val(wmBouerseBuySellInput);
+			$('#bouerseShouldStarCount').text(Number($('#wmBouerseChartOneInfo').attr('data-price'))*wmBouerseBuySellInput);
+		}
+	});
 	$('#wmBouersTable tbody').on('click','tr',function(){
 		var name_ = $(this).attr('data-name');
 		var data_ = JSON.parse($(this).attr('data-history'));
 		var id_ = $(this).attr('data-id');
-		$('#wmBouerseChartOneInfo').text('当前价格：'+data_[data_.length-1]);
+		var wmBouerserInfoArr = $(this).attr('data-info').split(',');
+		// $('#wmBouerseChartOneInfo').text('当前价格：'+data_[data_.length-1]);
 		$('#wmBouerseChartOneInfo').attr('data-price',data_[data_.length-1]);
 		$('#wmBouerseBuySellInput').attr('data-id',id_);
+		$('#wmCardBouerseDetailImgBox').empty().html('<img class="wm_card_bouerse_ico" src="'+wmCardPluginpath+'icon/bouerse/'+id_+'.jpg" />');
+		$('#wmBouersInfoTable tbody').empty().html('<tr><th>名称：</th><td>'+name_+'</td></tr><tr><th>价格：</th><td>'+wmBouerserInfoArr[0]+'</td></tr><tr><th>涨跌：</th><td>'+wmBouerserInfoArr[1]+'</td></tr><tr><th>持有：</th><td>'+wmBouerserInfoArr[3]+'</td></tr><tr><th>成交量：</th><td>'+wmBouerserInfoArr[2]+'</td></tr><tr><th>星星：</th><td>'+$('#wm_my_star_bouerse').text()+'</td></tr>')
 		layer.open({
 			type: 1,
 			title:name_,
@@ -177,22 +191,25 @@ $(document).ready(function(e) {
 			},
 			btn2 :function(index){
 				wmBouerseGoTrans('sell',index);
+				return false;
 			}
 		});
 		wmPaintChart(name_,data_);
 	});
 	function wmBouerseGoTrans(type_,windowId){
 		$('#wmBouerseBuySellInput').attr('data-type',type_);
+		$('#wmBouerseBuySellInput').val('');
+		$('#bouerseShouldStarCount').text('0');
 		layer.open({
 			type: 1,
-			title:'请输入交易金额',
+			title:'请输入购买份数',
 			zIndex:1005,
 			content:$('#wmBouerseBuySellInputBody'),
 			btn: ['确定','取消'], //按钮
 			btn1 :function(index){
 				var wmBouerseVal = Math.floor($('#wmBouerseBuySellInput').val());
 				if(isNaN(wmBouerseVal)||wmBouerseVal==0){
-					layer.alert('交易金额有误！');
+					layer.alert('请输入0以上的数字！');
 				}else{
 					$('#wmBouerseBuySellInput').val(wmBouerseVal);
 					$('#wmGetPassword').attr('data-email',$('#wmBouerseInput').val());
@@ -247,6 +264,7 @@ $(document).ready(function(e) {
 											layer.close(index);
 											layer.close(windowId);
 											wmGetBouerseInfo(null);
+											getNewCardList();
 										}else if(result.code==3){
 											layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
 										}else if(result.code==2){
@@ -1252,7 +1270,7 @@ $(document).ready(function(e) {
 	function getwmBouerse(){
 		layer.open({
 			type: 1,
-			title:'查询股市',
+			title:'查询股票',
 			zIndex:1003,
 			content:$('#wmBouerseInputBody'),
 			btn: ['查询','取消'], //按钮
@@ -1536,6 +1554,10 @@ $(document).ready(function(e) {
 						listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我尝试在<a href="javascript:;" class="wm_getlist_link wm_goto_stardemining">星星矿场</a>挖星星，'+wmBoomExpText+'但是很可惜什么都没挖到。根据探测器显示我的周围什么都没有，所以大家还是别来凑热闹了……</div></div>';
 					}
 				}
+			}else if(wmNewListInfoArr[i].massageType=='bouerseBuy'){
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>花了'+wmNewListInfoArr[i].useStar+'颗星星买入了'+wmNewListInfoArr[i].value+'份'+wmNewListInfoArr[i].name+'股，省吃俭用入股市，但愿大涨把卡抽！</div></div>';
+			}else if(wmNewListInfoArr[i].massageType=='bouerseSell'){
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>卖了'+wmNewListInfoArr[i].value+'份'+wmNewListInfoArr[i].name+'股，换取了'+wmNewListInfoArr[i].useStar+'颗星星，是时候收割一波换星星了！</div></div>';
 			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);
@@ -1551,6 +1573,10 @@ $(document).ready(function(e) {
 		}
 		$('#wm_get_list_more_btn').removeAttr('disabled');
 	}
+	//点击去星星股市
+	$('#wmCardGetList').on('click','.wm_goto_starbouerse',function(){
+		$('#wmBannerBody .swiper-slide[data-type="bouerse"]').eq(0).trigger('click');
+	});
 	//点击去星星矿场
 	$('#wmCardGetList').on('click','.wm_goto_stardemining',function(){
 		$('#wmBannerBody .swiper-slide[data-type="starDemining"]').eq(0).trigger('click');

@@ -9,11 +9,11 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.66';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.67';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
 	$wm_card_echartjsfile = BLOG_URL.'content/plugins/wm_card/echart/echarts.simple.min.js';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.64';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.65';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
 	// $wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';
@@ -56,7 +56,10 @@ function wm_card_loghook() {
 					<input type="text" name="email" class="wm_card_email_cardmix" id="wmCardMixInput" placeholder="请先输入邮箱查询卡牌" />
 				</div>
 				<div class="wm_card_bouerse_buysell_input_body" id="wmBouerseBuySellInputBody">
-					<input type="number" name="buysell" data-type="buy" data-id="0" class="wm_card_bouerse_buysell_input" id="wmBouerseBuySellInput" placeholder="请输入交易金额" />
+					<input type="number" name="buysell" data-type="buy" data-id="0" class="wm_card_bouerse_buysell_input" id="wmBouerseBuySellInput" placeholder="请输入购买份数" />
+					<div class="bouerse_should_star_body">
+						<div>= <span id="bouerseShouldStarCount">0</span> 颗星星</div>
+					</div>
 				</div>
 				<div class="wm_card_bouerse_input_body" id="wmBouerseInputBody">
 					<input type="text" name="email" class="wm_card_email_bouerse" id="wmBouerseInput" placeholder="请先输入邮箱查询股市" />
@@ -81,8 +84,13 @@ function wm_card_loghook() {
 					</table>
 				</div>
 				<div class="wm_card_bouerse_chart_body" id="wmBouerseChartBody">
-					<div class="wm_star_count_body" id="wmBouerseChartOneInfo">
-						
+					<div class="wm_card_bouerse_detail_img_box" id="wmCardBouerseDetailImgBox"></div>
+					<div class="wm_card_bouerse_detail_info_box" id="wmBouerseChartOneInfo">
+						<table class="wm_card_bouers_info_table" id="wmBouersInfoTable">
+							<tbody>
+								
+							</tbody>
+						</table>
 					</div>
 					<div id="wmBouerseChartBox">
 					</div>
@@ -274,7 +282,7 @@ function wm_card_loghook() {
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" data-type="bouerse">
-							<img src="'.$wm_card_pluginpath.'/banner/banner4.jpg" />
+							<img src="'.$wm_card_pluginpath.'/banner/banner5.jpg" />
 						</div>
 						<div class="swiper-slide" data-type="starDemining">
 							<img src="'.$wm_card_pluginpath.'/banner/banner4.jpg" />
