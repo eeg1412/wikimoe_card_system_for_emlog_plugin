@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.7.1
+Version: 2.8.0
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -12,6 +12,7 @@ function wm_card_loghook() {
 	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.66';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
+	$wm_card_echartjsfile = BLOG_URL.'content/plugins/wm_card/echart/echarts.simple.min.js';
 	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.64';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
@@ -53,6 +54,38 @@ function wm_card_loghook() {
 				</div>
 				<div class="wm_card_cardmix_input_body" id="wmCardMixInputBody">
 					<input type="text" name="email" class="wm_card_email_cardmix" id="wmCardMixInput" placeholder="请先输入邮箱查询卡牌" />
+				</div>
+				<div class="wm_card_bouerse_buysell_input_body" id="wmBouerseBuySellInputBody">
+					<input type="number" name="buysell" data-type="buy" data-id="0" class="wm_card_bouerse_buysell_input" id="wmBouerseBuySellInput" placeholder="请输入交易金额" />
+				</div>
+				<div class="wm_card_bouerse_input_body" id="wmBouerseInputBody">
+					<input type="text" name="email" class="wm_card_email_bouerse" id="wmBouerseInput" placeholder="请先输入邮箱查询股市" />
+				</div>
+				<div class="wm_card_bouerse_body" id="wmBouerseBody">
+					<div class="wm_star_count_body">
+						星星 × <span id="wm_my_star_bouerse">--<span>
+					</div>
+					<p class="wm_card_bouerse_tip">Tip:点击列表可以买入或卖出！</p>
+					<table class="wm_card_bouers_table" id="wmBouersTable">
+						<thead>
+							<tr>
+								<th>名称</th>
+								<th>价格</th>
+								<th>涨跌</th>
+								<th>持有</th>
+							</tr>
+						</thead>
+						<tbody>
+							
+						</tbody>
+					</table>
+				</div>
+				<div class="wm_card_bouerse_chart_body" id="wmBouerseChartBody">
+					<div class="wm_star_count_body" id="wmBouerseChartOneInfo">
+						
+					</div>
+					<div id="wmBouerseChartBox">
+					</div>
 				</div>
 				<div class="wm_card_demining_body" id="wmDeminingBody">
 					<p class="wm_card_demining_tip">Tip:第一次点击选中矿区，再次点击挖开矿区！</p>
@@ -240,6 +273,9 @@ function wm_card_loghook() {
 			<div class="wm_banner_body" id="wmBannerBody">
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
+						<div class="swiper-slide" data-type="bouerse">
+							<img src="'.$wm_card_pluginpath.'/banner/banner4.jpg" />
+						</div>
 						<div class="swiper-slide" data-type="starDemining">
 							<img src="'.$wm_card_pluginpath.'/banner/banner4.jpg" />
 						</div>
@@ -292,6 +328,7 @@ function wm_card_loghook() {
 			</div>
 		</div>';
 	echo '<script src="'.$wm_card_layerjsfile.'"></script>';
+	echo '<script src="'.$wm_card_echartjsfile.'"></script>';
 	echo '<script src="'.$wmClicaptchaJs.'"></script>';
 	echo '<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/3.4.2/js/swiper.jquery.js"></script>';
 	echo '<script src="'.$wm_card_jsfile.'"></script>';

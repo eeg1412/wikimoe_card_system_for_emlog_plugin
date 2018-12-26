@@ -26,6 +26,7 @@ function callback_init(){
 		`verifyCodeCount` int(10) NOT NULL,
 		`deminingStamp` bigint(20) NOT NULL,
 		`deminingStarCount` bigint(20) NOT NULL default '0',
+		`bouerse` longtext NOT NULL,
 		PRIMARY KEY  (`id`)
 )".$add;
 		$DB->query($sql);

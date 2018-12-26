@@ -52,6 +52,246 @@
 
 
 $(document).ready(function(e) {
+	//股市
+	function wmGetBouerseInfo(index){
+		var wmEmail = $('#wmBouerseInput').val();
+		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		if(wmEmail === ""){ //输入不能为空
+			layer.alert("邮箱地址不能为空");
+	　　　　return false;
+	　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
+			layer.alert("邮箱地址有误!");
+	　　　　return false;
+	　　}else{
+			var wmCardBouersepath_ = wmCardPluginpath + 'wm_card_bouerse.php';
+			$('#wmCardLoading').stop(true, false).fadeIn(100);
+			$.ajax({
+				type: 'POST',
+				url: wmCardBouersepath_,
+				data: {type:'search',email:wmEmail},
+				success: function(result){
+					console.log(result);
+					if(result.code==202){
+						if(index!==null){
+							layer.close(index);
+						}
+						$('#wmBouersTable tbody').empty();
+						var wmMybouerse = result.bouerse;
+						if(wmMybouerse!==''){
+							wmMybouerse = JSON.parse(wmMybouerse);
+						}
+						for(var i=0;i<result.listData.data.length;i++){
+							var bouerseZD = result.listData.data[i].price - result.listData.data[i].prePrice;
+							var wmbouerseUpDownClass = '';
+							if(bouerseZD>0){
+								wmbouerseUpDownClass = ' type_up'
+							}else if(bouerseZD<0){
+								wmbouerseUpDownClass = ' type_down'
+							}
+							var wmBuyed = '0';
+							if(wmMybouerse!==''){
+								console.log(wmMybouerse);
+								wmBuyed = wmMybouerse[i];
+								if(wmBuyed==undefined){
+									wmBuyed = '0';
+								}else{
+									wmBuyed = wmBuyed['have'];
+								}
+							}
+							var wmBouerseHistory = JSON.stringify(result.listData.data[i].history);
+							var bouerseHtml = '<tr data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+i+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
+							$('#wmBouersTable tbody').append(bouerseHtml);
+						}
+						$('#wm_my_star_bouerse').text(result.starCount);
+						if(index!==null){
+							layer.open({
+								type: 1,
+								title:'星星股市',
+								maxWidth:'100%',
+								zIndex:1003,
+								content:$('#wmBouerseBody'),
+								btn: ['刷新','离开'], //按钮
+								btn1 :function(index){
+									wmGetBouerseInfo(null);
+								}
+							});
+						}
+						$('#wmCardLoading').stop(true, false).fadeOut(100);
+					}else if(result.code==3){
+						layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
+					}else if(result.code==2){
+						layer.alert('邮箱有误！');
+					}else{
+						layer.alert('未知错误！');
+					}
+					
+				},
+				error:function(){
+					layer.alert('网络异常！');
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				dataType: 'json'
+			});
+		}
+	};
+	function wmPaintChart(name_,data_){
+		// 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('wmBouerseChartBox'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: name_
+            },
+            xAxis: {
+				type: 'category'
+			},
+			yAxis: {
+				type: 'value'
+			},
+			series: [{
+				data: data_,
+				type: 'line'
+			}]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+		myChart.setOption(option);
+	};
+	//按钮绑定
+	$('#wmBouersTable tbody').on('click','tr',function(){
+		var name_ = $(this).attr('data-name');
+		var data_ = JSON.parse($(this).attr('data-history'));
+		var id_ = $(this).attr('data-id');
+		$('#wmBouerseChartOneInfo').text('当前价格：'+data_[data_.length-1]);
+		$('#wmBouerseChartOneInfo').attr('data-price',data_[data_.length-1]);
+		$('#wmBouerseBuySellInput').attr('data-id',id_);
+		layer.open({
+			type: 1,
+			title:name_,
+			maxWidth:'100%',
+			zIndex:1004,
+			content:$('#wmBouerseChartBody'),
+			btn: ['买入','卖出','关闭'], //按钮
+			btn1 :function(index){
+				wmBouerseGoTrans('buy',index);
+			},
+			btn2 :function(index){
+				wmBouerseGoTrans('sell',index);
+			}
+		});
+		wmPaintChart(name_,data_);
+	});
+	function wmBouerseGoTrans(type_,windowId){
+		$('#wmBouerseBuySellInput').attr('data-type',type_);
+		layer.open({
+			type: 1,
+			title:'请输入交易金额',
+			zIndex:1005,
+			content:$('#wmBouerseBuySellInputBody'),
+			btn: ['确定','取消'], //按钮
+			btn1 :function(index){
+				var wmBouerseVal = Math.floor($('#wmBouerseBuySellInput').val());
+				if(isNaN(wmBouerseVal)||wmBouerseVal==0){
+					layer.alert('交易金额有误！');
+				}else{
+					$('#wmBouerseBuySellInput').val(wmBouerseVal);
+					$('#wmGetPassword').attr('data-email',$('#wmBouerseInput').val());
+					layer.close(index);
+					layer.open({
+						type: 1,
+						title:'请输入密码或动态密码',
+						maxWidth:'100%',
+						zIndex:1005,
+						content:$('#wmMailCheckBody'),
+						btn: ['确定','取消'], //按钮
+						btn1 :function(index){
+							var wmEmail = $('#wmBouerseInput').val();
+							var wmPassword = $('#wmPassword').val();
+							var wmType = $('#wmBouerseBuySellInput').attr('data-type');
+							var wmTransId = $('#wmBouerseBuySellInput').attr('data-id');
+							var wmPrice = $('#wmBouerseChartOneInfo').attr('data-price');
+							var wmValue = $('#wmBouerseBuySellInput').val();
+							var wmRememberPass = 0;
+							if($('#wmRememberPass').hasClass('active')){
+								wmRememberPass = 1;
+							}
+							var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+							if(wmEmail === ""){ //输入不能为空
+								layer.alert("邮箱地址不能为空");
+						　　　　return false;
+						　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
+								layer.alert("邮箱地址有误!");
+						　　　　return false;
+						　　}else if(wmPassword==''){
+								layer.alert("请输入密码!");
+							　　return false;
+							}else{
+								var wmCardStarpath_ = wmCardPluginpath + 'wm_card_bouerse.php';
+								$('#wmCardLoading').stop(true, false).fadeIn(100);
+								var wmRememberPass = 0;
+								if($('#wmRememberPass').hasClass('active')){
+									wmRememberPass = 1;
+								}
+								$.ajax({
+									type: 'POST',
+									url: wmCardStarpath_,
+									data: {type:wmType,email:wmEmail,id:wmTransId,price:wmPrice,value:wmValue,password:wmPassword,rememberPass:wmRememberPass},
+									success: function(result){
+										if(result.code==202){
+											if($('#wmRememberPass').hasClass('active')){
+												wmSetDefaultPassWord(wmPassword)
+											}else{
+												wmDelDefaultMaillPassWord();
+											}
+											layer.alert('交易成功！');
+											layer.close(index);
+											layer.close(windowId);
+											wmGetBouerseInfo(null);
+										}else if(result.code==3){
+											layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
+										}else if(result.code==2){
+											layer.alert('邮箱有误！');
+										}else if(result.code==301){
+											layer.alert('密码有误或者已经过期！');
+										}else if(result.code==4){
+											layer.alert('无该股票信息！');
+										}else if(result.code==5){
+											layer.alert('抱歉，该股由于价格过低暂时被锁定买入！');
+										}else if(result.code==6){
+											layer.alert('价格已经发生波动，请重新尝试！');
+											layer.close(index);
+											layer.close(windowId);
+											wmGetBouerseInfo(null);
+										}else if(result.code==7){
+											layer.alert('购入数量有误！');
+										}else if(result.code==8){
+											layer.alert('持有的星星不足');
+										}else if(result.code==9){
+											if(wmType=='buy'){
+												layer.alert('已经超过该股票的持有上限！');
+											}else{
+												layer.alert('好像没有持有这么多股！');
+											}
+										}else{
+											layer.alert('未知错误！');
+										}
+										console.log(result);
+										$('#wmCardLoading').stop(true, false).fadeOut(100);
+									},
+									error:function(){
+										layer.alert('网络异常！');
+										$('#wmCardLoading').stop(true, false).fadeOut(100);
+									},
+									dataType: 'json'
+								});
+							}
+						}
+					});
+				}
+			}
+		});
+	}
 	$('#wmRememberEmail').on('click',function(){
 		if($(this).hasClass('active')){
 			$(this).removeClass('active');
@@ -88,6 +328,7 @@ $(document).ready(function(e) {
 		$('#wmStarSearchInput').val(mailAddr);
 		$('#wmCardMixInput').val(mailAddr);
 		$('#wm_tiaozhan_email').val(mailAddr);
+		$('#wmBouerseInput').val(mailAddr);
 		localStorage.setItem("wmSetDefaultMaillAddress", mailAddr);
 		$('#wmRememberEmail').addClass('active');
 	}
@@ -96,6 +337,7 @@ $(document).ready(function(e) {
 		$('#wmStarSearchInput').val('');
 		$('#wmCardMixInput').val('');
 		$('#wm_tiaozhan_email').val('');
+		$('#wmBouerseInput').val('');
 		localStorage.removeItem("wmSetDefaultMaillAddress");
 	}
 	function wmSetsessionStorageMail(){
@@ -737,6 +979,8 @@ $(document).ready(function(e) {
 			openCardMixWindow();
 		}else if(bannerType=="starDemining"){
 			getwmStarDemMap();
+		}else if(bannerType=="bouerse"){
+			getwmBouerse();
 		}
 	});
 	//分解列表页面生成
@@ -1004,6 +1248,19 @@ $(document).ready(function(e) {
 				dataType: 'json'
 			});
 		}
+	}
+	// 股市
+	function getwmBouerse(){
+		layer.open({
+			type: 1,
+			title:'查询股市',
+			zIndex:1003,
+			content:$('#wmBouerseInputBody'),
+			btn: ['查询','取消'], //按钮
+			btn1 :function(index){
+				wmGetBouerseInfo(index);
+			}
+		});
 	}
 	// 星星分解
 	function openCardMixWindow(){

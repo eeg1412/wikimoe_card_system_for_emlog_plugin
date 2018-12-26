@@ -23,7 +23,7 @@ function buyCard(){
                     if((($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0)||$verifyCodeRemember==1){
                         $randomCardRate = mt_rand(1, 100);
                         $starFlag = false;//true为星星不足
-                        $starCount = intval ($mgidinfo['starCount']);
+                        $starCount = intval($mgidinfo['starCount']);
                         $shouldStar = 9999;
                         $buyClass = 0;//哪一类型的商品，1为指定抽卡、2为连抽、3为CD相关商品
                         $chinChioseCardNum = 0;//连抽几次

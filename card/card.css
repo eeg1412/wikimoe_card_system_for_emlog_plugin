@@ -100,7 +100,7 @@
 .card.reverse .back {
 	display: none;
 }
-.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix,.wm_card_email_demining{
+.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix,.wm_card_email_demining,.wm_card_email_bouerse,.wm_card_bouerse_buysell_input{
 	border:1px solid #333;
 	height:16px;
 	width:200px;
@@ -110,7 +110,7 @@
 	text-align:center;
 	background-color:#fff!important;
 }
-.wm_card_mailcheck .wm_card_email_starshop{
+.wm_card_mailcheck .wm_card_email_starshop,.wm_card_bouerse_input_body .wm_card_email_bouerse,.wm_card_bouerse_buysell_input_body .wm_card_bouerse_buysell_input{
 	width: 180px;
 }
 .wm_card_email_body{
@@ -558,7 +558,7 @@ input.wm_card_email:-webkit-autofill {
 	.wm_card_starshop_body{
 		padding: 20px;
 	}
-	.wm_card_mailcheck,.wm_card_starshop_input_body,.wm_card_cardmix_input_body{
+	.wm_card_mailcheck,.wm_card_starshop_input_body,.wm_card_cardmix_input_body,.wm_card_bouerse_input_body,.wm_card_bouerse_buysell_input_body{
 		padding: 20px;
 		text-align: center;
 	}
@@ -1573,4 +1573,61 @@ transform:translateY(-1.5px) rotate(-.5deg)
 -webkit-transform:translate(0) rotate(0deg);
 transform:translate(0) rotate(0deg)
 }
+}
+/* 股票 */
+.wm_card_bouers_table{
+	width: 100%;
+	border-collapse: collapse;
+    border-spacing: 0;
+    margin: 10px auto;
+}
+.wm_card_bouers_table td,.wm_card_bouers_table th{
+	text-align: center;
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+.wm_card_bouers_table tr{
+	cursor: url(../icon/cur/pointer.cur),pointer;
+}
+.wm_card_bouers_table tr:hover td{
+	background-color: #f5f5f5;
+}
+.wm_card_bouers_table th{
+	font-weight: bold;
+	background-color: rgb(81, 181, 255);
+    color: #fff;
+}
+.wm_card_bouers_table td.type_up{
+	color: #ff4c4c;
+}
+.wm_card_bouers_table td.type_down{
+	color: green;
+}
+.wm_card_bouerse_chart_body{
+	width: 100vw;
+	max-width: 500px;
+	overflow: auto;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+#wmBouerseChartBox{
+	height: 400px;
+}
+#wmBouerseInputBody,#wmBouerseBody,#wmBouerseBuySellInputBody{
+	display: none;
+}
+.wm_card_bouerse_body{
+	width: calc(100vw - 40px);
+	max-width: 500px;
+	overflow: auto;
+    padding: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+#wmBouerseChartBody{
+	display: none;
+}
+.wm_card_bouerse_tip{
+	padding: 10px 0;
 }
