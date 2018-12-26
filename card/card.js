@@ -116,7 +116,6 @@ $(document).ready(function(e) {
 								}
 							});
 						}
-						$('#wmCardLoading').stop(true, false).fadeOut(100);
 					}else if(result.code==3){
 						layer.alert('无该用户信息，请抽一张卡牌来创建用户！');
 					}else if(result.code==2){
@@ -124,7 +123,7 @@ $(document).ready(function(e) {
 					}else{
 						layer.alert('未知错误！');
 					}
-					
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
 				},
 				error:function(){
 					layer.alert('网络异常！');
