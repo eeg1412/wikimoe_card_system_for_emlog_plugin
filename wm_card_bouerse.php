@@ -17,10 +17,10 @@ function wmBouerse($getMode){
 					$gailvYinzi = 0;
 					if($bourseList[$i]['preTrans']!=0){
 						$gailvYinzi = $bourseList[$i]['trans'] - $bourseList[$i]['preTrans'];
-						if($gailvYinzi>200){
-							$gailvYinzi = 200;
-						}else if($gailvYinzi<-200){
-							$gailvYinzi = -200;
+						if($gailvYinzi>150){
+							$gailvYinzi = 150;
+						}else if($gailvYinzi<-150){
+							$gailvYinzi = -150;
 						}
 					}
 					$upOrDown = BouerseGailv($gailvYinzi);

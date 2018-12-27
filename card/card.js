@@ -111,9 +111,13 @@ $(document).ready(function(e) {
 								maxWidth:'100%',
 								zIndex:1003,
 								content:$('#wmBouerseBody'),
-								btn: ['刷新','离开'], //按钮
+								btn: ['刷新','说明','离开'], //按钮
 								btn1 :function(index){
 									wmGetBouerseInfo(null);
+								},
+								btn2 :function(index){
+									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！');
+									return false;
 								}
 							});
 						}
