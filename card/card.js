@@ -274,7 +274,7 @@ $(document).ready(function(e) {
 										}else if(result.code==4){
 											layer.alert('无该股票信息！');
 										}else if(result.code==5){
-											layer.alert('抱歉，该股由于价格过低暂时被锁定买入！');
+											layer.alert('抱歉，该股由于价格过低暂时被禁止买卖！');
 										}else if(result.code==6){
 											layer.alert('价格已经发生波动，请重新尝试！');
 											layer.close(index);
@@ -1555,9 +1555,9 @@ $(document).ready(function(e) {
 					}
 				}
 			}else if(wmNewListInfoArr[i].massageType=='bouerseBuy'){
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>花了'+wmNewListInfoArr[i].useStar+'颗星星买入了'+wmNewListInfoArr[i].value+'份'+wmNewListInfoArr[i].name+'股，省吃俭用入股市，但愿大涨把卡抽！</div></div>';
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>花了'+wmNewListInfoArr[i].useStar+'颗星星买入了'+wmNewListInfoArr[i].value+'份<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">'+wmNewListInfoArr[i].name+'</a>股，省吃俭用入股市，但愿大涨把卡抽！</div></div>';
 			}else if(wmNewListInfoArr[i].massageType=='bouerseSell'){
-				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>卖了'+wmNewListInfoArr[i].value+'份'+wmNewListInfoArr[i].name+'股，换取了'+wmNewListInfoArr[i].useStar+'颗星星，是时候收割一波换星星了！</div></div>';
+				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>卖了'+wmNewListInfoArr[i].value+'份<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">'+wmNewListInfoArr[i].name+'</a>股，换取了'+wmNewListInfoArr[i].useStar+'颗星星，是时候收割一波换星星了！</div></div>';
 			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);
