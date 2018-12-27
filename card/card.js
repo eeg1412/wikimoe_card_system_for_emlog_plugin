@@ -89,18 +89,19 @@ $(document).ready(function(e) {
 								wmbouerseUpDownClass = ' type_down'
 							}
 							var wmBuyed = '0';
+							var wmBouerseHistoryTrans = '';
 							if(wmMybouerse!==''){
-								console.log(wmMybouerse);
 								wmBuyed = wmMybouerse[i];
 								if(wmBuyed==undefined){
 									wmBuyed = '0';
 								}else{
+									wmBouerseHistoryTrans = JSON.stringify(wmMybouerse[i]['exData']);
 									wmBuyed = wmBuyed['have'];
 								}
 							}
 							var wmBouerseHistory = JSON.stringify(result.listData.data[i].history);
 							var wmBouerseInfo = [result.listData.data[i].price,bouerseZD,result.listData.data[i].trans,wmBuyed].join(',');
-							var bouerseHtml = '<tr data-info="'+wmBouerseInfo+'" data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+i+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
+							var bouerseHtml = '<tr data-trans="'+wmBouerseHistoryTrans+'" data-info="'+wmBouerseInfo+'" data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+i+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
 							$('#wmBouersTable tbody').append(bouerseHtml);
 						}
 						$('#wm_my_star_bouerse').text(result.starCount);
@@ -178,6 +179,7 @@ $(document).ready(function(e) {
 		var data_ = JSON.parse($(this).attr('data-history'));
 		var id_ = $(this).attr('data-id');
 		var wmBouerserInfoArr = $(this).attr('data-info').split(',');
+		var wmDataTrans = $(this).attr('data-trans');
 		// $('#wmBouerseChartOneInfo').text('当前价格：'+data_[data_.length-1]);
 		$('#wmBouerseChartOneInfo').attr('data-price',data_[data_.length-1]);
 		$('#wmBouerseBuySellInput').attr('data-id',id_);
@@ -189,11 +191,40 @@ $(document).ready(function(e) {
 			maxWidth:'100%',
 			zIndex:1004,
 			content:$('#wmBouerseChartBody'),
-			btn: ['买入','卖出','关闭'], //按钮
+			btn: ['历史','买入','卖出','关闭'], //按钮
 			btn1 :function(index){
-				wmBouerseGoTrans('buy',index);
+				if(wmDataTrans==''){
+					layer.alert('暂无历史记录！');
+				}else{
+					var wmDataTransObj = JSON.parse(wmDataTrans);
+					var wmDataTransHtml = '';
+					for(var j=0;j<wmDataTransObj.length;j++){
+						var wmDataTransJ = wmDataTransObj.length - 1 - j;
+						if(wmDataTransObj[wmDataTransJ][4]){
+							wmDataTransHtml = wmDataTransHtml+'<li class="type_sell"><span>'+capitalize(wmDataTransObj[wmDataTransJ][0]*1000)+' </span>以单价 '+wmDataTransObj[wmDataTransJ][1]+' 抛售了 '+wmDataTransObj[wmDataTransJ][2]+' 份该股票，共获得了 '+wmDataTransObj[wmDataTransJ][3]+' 颗星星</li>';
+						}else{
+							wmDataTransHtml = wmDataTransHtml+'<li><span>'+capitalize(wmDataTransObj[wmDataTransJ][0]*1000)+' </span>以单价 '+wmDataTransObj[wmDataTransJ][1]+' 购买了 '+wmDataTransObj[wmDataTransJ][2]+' 份该股票，共花费了 '+wmDataTransObj[wmDataTransJ][3]+' 颗星星</li>';
+						}
+						
+					}
+					wmDataTransHtml = '<ul class="wm_data_trans_list_ul">' + wmDataTransHtml + '</ul>';
+					console.log(wmDataTransHtml);
+					layer.open({
+						type: 1,
+						title:'历史记录',
+						maxWidth:'100%',
+						zIndex:1005,
+						content:wmDataTransHtml,
+						btn: ['关闭'], //按钮
+					});
+				}
+				
 			},
 			btn2 :function(index){
+				wmBouerseGoTrans('buy',index);
+				return false;
+			},
+			btn3 :function(index){
 				wmBouerseGoTrans('sell',index);
 				return false;
 			}
@@ -217,7 +248,7 @@ $(document).ready(function(e) {
 				}else{
 					$('#wmBouerseBuySellInput').val(wmBouerseVal);
 					$('#wmGetPassword').attr('data-email',$('#wmBouerseInput').val());
-					layer.close(index);
+					var inputValueWindow = index;
 					layer.open({
 						type: 1,
 						title:'请输入密码或动态密码',
@@ -267,6 +298,7 @@ $(document).ready(function(e) {
 											layer.alert('交易成功！');
 											layer.close(index);
 											layer.close(windowId);
+											layer.close(inputValueWindow);
 											wmGetBouerseInfo(null);
 											getNewCardList();
 										}else if(result.code==3){
@@ -1826,7 +1858,12 @@ $(document).ready(function(e) {
 	　　}
 		 
 	});
-	
+	//时间戳转换
+	function capitalize(value) {
+		var date = new Date(parseInt(value));
+		var tt = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
+		return tt;
+	}
  
 	var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
                             window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;

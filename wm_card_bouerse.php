@@ -172,13 +172,23 @@ function wmBuyBouerse(){
 						}
 						$mybouerse = json_decode($mybouerse,true);
 						if(!isset($mybouerse[$buyId])){//如果用户没有该股票信息
-							$mybouerse[$buyId] = array('have'=>$buyValue , 'exData'=>'');
+							if($buyValue>999){
+								$bouerseOutData = array('code'=>9);//已经超过购买上限
+								echo json_encode($bouerseOutData);
+								return false;
+							}
+							//购买信息：时间、价格、多少股、花费、类型（0买1卖）
+							$mybouerse[$buyId] = array('have'=>$buyValue , 'exData'=>array(array($timeStamp,$bourseList[$buyId]['price'],$buyValue,$shoudStar,0)));
 						}else{
 							$mybouerse[$buyId]['have'] = $mybouerse[$buyId]['have'] + $buyValue;
 							if($mybouerse[$buyId]['have']>999){
 								$bouerseOutData = array('code'=>9);//已经超过购买上限
 								echo json_encode($bouerseOutData);
 								return false;
+							}
+							array_push($mybouerse[$buyId]['exData'],array($timeStamp,$bourseList[$buyId]['price'],$buyValue,$shoudStar,0));
+							if(count($mybouerse[$buyId]['exData'])>10){
+								array_shift($mybouerse[$buyId]['exData']);
 							}
 						}
 						$starCountAfter = $myStar - $shoudStar;
@@ -272,14 +282,23 @@ function wmSellBouerse(){
 							$mybouerse = '{}';
 						}
 						$mybouerse = json_decode($mybouerse,true);
+						if(!isset($mybouerse[$buyId])){//如果用户没有该股票信息
+							$bouerseOutData = array('code'=>9);//没有那么多持有
+							echo json_encode($bouerseOutData);
+							return false;
+						}
 						$havBouerseAfter = $mybouerse[$buyId]['have'] - $buyValue;
 						if($havBouerseAfter<0){
 							$bouerseOutData = array('code'=>9);//没有那么多持有
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						$mybouerse[$buyId]['have'] = $havBouerseAfter;
 						$getStar = $bourseList[$buyId]['price'] * $buyValue;
+						array_push($mybouerse[$buyId]['exData'],array($timeStamp,$bourseList[$buyId]['price'],$buyValue,$getStar,1));
+						if(count($mybouerse[$buyId]['exData'])>10){
+							array_shift($mybouerse[$buyId]['exData']);
+						}
+						$mybouerse[$buyId]['have'] = $havBouerseAfter;
 						$starCountAfter = $myStar + $getStar;
 						$databaseBouerse = json_encode($mybouerse);
 						$verifyCodeRemember = intval($mgidinfo['verifyCodeRemember']);

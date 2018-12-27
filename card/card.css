@@ -1656,3 +1656,15 @@ transform:translate(0) rotate(0deg)
 	padding-top: 10px;
     margin-bottom: -20px;
 }
+ul.wm_data_trans_list_ul{
+	padding: 20px 20px 0 20px;
+}
+.wm_data_trans_list_ul li {
+    margin-bottom: 10px;
+    background-color: #ffe6e6;
+    padding: 10px;
+	border-radius: 10px;
+}
+.wm_data_trans_list_ul li.type_sell{
+	background-color: #e3fdde;
+}

@@ -9,11 +9,11 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.69';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.70';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
 	$wm_card_echartjsfile = BLOG_URL.'content/plugins/wm_card/echart/echarts.simple.min.js';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.65';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.66';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
 	// $wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';

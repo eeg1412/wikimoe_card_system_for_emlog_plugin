@@ -2,41 +2,41 @@
     "data":[{
         "id":0,
         "name":"魔法少女",
-        "prePrice":20,
-        "price":20,
+        "prePrice":100,
+        "price":100,
         "preTrans":0,
         "trans":0,
-        "history":[20],
+        "history":[100],
         "exData":""
     },
     {
         "id":1,
         "name":"莓办法",
-        "prePrice":40,
-        "price":40,
+        "prePrice":100,
+        "price":100,
         "preTrans":0,
         "trans":0,
-        "history":[40],
+        "history":[100],
         "exData":""
     },
     {
         "id":2,
         "name":"银不了",
-        "prePrice":60,
-        "price":60,
+        "prePrice":100,
+        "price":100,
         "preTrans":0,
         "trans":0,
-        "history":[60],
+        "history":[100],
         "exData":""
     },
     {
         "id":3,
         "name":"尽梨了",
-        "prePrice":80,
-        "price":80,
+        "prePrice":100,
+        "price":100,
         "preTrans":0,
         "trans":0,
-        "history":[80],
+        "history":[100],
         "exData":""
     },
     {
