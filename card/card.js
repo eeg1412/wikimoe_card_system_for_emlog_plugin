@@ -117,7 +117,7 @@ $(document).ready(function(e) {
 									wmGetBouerseInfo(null);
 								},
 								btn2 :function(index){
-									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！');
+									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！卖出股票的时候将会产生5%且最低20星星的手续费！每只股票最多只能持有99份！');
 									return false;
 								}
 							});
@@ -163,16 +163,29 @@ $(document).ready(function(e) {
         // 使用刚指定的配置项和数据显示图表。
 		myChart.setOption(option);
 	};
-	//按钮绑定
-	$('#wmBouerseBuySellInput').on('input',function(){
+	function wmBouerseStarCalc(){
 		var wmBouerseBuySellInput = Number($('#wmBouerseBuySellInput').val());
 		if(isNaN(wmBouerseBuySellInput)){
 			$('#bouerseShouldStarCount').text('0');
 		}else{
+			var bouerseType = $('#wmBouerseBuySellInput').attr('data-type');
 			wmBouerseBuySellInput = Math.floor(wmBouerseBuySellInput);
+			var wmStarCalcAfter = Math.round(Number($('#wmBouerseChartOneInfo').attr('data-price'))*wmBouerseBuySellInput);
+			console.log(bouerseType);
+			if(bouerseType=='sell'){
+				var bouerseFee = wmStarCalcAfter*0.05;
+				if(bouerseFee<20){
+					bouerseFee = 20;
+				}
+				wmStarCalcAfter = wmStarCalcAfter - Math.round(bouerseFee);
+			}
 			$('#wmBouerseBuySellInput').val(wmBouerseBuySellInput);
-			$('#bouerseShouldStarCount').text(Number($('#wmBouerseChartOneInfo').attr('data-price'))*wmBouerseBuySellInput);
+			$('#bouerseShouldStarCount').text(wmStarCalcAfter);
 		}
+	}
+	//按钮绑定
+	$('#wmBouerseBuySellInput').on('input',function(){
+		wmBouerseStarCalc();
 	});
 	$('#wmBouersTable tbody').on('click','tr',function(){
 		var name_ = $(this).attr('data-name');
@@ -221,32 +234,82 @@ $(document).ready(function(e) {
 				
 			},
 			btn2 :function(index){
-				wmBouerseGoTrans('buy',index);
+				var wmBouersePrice = Number(wmBouerserInfoArr[0]);
+				var wmBouerseMyStar = Number($('#wm_my_star_bouerse').text());
+				if(wmBouersePrice<=10){
+					layer.alert('抱歉，该股由于价格过低暂时被禁止买卖！');
+					return false;
+				}
+				$('#wmBouserseSellTips').hide();
+				wmBouerseGoTrans('buy',index,wmBouersePrice,wmBouerseMyStar,Number(wmBouerserInfoArr[3]));
 				return false;
 			},
 			btn3 :function(index){
-				wmBouerseGoTrans('sell',index);
+				var wmBouersePrice = Number(wmBouerserInfoArr[0]);
+				var wmBouerseMyStar = Number($('#wm_my_star_bouerse').text());
+				if(wmBouersePrice<=10){
+					layer.alert('抱歉，该股由于价格过低暂时被禁止买卖！');
+					return false;
+				}
+				$('#wmBouserseSellTips').show();
+				wmBouerseGoTrans('sell',index,wmBouersePrice,wmBouerseMyStar,Number(wmBouerserInfoArr[3]));
 				return false;
 			}
 		});
 		wmPaintChart(name_,data_);
 	});
-	function wmBouerseGoTrans(type_,windowId){
+	function wmBouerseGoTrans(type_,windowId,price,myStar,have){
 		$('#wmBouerseBuySellInput').attr('data-type',type_);
 		$('#wmBouerseBuySellInput').val('');
 		$('#bouerseShouldStarCount').text('0');
+		var wmType = $('#wmBouerseBuySellInput').attr('data-type');
 		layer.open({
 			type: 1,
-			title:'请输入购买份数',
+			title:'请输入份数',
 			zIndex:1005,
 			content:$('#wmBouerseBuySellInputBody'),
-			btn: ['确定','取消'], //按钮
+			btn: ['确定','最大','取消'], //按钮
+			btn2 :function(index){
+				if(wmType=='buy'){
+					var wmBouerseCanBuy = Math.floor(myStar/price);
+					if(wmBouerseCanBuy+have>99){
+						wmBouerseCanBuy = Math.floor(99-have);
+					}
+					$('#wmBouerseBuySellInput').val(wmBouerseCanBuy);
+					wmBouerseStarCalc();
+				}else{
+					var wmBouerseCanBuy = have;
+					$('#wmBouerseBuySellInput').val(wmBouerseCanBuy);
+					wmBouerseStarCalc();
+				}
+				return false;
+			},
 			btn1 :function(index){
 				var wmBouerseVal = Math.floor($('#wmBouerseBuySellInput').val());
 				if(isNaN(wmBouerseVal)||wmBouerseVal==0){
 					layer.alert('请输入0以上的数字！');
 				}else{
 					$('#wmBouerseBuySellInput').val(wmBouerseVal);
+					if(wmType=='buy'){
+						if(Number($('#bouerseShouldStarCount').text())>myStar){
+							layer.alert('星星不足，如果您确定持有这么多星星的话请返回上一级刷新数据！');
+							return false;
+						}
+						if(wmBouerseVal+have>99){
+							layer.alert('每只股票最多只能持有99份！');
+							return false;
+						}
+					}else{
+						if(have<Number($('#wmBouerseBuySellInput').val())){
+							layer.alert('您并没有这么多股份！');
+							return false;
+						}
+						if(Number($('#bouerseShouldStarCount').text())<=0){
+							layer.alert('卖出不够手续费！');
+							return false;
+						}
+						
+					}
 					$('#wmGetPassword').attr('data-email',$('#wmBouerseInput').val());
 					var inputValueWindow = index;
 					layer.open({
@@ -259,7 +322,6 @@ $(document).ready(function(e) {
 						btn1 :function(index){
 							var wmEmail = $('#wmBouerseInput').val();
 							var wmPassword = $('#wmPassword').val();
-							var wmType = $('#wmBouerseBuySellInput').attr('data-type');
 							var wmTransId = $('#wmBouerseBuySellInput').attr('data-id');
 							var wmPrice = $('#wmBouerseChartOneInfo').attr('data-price');
 							var wmValue = $('#wmBouerseBuySellInput').val();
@@ -315,6 +377,7 @@ $(document).ready(function(e) {
 											layer.alert('价格已经发生波动，请重新尝试！');
 											layer.close(index);
 											layer.close(windowId);
+											layer.close(inputValueWindow);
 											wmGetBouerseInfo(null);
 										}else if(result.code==7){
 											layer.alert('购入数量有误！');
@@ -326,6 +389,8 @@ $(document).ready(function(e) {
 											}else{
 												layer.alert('好像没有持有这么多股！');
 											}
+										}else if(result.code==10){
+											layer.alert('手续费不足！');
 										}else{
 											layer.alert('未知错误！');
 										}
@@ -1861,8 +1926,8 @@ $(document).ready(function(e) {
 	//时间戳转换
 	function capitalize(value) {
 		var date = new Date(parseInt(value));
-		var tt = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('-');
-		return tt;
+		var tt = [date.getFullYear(), ((date.getMonth()+1)<10?'0'+(date.getMonth()+1):date.getMonth()+1), (date.getDate()<10?'0'+date.getDate():date.getDate())].join('-') + '  ' +[(date.getHours()<10?'0'+date.getHours():date.getHours()), (date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes()), (date.getSeconds()<10?'0'+date.getSeconds():date.getSeconds())].join(':');
+        return tt;
 	}
  
 	var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||

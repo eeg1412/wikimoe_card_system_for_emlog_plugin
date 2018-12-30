@@ -1,7 +1,7 @@
 <?php
 require_once('../../../init.php');
 require_once('module.php');
-function wmBouerse($getMode){
+function wmBouerse($getMode,$updataMode){
     if(file_exists('bouerse.json')){//判断json文件是否存在
 		$bourseListJson = json_decode(file_get_contents('bouerse.json'),true);
 		$bourseTime = $bourseListJson['updateTime'];
@@ -27,7 +27,7 @@ function wmBouerse($getMode){
 					$upDownLiang = mt_rand(0, 5);
 					if($upOrDown===0){
 						$bourseList[$i]['prePrice'] = $bourseList[$i]['price'];
-						$bourseList[$i]['price'] = $bourseList[$i]['price'] + $upDownLiang>999?999:$bourseList[$i]['price'] + $upDownLiang;
+						$bourseList[$i]['price'] = $bourseList[$i]['price'] + $upDownLiang>233?233:$bourseList[$i]['price'] + $upDownLiang;
 						array_push($bourseList[$i]['history'],$bourseList[$i]['price']);
 						if(count($bourseList[$i]['history'])>100){
 							array_shift($bourseList[$i]['history']);
@@ -51,23 +51,26 @@ function wmBouerse($getMode){
     }else{
         initBouerse();
 	}
-	$bourseListOutData = json_decode(file_get_contents('bouerse.json'),true);
-	$initBouerseData_ = json_decode(file_get_contents('initBouerList.json'),true);
-	$bourseListOutDataCount = count($bourseListOutData['data']);
-	if(count($initBouerseData_['data'])>$bourseListOutDataCount){
-		$addBouerseLength = count($initBouerseData_['data']) - $bourseListOutDataCount;
-		for($k=0;$k<$addBouerseLength;$k++){
-			$addBouerseData = $initBouerseData_['data'][$bourseListOutDataCount+$k];
-			array_push($bourseListOutData['data'],$addBouerseData);
-			file_put_contents('bouerse.json', json_encode($bourseListOutData),LOCK_EX);
+	if(!$updataMode){
+		$bourseListOutData = json_decode(file_get_contents('bouerse.json'),true);
+		$initBouerseData_ = json_decode(file_get_contents('initBouerList.json'),true);
+		$bourseListOutDataCount = count($bourseListOutData['data']);
+		if(count($initBouerseData_['data'])>$bourseListOutDataCount){
+			$addBouerseLength = count($initBouerseData_['data']) - $bourseListOutDataCount;
+			for($k=0;$k<$addBouerseLength;$k++){
+				$addBouerseData = $initBouerseData_['data'][$bourseListOutDataCount+$k];
+				array_push($bourseListOutData['data'],$addBouerseData);
+				file_put_contents('bouerse.json', json_encode($bourseListOutData),LOCK_EX);
+			}
+		}
+		$bouerseOutData = array('listData'=>$bourseListOutData);
+		if($getMode){
+			echo json_encode($bouerseOutData);
+		}else{
+			return $bouerseOutData;
 		}
 	}
-	$bouerseOutData = array('listData'=>$bourseListOutData);
-	if($getMode){
-		echo json_encode($bouerseOutData);
-	}else{
-		return $bouerseOutData;
-	}
+	
 }
 function wmSearchUserBouerse(){
 	$DB = MySql::getInstance();
@@ -80,7 +83,7 @@ function wmSearchUserBouerse(){
             $mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$emailAddrMd5."");
             $mgidinfo=$DB->fetch_array($mgid);
             if ($mgidinfo) {
-				$bouerseOutData = wmBouerse(false);
+				$bouerseOutData = wmBouerse(false,false);
 				$userBouerseInfo = $mgidinfo['bouerse'];
 				$userStar = $mgidinfo['starCount'];
 				$bouerseOutData['code'] = 202;
@@ -133,6 +136,7 @@ function wmBuyBouerse(){
                     $passwordTime = intval($mgidinfo['verifyCodeStamp']);
                     $verifyCodeRemember = intval($mgidinfo['verifyCodeRemember']);
                     if((($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0)||$verifyCodeRemember==1){
+						wmBouerse(false,true);
 						$buyId = intval($_POST['id']);
 						$buyPrice = intval($_POST['price']);
 						$buyValue = intval($_POST['value']);
@@ -145,13 +149,13 @@ function wmBuyBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<10){
-							$bouerseOutData = array('code'=>5);//价格过低无法购买
+						if($bourseList[$buyId]['price']!=$buyPrice){
+							$bouerseOutData = array('code'=>6);//价格对不上
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']!=$buyPrice){
-							$bouerseOutData = array('code'=>6);//价格对不上
+						if($bourseList[$buyId]['price']<10){
+							$bouerseOutData = array('code'=>5);//价格过低无法购买
 							echo json_encode($bouerseOutData);
 							return false;
 						}
@@ -172,7 +176,7 @@ function wmBuyBouerse(){
 						}
 						$mybouerse = json_decode($mybouerse,true);
 						if(!isset($mybouerse[$buyId])){//如果用户没有该股票信息
-							if($buyValue>999){
+							if($buyValue>99){
 								$bouerseOutData = array('code'=>9);//已经超过购买上限
 								echo json_encode($bouerseOutData);
 								return false;
@@ -181,7 +185,7 @@ function wmBuyBouerse(){
 							$mybouerse[$buyId] = array('have'=>$buyValue , 'exData'=>array(array($timeStamp,$bourseList[$buyId]['price'],$buyValue,$shoudStar,0)));
 						}else{
 							$mybouerse[$buyId]['have'] = $mybouerse[$buyId]['have'] + $buyValue;
-							if($mybouerse[$buyId]['have']>999){
+							if($mybouerse[$buyId]['have']>99){
 								$bouerseOutData = array('code'=>9);//已经超过购买上限
 								echo json_encode($bouerseOutData);
 								return false;
@@ -250,6 +254,7 @@ function wmSellBouerse(){
                     $passwordTime = intval($mgidinfo['verifyCodeStamp']);
                     $verifyCodeRemember = intval($mgidinfo['verifyCodeRemember']);
                     if((($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0)||$verifyCodeRemember==1){
+						wmBouerse(false,true);
 						$buyId = intval($_POST['id']);
 						$buyPrice = intval($_POST['price']);
 						$buyValue = intval($_POST['value']);
@@ -262,13 +267,13 @@ function wmSellBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<10){
-							$bouerseOutData = array('code'=>5);//价格过低无法交易
+						if($bourseList[$buyId]['price']!=$buyPrice){
+							$bouerseOutData = array('code'=>6);//价格对不上
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']!=$buyPrice){
-							$bouerseOutData = array('code'=>6);//价格对不上
+						if($bourseList[$buyId]['price']<=10){
+							$bouerseOutData = array('code'=>5);//价格过低无法交易
 							echo json_encode($bouerseOutData);
 							return false;
 						}
@@ -294,6 +299,16 @@ function wmSellBouerse(){
 							return false;
 						}
 						$getStar = $bourseList[$buyId]['price'] * $buyValue;
+						$wmFee = round($getStar*0.05);
+						if($wmFee<20){
+							$wmFee =20;
+						}
+						$getStar = intval($getStar - $wmFee);//扣除税
+						if($getStar<=0){
+							$bouerseOutData = array('code'=>10);//卖出不够税
+							echo json_encode($bouerseOutData);
+							return false;
+						}
 						array_push($mybouerse[$buyId]['exData'],array($timeStamp,$bourseList[$buyId]['price'],$buyValue,$getStar,1));
 						if(count($mybouerse[$buyId]['exData'])>10){
 							array_shift($mybouerse[$buyId]['exData']);
@@ -356,6 +371,6 @@ if(isset($_POST['type']) && isset($_POST['email'])){
 		}
 	}
 }else{
-	wmBouerse(true);
+	wmBouerse(true,false);
 }
 ?>

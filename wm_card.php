@@ -9,11 +9,11 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.70';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.71';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
 	$wm_card_echartjsfile = BLOG_URL.'content/plugins/wm_card/echart/echarts.simple.min.js';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.66';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.67';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
 	// $wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';
@@ -56,7 +56,8 @@ function wm_card_loghook() {
 					<input type="text" name="email" class="wm_card_email_cardmix" id="wmCardMixInput" placeholder="请先输入邮箱查询卡牌" />
 				</div>
 				<div class="wm_card_bouerse_buysell_input_body" id="wmBouerseBuySellInputBody">
-					<input type="number" name="buysell" data-type="buy" data-id="0" class="wm_card_bouerse_buysell_input" id="wmBouerseBuySellInput" placeholder="请输入购买份数" />
+					<div class="wm_bouerse_sell_tips" id="wmBouserseSellTips">Tip:卖出将会收取5%且最低20星星的手续费</div>
+					<input type="number" name="buysell" data-type="buy" data-id="0" class="wm_card_bouerse_buysell_input" id="wmBouerseBuySellInput" placeholder="请输入份数" />
 					<div class="bouerse_should_star_body">
 						<div>= <span id="bouerseShouldStarCount">0</span> 颗星星</div>
 					</div>

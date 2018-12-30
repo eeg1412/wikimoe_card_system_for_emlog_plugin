@@ -1668,3 +1668,7 @@ ul.wm_data_trans_list_ul{
 .wm_data_trans_list_ul li.type_sell{
 	background-color: #e3fdde;
 }
+.wm_bouerse_sell_tips{
+	padding-bottom: 12px;
+	margin-top: -10px;
+}
