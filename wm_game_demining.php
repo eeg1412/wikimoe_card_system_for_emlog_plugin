@@ -186,7 +186,7 @@ function wmCheckDemNode($wmClickNode){
                             echo json_encode($clickNodeResault);
                         }else{
                             $NowNodeResault = wxportWmDeminingGameMap();
-                            $NowNodeResault['code'] = 101;;//不是一个节点或者节点已经打开了
+                            $NowNodeResault['code'] = 101;//不是一个节点或者节点已经打开了
                             echo json_encode($NowNodeResault);
                         }
                     }else{

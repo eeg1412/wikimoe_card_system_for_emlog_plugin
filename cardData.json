@@ -744,6 +744,22 @@
 			"title":"闪之轨迹",
 			"name":"安妮雅"
 		},
+		"0094": {
+			"star": 3,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 4,
+			"title":"来自多彩世界的明天",
+			"name":"风野浅葱"
+		},
+		"0095": {
+			"star": 3,
+			"leftType": 5,
+			"rightType": 5,
+			"cry": 4,
+			"title":"终将成为你",
+			"name":"七海灯子&小糸侑"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -1336,6 +1352,22 @@
 			"title":"萝球社！",
 			"name":"三泽真帆"
 		},
+		"1075": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 3,
+			"cry": 2,
+			"title":"SSSS.Gridman",
+			"name":"宝多六花"
+		},
+		"1076": {
+			"star": 4,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"SSSS.Gridman",
+			"name":"新条茜"
+		},
 		"2001": {
 			"star": 5,
 			"leftType": 5,
@@ -1792,6 +1824,22 @@
 			"title":"萝球社！",
 			"name":"凑智花"
 		},
+		"2058": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 1,
+			"title":"Fate/stay night",
+			"name":"远坂凛"
+		},
+		"2059": {
+			"star": 5,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"邻家索菲",
+			"name":"索菲·特瓦伊莱特"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -2039,6 +2087,14 @@
 			"cry": 5,
 			"title":"Fate/kaleid liner 魔法少女☆伊莉雅",
 			"name":"伊莉雅丝菲尔·冯·爱因兹贝伦"
+		},
+		"3032": {
+			"star": 6,
+			"leftType": 2,
+			"rightType": 1,
+			"cry": 1,
+			"title":"Little Busters!",
+			"name":"朱鹭户沙耶"
 		}
 		
 	},
