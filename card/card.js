@@ -117,7 +117,7 @@ $(document).ready(function(e) {
 									wmGetBouerseInfo(null);
 								},
 								btn2 :function(index){
-									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！卖出股票的时候将会产生5%且最低20星星的手续费！每只股票最多只能持有99份！');
+									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！卖出股票的时候将会产生5%且最低20星星的手续费！每只股票最多只能持有9份！');
 									return false;
 								}
 							});
@@ -272,8 +272,11 @@ $(document).ready(function(e) {
 			btn2 :function(index){
 				if(wmType=='buy'){
 					var wmBouerseCanBuy = Math.floor(myStar/price);
-					if(wmBouerseCanBuy+have>99){
-						wmBouerseCanBuy = Math.floor(99-have);
+					if(wmBouerseCanBuy+have>9){
+						wmBouerseCanBuy = Math.floor(9-have);
+					}
+					if(wmBouerseCanBuy<0){
+						wmBouerseCanBuy = 0;
 					}
 					$('#wmBouerseBuySellInput').val(wmBouerseCanBuy);
 					wmBouerseStarCalc();
@@ -295,8 +298,8 @@ $(document).ready(function(e) {
 							layer.alert('星星不足，如果您确定持有这么多星星的话请返回上一级刷新数据！');
 							return false;
 						}
-						if(wmBouerseVal+have>99){
-							layer.alert('每只股票最多只能持有99份！');
+						if(wmBouerseVal+have>9){
+							layer.alert('每只股票最多只能持有9份！');
 							return false;
 						}
 					}else{

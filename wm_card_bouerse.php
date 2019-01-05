@@ -154,7 +154,7 @@ function wmBuyBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<10){
+						if($bourseList[$buyId]['price']<=15){
 							$bouerseOutData = array('code'=>5);//价格过低无法购买
 							echo json_encode($bouerseOutData);
 							return false;
@@ -176,7 +176,7 @@ function wmBuyBouerse(){
 						}
 						$mybouerse = json_decode($mybouerse,true);
 						if(!isset($mybouerse[$buyId])){//如果用户没有该股票信息
-							if($buyValue>99){
+							if($buyValue>9){
 								$bouerseOutData = array('code'=>9);//已经超过购买上限
 								echo json_encode($bouerseOutData);
 								return false;
@@ -185,7 +185,7 @@ function wmBuyBouerse(){
 							$mybouerse[$buyId] = array('have'=>$buyValue , 'exData'=>array(array($timeStamp,$bourseList[$buyId]['price'],$buyValue,$shoudStar,0)));
 						}else{
 							$mybouerse[$buyId]['have'] = $mybouerse[$buyId]['have'] + $buyValue;
-							if($mybouerse[$buyId]['have']>99){
+							if($mybouerse[$buyId]['have']>9){
 								$bouerseOutData = array('code'=>9);//已经超过购买上限
 								echo json_encode($bouerseOutData);
 								return false;
@@ -272,7 +272,7 @@ function wmSellBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<=10){
+						if($bourseList[$buyId]['price']<=15){
 							$bouerseOutData = array('code'=>5);//价格过低无法交易
 							echo json_encode($bouerseOutData);
 							return false;
