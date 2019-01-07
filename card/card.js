@@ -633,7 +633,15 @@ $(document).ready(function(e) {
 					}else{
 						var wmNowTime = new Date().getTime();
 						if(wmNowTime - deminingTime <7200*1000){
-							layer.confirm('您的星星矿场可能还在冷却期内，要尝试继续吗？', {
+							var wmNextTime = Math.floor(deminingTime/1000+7200);
+							var wmNextTimeDate = new Date(wmNextTime * 1000);    //根据时间戳生成的时间对象
+							var wmNextTimeText = (wmNextTimeDate.getFullYear()) + "年" + 
+									(wmNextTimeDate.getMonth() + 1) + "月" +
+									(wmNextTimeDate.getDate()) + "日" + 
+									(wmNextTimeDate.getHours()) + "点" + 
+									(wmNextTimeDate.getMinutes()) + "分" + 
+									(wmNextTimeDate.getSeconds()) + "秒";
+							layer.confirm('您的星星矿场可能还在冷却期内，预计在'+wmNextTimeText+'解除，要尝试继续吗？', {
 								zIndex:1002,
 								btn: ['继续','不了'] //按钮
 								}, function(index){
