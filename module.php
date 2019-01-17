@@ -185,4 +185,16 @@ function wmSetLevel($MyLevelOrigin,$MyEXPOrigin,$MyGetScore_){
     $setLevelInfo = array('level'=>$levelSet,'GetEXP'=>$GetEXP);
     return $setLevelInfo;
 }
+//产生不重复的随机数
+function  wmunique_rand($min,$max,$num){
+    $count = 0;
+    $return_arr = array();
+    while($count < $num){
+        $return_arr[] = mt_rand($min,$max);
+        $return_arr = array_flip(array_flip($return_arr));
+        $count = count($return_arr);
+    }
+    shuffle($return_arr);
+    return $return_arr;
+}
 ?>

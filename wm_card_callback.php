@@ -27,6 +27,7 @@ function callback_init(){
 		`deminingStamp` bigint(20) NOT NULL,
 		`deminingStarCount` bigint(20) NOT NULL default '0',
 		`bouerse` longtext NOT NULL,
+		`guessCard` longtext NOT NULL,
 		PRIMARY KEY  (`id`)
 )".$add;
 		$DB->query($sql);
