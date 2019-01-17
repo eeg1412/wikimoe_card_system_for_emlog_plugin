@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.8.1
+Version: 2.9.0
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
@@ -60,6 +60,20 @@ function wm_card_loghook() {
 					<input type="number" name="buysell" data-type="buy" data-id="0" class="wm_card_bouerse_buysell_input" id="wmBouerseBuySellInput" placeholder="请输入份数" />
 					<div class="bouerse_should_star_body">
 						<div>= <span id="bouerseShouldStarCount">0</span> 颗星星</div>
+					</div>
+				</div>
+				<div class="wm_card_guesscard_input_body" id="wmGuesscardInputBody">
+					<input type="text" name="email" class="wm_card_email_guesscard" id="wmGuesscardInput" placeholder="请先输入邮箱查询结果" />
+				</div>
+				<div class="wm_card_guesscard_body" id="wmGuessCardBody">
+					<div class="wm_card_guesscard_title">猜卡日</div>
+					<div class="wm_star_count_body">
+						星星 × <span id="wm_my_star_guesscard">--<span>
+					</div>
+					<div class="wm_card_guesscard_list_body">
+						<div class="wm_card_guesscard_list_box">
+							<img src="https://wikimoesh.cn-sh2.ufileos.com/wmcard/3006.jpg" />
+						</div>
 					</div>
 				</div>
 				<div class="wm_card_bouerse_input_body" id="wmBouerseInputBody">
@@ -282,6 +296,9 @@ function wm_card_loghook() {
 			<div class="wm_banner_body" id="wmBannerBody">
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
+						<div class="swiper-slide" data-type="guesscard">
+							<img src="'.$wm_card_pluginpath.'/banner/banner5.jpg" />
+						</div>
 						<div class="swiper-slide" data-type="bouerse">
 							<img src="'.$wm_card_pluginpath.'/banner/banner5.jpg" />
 						</div>

@@ -100,7 +100,7 @@
 .card.reverse .back {
 	display: none;
 }
-.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix,.wm_card_email_demining,.wm_card_email_bouerse,.wm_card_bouerse_buysell_input{
+.wm_card_email,.wm_card_email_starshop,.wm_card_email_cardmix,.wm_card_email_demining,.wm_card_email_bouerse,.wm_card_bouerse_buysell_input,.wm_card_email_guesscard{
 	border:1px solid #333;
 	height:16px;
 	width:200px;
@@ -110,7 +110,7 @@
 	text-align:center;
 	background-color:#fff!important;
 }
-.wm_card_mailcheck .wm_card_email_starshop,.wm_card_bouerse_input_body .wm_card_email_bouerse,.wm_card_bouerse_buysell_input_body .wm_card_bouerse_buysell_input{
+.wm_card_mailcheck .wm_card_email_starshop,.wm_card_bouerse_input_body .wm_card_email_bouerse,.wm_card_bouerse_buysell_input_body .wm_card_bouerse_buysell_input,.wm_card_guesscard_input_body .wm_card_email_guesscard{
 	width: 180px;
 }
 .wm_card_email_body{
@@ -558,7 +558,7 @@ input.wm_card_email:-webkit-autofill {
 	.wm_card_starshop_body{
 		padding: 20px;
 	}
-	.wm_card_mailcheck,.wm_card_starshop_input_body,.wm_card_cardmix_input_body,.wm_card_bouerse_input_body,.wm_card_bouerse_buysell_input_body{
+	.wm_card_mailcheck,.wm_card_starshop_input_body,.wm_card_cardmix_input_body,.wm_card_bouerse_input_body,.wm_card_bouerse_buysell_input_body,.wm_card_guesscard_input_body{
 		padding: 20px;
 		text-align: center;
 	}
@@ -870,6 +870,33 @@ input.wm_card_email:-webkit-autofill {
 	}
 	.wm_card_demining_table .wm_demining_item.type_is_opened.is_wmdmstar{
 		color: #ffc800;
+	}
+	/* 星星猜卡 */
+	.wm_card_guesscard_body{
+		max-width: 800px;
+	}
+	.wm_card_guesscard_title{
+		text-align: center;
+		font-size: 26px;
+		font-weight: bold;
+		padding: 5px 0;
+	}
+	.wm_card_guesscard_list_body{
+		padding: 10px 0;
+		text-align: center;
+	}
+	.wm_card_guesscard_list_box{
+		padding:5px;
+		display: inline-block;
+		cursor: url(../icon/cur/pointer.cur),pointer;
+		opacity: 0.4;
+	}
+	.wm_card_guesscard_list_box.active{
+		opacity: 1;
+	}
+	.wm_card_guesscard_list_box img{
+		width: 120px;
+		height: 168px;
 	}
 	/* 记住邮箱 */
 	.wm_card_remember_body{
@@ -1614,7 +1641,7 @@ transform:translate(0) rotate(0deg)
 #wmBouerseChartBox{
 	height: 400px;
 }
-#wmBouerseInputBody,#wmBouerseBody,#wmBouerseBuySellInputBody{
+#wmBouerseInputBody,#wmBouerseBody,#wmBouerseBuySellInputBody,#wmGuesscardInputBody,#wmGuessCardBody{
 	display: none;
 }
 .wm_card_bouerse_body{
