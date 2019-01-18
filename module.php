@@ -197,4 +197,20 @@ function  wmunique_rand($min,$max,$num){
     shuffle($return_arr);
     return $return_arr;
 }
+//密码验证
+function wmPasswordCheck($mgidinfo,$password){
+    $bdPassword = intval($mgidinfo['verifyCode']);
+    if($password==$bdPassword&&$bdPassword!=0){
+        $timeStamp = time();
+        $passwordTime = intval($mgidinfo['verifyCodeStamp']);
+        $verifyCodeRemember = intval($mgidinfo['verifyCodeRemember']);
+        if((($timeStamp - $passwordTime)<1800&&($timeStamp - $passwordTime)>0)||$verifyCodeRemember==1){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
 ?>

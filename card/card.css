@@ -882,8 +882,11 @@ input.wm_card_email:-webkit-autofill {
 		padding: 5px 0;
 	}
 	.wm_card_guesscard_list_body{
-		padding: 10px 0;
+		padding: 10px;
 		text-align: center;
+	}
+	.wm_card_guesscard_list_body.selected .wm_card_guesscard_list_box{
+		cursor: url(../icon/cur/default.cur),default;
 	}
 	.wm_card_guesscard_list_box{
 		padding:5px;
@@ -897,6 +900,10 @@ input.wm_card_email:-webkit-autofill {
 	.wm_card_guesscard_list_box img{
 		width: 120px;
 		height: 168px;
+	}
+	.wm_card_guesscard_tip{
+		text-align: center;
+		padding: 10px 0 0 0;
 	}
 	/* 记住邮箱 */
 	.wm_card_remember_body{

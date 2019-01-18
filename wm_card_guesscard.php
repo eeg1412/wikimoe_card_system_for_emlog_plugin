@@ -17,14 +17,23 @@ function wmGuessard(){
                 $guesscardData = searchWmGuesscard(true);
                 $myStar = intval($mgidinfo['starCount']);
                 if(intval($guessType)==2){//查询
-                    $wmGuesscardPut = array('data'=>$guesscardData,'star'=>$myStar,'code'=>202);
+                    $myguesscardData = $mgidinfo['guessCard']==''?'':json_decode($mgidinfo['guessCard'],true);
+                    $wmGuesscardPut = array('data'=>$guesscardData,'myData'=>$myguesscardData,'star'=>$myStar,'code'=>202);
                     echo json_encode($wmGuesscardPut);
                 }else if(intval($guessType)==0){//申请猜卡
                     if(intval($guessType)!=$guesscardData['type']){
                         //当前不为猜卡状态
-                        $wmGuesscardPut = array('code'=>300);
+                        $wmGuesscardPut = array('code'=>306);
                         echo json_encode($wmGuesscardPut);
+                        return false;
                     }else{
+                        $password = intval($_POST['password']);
+                        if(!wmPasswordCheck($mgidinfo,$password)){
+                            //密码不对
+                            $wmGuesscardPut = array('code'=>301);
+                            echo json_encode($wmGuesscardPut);
+                            return false;
+                        }
                         if($myStar<10){
                             //星星不足
                             $wmGuesscardPut = array('code'=>302);
@@ -33,8 +42,8 @@ function wmGuessard(){
                         }
                         $guessSelCardArr = explode(",",$guessSelCard);//1001,1002,1003
                         if(count($guessSelCardArr)!=5){
-                            //卡牌ID没对上
-                            $wmGuesscardPut = array('code'=>301);
+                            //卡牌ID数量不对
+                            $wmGuesscardPut = array('code'=>305);
                             echo json_encode($wmGuesscardPut);
                             return false;
                         }
@@ -54,11 +63,112 @@ function wmGuessard(){
                                 break;
                             }
                         }
+                        $myGuesscard = $mgidinfo['guessCard'];
+						if($mgidinfo['guessCard']==''){
+							$myGuesscard = '{}';
+						}
+                        $myGuesscard = json_decode($myGuesscard,true);
+                        if(isset($myGuesscard['time'])){
+                            //如果用户有猜卡信息
+                            if($myGuesscard['time']==$guesscardData['time']){
+                                //如果已竞猜当期，不能重复竞猜
+                                $wmGuesscardPut = array('code'=>304);
+                                echo json_encode($wmGuesscardPut);
+                                return false;
+                            }
+                        }
+                        $myGuesscardDatabase = array('cardID'=>$guessSelCardArr,'time'=>$guesscardData['time'],'isUsed'=>0);
                         //写入数据库
-
-                        
-                        echo json_encode($guessSelCardArr);
+                        $starCountAfter = $myStar-10;
+                        $rememberPass = intval($_POST['rememberPass']);
+						//如果保存密码的话则verifyCodeRemember为1
+						$verifyCodeRemember = 0;
+						if($rememberPass==1){
+							$verifyCodeRemember = 1;
+						}
+                        $query = "Update ".DB_PREFIX."wm_card set verifyCodeRemember='".$verifyCodeRemember."' , guessCard='".json_encode($myGuesscardDatabase)."' , starCount=".$starCountAfter."  where email=".$emailAddrMd5."";
+                        $result=$DB->query($query);
+                        $wmcardDatabase = json_decode(file_get_contents('cardData.json'), true);//查询卡牌数据
+                        $wmcardDataName = array();
+                        for($k=0;$k<count($guessSelCardArr);$k++){
+                            array_push($wmcardDataName,$wmcardDatabase['cardData'][$guessSelCardArr[$k]]['name']);
+                        }
+                        $cardJsonData = array('mailMD5'=>md5($emailAddr),'cardName'=>$wmcardDataName,'cardID'=>$guessSelCardArr,'time'=>$guesscardData['time'],'massageType'=>'guesscard','type'=>0);
+						wmWriteJson($cardJsonData);
+                        $wmGuesscardPut = array('code'=>202);
+                        echo json_encode($wmGuesscardPut);
                     }
+                }else if(intval($guessType)==1){//申请兑奖
+                    if(intval($guessType)!=$guesscardData['type']){
+                        //当前不为兑奖状态
+                        $wmGuesscardPut = array('code'=>306);
+                        echo json_encode($wmGuesscardPut);
+                        return false;
+                    }
+                    $myGuesscard = $mgidinfo['guessCard'];
+                    if($mgidinfo['guessCard']==''){
+                        //没有兑奖数据
+                        $wmGuesscardPut = array('code'=>404);
+                        echo json_encode($wmGuesscardPut);
+                        return false;
+                    }
+                    $myGuesscardObject = json_decode($myGuesscard,true);//我的猜卡信息
+                    if($myGuesscardObject['time']!=$guesscardData['fromTime']){
+                        //过期
+                        $wmGuesscardPut = array('code'=>405);
+                        echo json_encode($wmGuesscardPut);
+                        return false;
+                    }
+                    if($myGuesscardObject['isUsed']==1){
+                        //已经兑奖
+                        $wmGuesscardPut = array('code'=>406);
+                        echo json_encode($wmGuesscardPut);
+                        return false;
+                    }
+                    $wmAttackNum = 0;
+                    for($i=0;$i<count($myGuesscardObject['cardID']);$i++){
+                        for($j=0;$j<count($guesscardData['card']);$j++){
+                            if($myGuesscardObject['cardID'][$i]==$guesscardData['card'][$j]){
+                                //有一样的
+                                $wmAttackNum++;
+                                break;
+                            }
+                        }
+                    }
+                    $getStar = 0;
+                    if($wmAttackNum==1){
+                        $getStar = 10;
+                    }else if($wmAttackNum==2){
+                        $getStar = 100;
+                    }else if($wmAttackNum==3){
+                        $getStar = 1000;
+                    }else if($wmAttackNum==4){
+                        $getStar = 10000;
+                    }else if($wmAttackNum==5){
+                        $getStar = 1000000;
+                    }
+                    if($getStar==0){
+                        //没中奖
+                        $wmGuesscardPut = array('code'=>407);
+                        echo json_encode($wmGuesscardPut);
+                        return false;
+                    }
+                    //写入数据库
+                    $starCountAfter = $myStar+$getStar;
+                    if($starCountAfter>99999999){
+                        //超过持有星星的最大值
+                        $wmGuesscardPut = array('code'=>999);
+                        echo json_encode($wmGuesscardPut);
+                        return false;
+                    }
+                    $myGuesscardDatabase = $myGuesscardObject;
+                    $myGuesscardDatabase['isUsed'] = 1;
+                    $query = "Update ".DB_PREFIX."wm_card set guessCard='".json_encode($myGuesscardDatabase)."' , starCount=".$starCountAfter."  where email=".$emailAddrMd5."";
+                    $result=$DB->query($query);
+                    $cardJsonData = array('mailMD5'=>md5($emailAddr),'getStar'=>$getStar,'wmAttackNum'=>$wmAttackNum,'time'=>$myGuesscardObject['time'],'massageType'=>'guesscard','type'=>1);
+                    wmWriteJson($cardJsonData);
+                    $wmGuesscardPut = array('code'=>202,'getStar'=>$getStar,'star'=>$starCountAfter);
+                    echo json_encode($wmGuesscardPut);
                 }
                 
             }else{
@@ -100,9 +210,9 @@ function creatWmGuesscardRes($guesscardDataListJson,$guessTimeNow){
     $wmrandomArr = wmunique_rand(0,29,5);
     $attackWmCardId = array();
     for($i=0;$i<5;$i++){
-        array_push($attackWmCardId,$guesscardDataListJson['card'][$i]);
+        array_push($attackWmCardId,$guesscardDataListJson['card'][$wmrandomArr[$i]]);
     }
-    $wmGuesscardData = array('card'=>$attackWmCardId,'time'=>$guessTimeNow,'type'=>1);//0为猜卡、1为兑奖
+    $wmGuesscardData = array('card'=>$attackWmCardId,'fromTime'=>$guesscardDataListJson['time'],'time'=>$guessTimeNow,'type'=>1);//0为猜卡、1为兑奖
     file_put_contents('guesscard.json', json_encode($wmGuesscardData),LOCK_EX);
 }
 function initWmGuesscard(){//初始化

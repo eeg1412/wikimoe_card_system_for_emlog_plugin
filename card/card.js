@@ -52,6 +52,236 @@
 
 
 $(document).ready(function(e) {
+	//猜卡
+	function getGuesscard(){
+		layer.open({
+			type: 1,
+			title:'查询信息',
+			zIndex:1003,
+			content:$('#wmGuesscardInputBody'),
+			btn: ['查询','取消'], //按钮
+			btn1 :function(index){
+				var info = {
+					'type':2,
+					'email':$('#wmGuesscardInput').val(),
+					'cardID':'',
+					'rememberPass':'',
+					'password':'',
+				}
+				wmGetguesscardInfo(index,info);
+			}
+		});
+	}
+	var guessBodyIndex = null;//猜卡窗口ID
+	function wmGetguesscardInfo(index,info){
+		var wmEmail = info.email;
+		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		if(wmEmail === ""){ //输入不能为空
+			layer.alert("邮箱地址不能为空");
+	　　　　return false;
+	　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
+			layer.alert("邮箱地址有误!");
+	　　　　return false;
+	　　}else{
+			var wmCardBouersepath_ = wmCardPluginpath + 'wm_card_guesscard.php';
+			$('#wmCardLoading').stop(true, false).fadeIn(100);
+			$.ajax({
+				type: 'POST',
+				url: wmCardBouersepath_,
+				data: info,
+				success: function(result){
+					console.log(result);
+					if(result.code==202){
+						if(info.type==2){
+							//查询
+							$('#wmGuesscardListBody').empty();
+							$('#wmGuesscardListBody').removeClass('selected');
+							for(var i=0;i<result.data.card.length;i++){
+								var html_ = '<div class="wm_card_guesscard_list_box" data-id="'+result.data.card[i]+'"><img src="'+wmCardImgPath+result.data.card[i]+'.jpg" /></div>';
+								$('#wmGuesscardListBody').append(html_);
+							}
+							$('#wm_my_star_guesscard').text(result.star);
+							var wmGuesscardBtnName = '';
+							var wmguesscardType = result.data.type;
+							if(wmguesscardType==0){
+								//猜卡日
+								$('#wmGuessDayType').text('猜卡日');
+								wmGuesscardBtnName = '猜卡';
+								if(result.myData!=''){
+									if(result.myData.time==result.data.time){
+										$('#wmGuesscardListBody').addClass('selected');
+										for(var j=0;j<result.myData.cardID.length;j++){
+											$('.wm_card_guesscard_list_box[data-id='+result.myData.cardID[j]+']').addClass('active');
+										}
+									}
+								}
+							}else{
+								//兑奖日
+								$('#wmGuessDayType').text('兑奖日');
+								$('#wmGuesscardListBody').addClass('selected');
+								wmGuesscardBtnName = '兑换';
+								if(result.myData!=''){
+									if(result.myData.time==result.data.fromTime){
+										$('#wmGuesscardListBody').addClass('selected');
+										for(var j=0;j<result.myData.cardID.length;j++){
+											$('.wm_card_guesscard_list_box[data-id='+result.myData.cardID[j]+']').addClass('active');
+										}
+									}
+								}
+							}
+							$('#wmGetPassword').attr('data-email',$('#wmGuesscardInput').val());
+							guessBodyIndex = layer.open({
+								type: 1,
+								title:'星星猜卡',
+								maxWidth:'100%',
+								zIndex:1003,
+								content:$('#wmGuessCardBody'),
+								btn: [wmGuesscardBtnName,'说明','关闭'], //按钮
+								btn1 :function(index){
+									if(wmguesscardType==0){
+										if($('#wmGuesscardListBody').hasClass('selected')){
+											layer.alert("您已经提交过卡牌，请耐心等待结果！");
+									　　　　return false;
+										}
+										if($('.wm_card_guesscard_list_box.active').length!=5){
+											layer.alert('请选择5张卡牌！');
+											return false;
+										}
+										layer.open({
+											type: 1,
+											title:'请输入密码或动态密码',
+											maxWidth:'100%',
+											zIndex:1005,
+											content:$('#wmMailCheckBody'),
+											btn: ['确定','取消'], //按钮
+											btn1 :function(index_){
+												var wmEmail = $('#wmGuesscardInput').val();
+												var wmPassword = $('#wmPassword').val();
+												var wmRememberPass = 0;
+												if($('#wmRememberPass').hasClass('active')){
+													wmRememberPass = 1;
+												}
+												var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+												if(wmEmail === ""){ //输入不能为空
+													layer.alert("邮箱地址不能为空");
+											　　　　return false;
+											　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
+													layer.alert("邮箱地址有误!");
+											　　　　return false;
+											　　}else if(wmPassword==''){
+													layer.alert("请输入密码!");
+												　　return false;
+												}else{
+													var guessSeledcard = [];
+													for(var k=0;k<$('.wm_card_guesscard_list_box.active').length;k++){
+														guessSeledcard.push($('.wm_card_guesscard_list_box.active').eq(k).attr('data-id'));
+													}
+													guessSeledcard = guessSeledcard.join(',');
+													var info_ = {
+														'type':0,
+														'email':wmEmail,
+														'cardID':guessSeledcard,
+														'rememberPass':wmRememberPass,
+														'password':wmPassword,
+													}
+													wmGetguesscardInfo(index_,info_);
+												}
+											}
+										});
+									}else{
+										if($('.wm_card_guesscard_list_box.active').length<=0){
+											layer.alert('您并没有猜中任何一张卡牌！请明天再来吧！');
+											return false;
+										}
+										var info = {
+											'type':1,
+											'email':$('#wmGuesscardInput').val(),
+											'cardID':'',
+											'rememberPass':'',
+											'password':'',
+										}
+										wmGetguesscardInfo(null,info);
+									}
+								},
+								btn2 :function(index__){
+									layer.alert('星星猜卡分为两个阶段，猜卡日与兑奖日。猜卡日每位大佬可以选择5张心仪的卡牌，点击【猜卡】按钮消费10颗星星上传选中的卡牌（每次猜卡日只能猜1次）。兑奖日大佬们可以查看自己所选择的卡牌有没有被系统选中，点击【兑换】按钮换取星星。系统将会根据猜中卡牌的张数发送对应的星星。猜中一张卡片：10颗星星、猜中两张卡牌：100颗星星、猜中三张卡牌：1000颗星星、猜中四张卡牌：1万颗星星、猜中五张卡牌：100万颗星星！');
+									return false;
+								}
+							});
+						}else if(info.type==0){
+							$('#wmGuesscardListBody').addClass('selected');
+							layer.alert('猜卡信息提交成功！');
+						}else if(info.type==1){
+							layer.alert('您成功兑换了'+result.getStar+'颗星星!');
+							$('#wm_my_star_guesscard').text(result.star);
+							// if(guessBodyIndex!==null){
+							// 	layer.close(guessBodyIndex);
+							// }
+							// setTimeout(function(){
+							// 	var info__ = {
+							// 		'type':2,
+							// 		'email':$('#wmGuesscardInput').val(),
+							// 		'cardID':'',
+							// 		'rememberPass':'',
+							// 		'password':'',
+							// 	}
+							// 	wmGetguesscardInfo(null,info__);
+							// },200);
+						}
+						if(index!==null){
+							layer.close(index);
+						}
+					}else if(result.code==306){
+						layer.alert('数据已过期，请重新获取！');
+						if(index!==null){
+							layer.close(index);
+						}
+						layer.close(guessBodyIndex);
+					}else if(result.code==301){
+						layer.alert('密码或动态密码不正确！');
+					}else if(result.code==302){
+						layer.alert('星星不足！');
+					}else if(result.code==305||result.code==303){
+						layer.alert('数据有误！');
+					}else if(result.code==304){
+						layer.alert('已参加本期猜卡，不能重复参加！');
+					}else if(result.code==404||result.code==405){
+						layer.alert('并未参加本次猜卡！');
+					}else if(result.code==406){
+						layer.alert('您已兑换！');
+					}else if(result.code==999){
+						layer.alert('您持有的星星已经超过最大值，请先消费掉一些星星吧！');
+					}else if(result.code==3){
+						layer.alert('无该用户数据，请先抽一张卡牌来创建用户！');
+					}else if(result.code==2){
+						layer.alert('邮箱有误！');
+					}
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				error:function(){
+					layer.alert('网络异常！');
+					$('#wmCardLoading').stop(true, false).fadeOut(100);
+				},
+				dataType: 'json'
+			});
+		}
+	}
+	$('#wmGuesscardListBody').on('click','.wm_card_guesscard_list_box',function(){
+		if($('#wmGuesscardListBody').hasClass('selected')){
+			return false;
+		}
+		if($(this).hasClass('active')){
+			$(this).removeClass('active');
+		}else{
+			if($('.wm_card_guesscard_list_box.active').length>=5){
+				layer.alert('最多只能选择5张卡牌！');
+			}else{
+				$(this).addClass('active');
+			}
+			
+		}
+	});
+	// -----------------------------------------------------------------------------------------------
 	//股市
 	function wmGetBouerseInfo(index){
 		var wmEmail = $('#wmBouerseInput').val();
@@ -450,6 +680,7 @@ $(document).ready(function(e) {
 		$('#wmCardMixInput').val(mailAddr);
 		$('#wm_tiaozhan_email').val(mailAddr);
 		$('#wmBouerseInput').val(mailAddr);
+		$('#wmGuesscardInput').val(mailAddr);
 		localStorage.setItem("wmSetDefaultMaillAddress", mailAddr);
 		$('#wmRememberEmail').addClass('active');
 	}
@@ -459,6 +690,7 @@ $(document).ready(function(e) {
 		$('#wmCardMixInput').val('');
 		$('#wm_tiaozhan_email').val('');
 		$('#wmBouerseInput').val('');
+		$('#wmGuesscardInput').val('');
 		localStorage.removeItem("wmSetDefaultMaillAddress");
 	}
 	function wmSetsessionStorageMail(){
@@ -1110,6 +1342,8 @@ $(document).ready(function(e) {
 			getwmStarDemMap();
 		}else if(bannerType=="bouerse"){
 			getwmBouerse();
+		}else if(bannerType=="guesscard"){
+			getGuesscard();
 		}
 	});
 	//分解列表页面生成
@@ -1671,6 +1905,26 @@ $(document).ready(function(e) {
 			}else if(wmNewListInfoArr[i].massageType=='bouerseSell'){
 				listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">星星股票交易所</a>卖了'+wmNewListInfoArr[i].value+'份<a href="javascript:;" class="wm_getlist_link wm_goto_starbouerse">'+wmNewListInfoArr[i].name+'</a>股，换取了'+wmNewListInfoArr[i].useStar+'颗星星，是时候收割一波换星星了！</div></div>';
 			}
+			else if(wmNewListInfoArr[i].massageType=='guesscard'){
+				if(wmNewListInfoArr[i].type==0){
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我猜<a href="javascript:;" class="wm_getlist_link wm_goto_guesscard">星星猜卡</a>这一次的卡牌为<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID[0]+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+wmNewListInfoArr[i].cardName[0]+'</a>、<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID[1]+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+wmNewListInfoArr[i].cardName[1]+'</a>、<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID[2]+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+wmNewListInfoArr[i].cardName[2]+'</a>、<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID[3]+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+wmNewListInfoArr[i].cardName[3]+'</a>、<a href="'+wmCardImgPath+wmNewListInfoArr[i].cardID[4]+'.jpg" class="wm_card_get_list_card_link" target="_blank">'+wmNewListInfoArr[i].cardName[4]+'</a>。相信我没错！</div></div>';
+				}else{
+					var attackText = '';
+					if(wmNewListInfoArr[i].wmAttackNum==1){
+						attackText='马马虎虎猜中了1张，起码保本了！';
+					}else if(wmNewListInfoArr[i].wmAttackNum==2){
+						attackText='运行还不错，猜中2张，小赚一把！';
+					}else if(wmNewListInfoArr[i].wmAttackNum==3){
+						attackText='运行还不错，猜中3张，小赚一把！';
+					}else if(wmNewListInfoArr[i].wmAttackNum==4){
+						attackText='虽然还差一点就全中了，但是已经非常心满意足了！';
+					}else if(wmNewListInfoArr[i].wmAttackNum==4){
+						attackText='我的天！我居然全猜中了！请叫我欧皇！！！';
+					}
+					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_guesscard">星星猜卡</a>中猜中了'+wmNewListInfoArr[i].wmAttackNum+'张牌。获得了'+wmNewListInfoArr[i].getStar+'颗星星！'+attackText+'</div></div>';
+				}
+				
+			}
 			if(listHtml!=''){
 				$('#wmCardGetList').append(listHtml);
 				$('.wm_card_get_list_item').last().delay(delay).fadeIn(300);
@@ -1685,6 +1939,10 @@ $(document).ready(function(e) {
 		}
 		$('#wm_get_list_more_btn').removeAttr('disabled');
 	}
+	// 点击去星星猜卡
+	$('#wmCardGetList').on('click','.wm_goto_guesscard',function(){
+		$('#wmBannerBody .swiper-slide[data-type="guesscard"]').eq(0).trigger('click');
+	});
 	//点击去星星股市
 	$('#wmCardGetList').on('click','.wm_goto_starbouerse',function(){
 		$('#wmBannerBody .swiper-slide[data-type="bouerse"]').eq(0).trigger('click');

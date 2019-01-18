@@ -9,11 +9,11 @@ Author URL: http://wikimoe.com
 */
 !defined('EMLOG_ROOT') && exit('access deined!');
 function wm_card_loghook() {
-	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.73';
+	$wm_card_jsfile = BLOG_URL.'content/plugins/wm_card/card/card.js?ver=0.80';
 	$wm_card_layerjsfile = BLOG_URL.'content/plugins/wm_card/layer/layer.js';
 	$wm_card_layercssfile = BLOG_URL.'content/plugins/wm_card/layer/theme/default/layer.css';
 	$wm_card_echartjsfile = BLOG_URL.'content/plugins/wm_card/echart/echarts.simple.min.js';
-	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.67';
+	$wm_card_cssfile = BLOG_URL.'content/plugins/wm_card/card/card.css?ver=0.70';
 	$wm_card_pluginpath = BLOG_URL.'content/plugins/wm_card/';
 	$wmClicaptchaJs = 'https://ssl.captcha.qq.com/TCaptcha.js';
 	// $wmClicaptchaCSS = BLOG_URL.'content/plugins/wm_card/clicaptcha/css/captcha.css';
@@ -66,14 +66,13 @@ function wm_card_loghook() {
 					<input type="text" name="email" class="wm_card_email_guesscard" id="wmGuesscardInput" placeholder="请先输入邮箱查询结果" />
 				</div>
 				<div class="wm_card_guesscard_body" id="wmGuessCardBody">
-					<div class="wm_card_guesscard_title">猜卡日</div>
+					<div class="wm_card_guesscard_title" id="wmGuessDayType"></div>
 					<div class="wm_star_count_body">
 						星星 × <span id="wm_my_star_guesscard">--<span>
 					</div>
-					<div class="wm_card_guesscard_list_body">
-						<div class="wm_card_guesscard_list_box">
-							<img src="https://wikimoesh.cn-sh2.ufileos.com/wmcard/3006.jpg" />
-						</div>
+					<p class="wm_card_guesscard_tip">Tip:每次猜卡会消耗10颗星星！</p>
+					<div class="wm_card_guesscard_list_body" id="wmGuesscardListBody">
+						
 					</div>
 				</div>
 				<div class="wm_card_bouerse_input_body" id="wmBouerseInputBody">
