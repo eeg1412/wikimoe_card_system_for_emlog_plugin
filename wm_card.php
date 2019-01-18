@@ -296,13 +296,13 @@ function wm_card_loghook() {
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" data-type="guesscard">
-							<img src="'.$wm_card_pluginpath.'/banner/banner5.jpg" />
-						</div>
-						<div class="swiper-slide" data-type="bouerse">
-							<img src="'.$wm_card_pluginpath.'/banner/banner5.jpg" />
+							<img src="'.$wm_card_pluginpath.'/banner/banner6.jpg" />
 						</div>
 						<div class="swiper-slide" data-type="starDemining">
 							<img src="'.$wm_card_pluginpath.'/banner/banner4.jpg" />
+						</div>
+						<div class="swiper-slide" data-type="bouerse">
+							<img src="'.$wm_card_pluginpath.'/banner/banner5.jpg" />
 						</div>
 						<div class="swiper-slide" data-type="starShop">
 							<img src="'.$wm_card_pluginpath.'/banner/banner1.jpg" />

@@ -140,7 +140,7 @@ $(document).ready(function(e) {
 								btn1 :function(index){
 									if(wmguesscardType==0){
 										if($('#wmGuesscardListBody').hasClass('selected')){
-											layer.alert("您已经提交过卡牌，请耐心等待结果！");
+											layer.alert("您已经提交过卡牌，请耐心等待明天的结果吧！");
 									　　　　return false;
 										}
 										if($('.wm_card_guesscard_list_box.active').length!=5){
@@ -209,11 +209,19 @@ $(document).ready(function(e) {
 								}
 							});
 						}else if(info.type==0){
+							if($('#wmRememberPass').hasClass('active')){
+								wmSetDefaultPassWord($('#wmPassword').val())
+							}else{
+								wmDelDefaultMaillPassWord();
+							}
 							$('#wmGuesscardListBody').addClass('selected');
 							layer.alert('猜卡信息提交成功！');
+							$('#wm_my_star_guesscard').text(result.star);
+							getNewCardList();
 						}else if(info.type==1){
 							layer.alert('您成功兑换了'+result.getStar+'颗星星!');
 							$('#wm_my_star_guesscard').text(result.star);
+							getNewCardList();
 							// if(guessBodyIndex!==null){
 							// 	layer.close(guessBodyIndex);
 							// }
@@ -1913,12 +1921,12 @@ $(document).ready(function(e) {
 					if(wmNewListInfoArr[i].wmAttackNum==1){
 						attackText='马马虎虎猜中了1张，起码保本了！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==2){
-						attackText='运行还不错，猜中2张，小赚一把！';
+						attackText='运行还不错，猜中2张，小赚了一把！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==3){
-						attackText='运行还不错，猜中3张，小赚一把！';
+						attackText='运行还不错，猜中3张，大赚了一把！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==4){
-						attackText='虽然还差一点就全中了，但是已经非常心满意足了！';
-					}else if(wmNewListInfoArr[i].wmAttackNum==4){
+						attackText='虽然还差一点就全中了，但是已经心满意足了！';
+					}else if(wmNewListInfoArr[i].wmAttackNum==5){
 						attackText='我的天！我居然全猜中了！请叫我欧皇！！！';
 					}
 					listHtml = '<div class="wm_card_get_list_item"><div class="wm_card_get_list_avatar"><img class="wm_card_get_list_avatar_pic" src="https://cdn.v2ex.com/gravatar/'+wmNewListInfoArr[i].mailMD5+'?s=100&d=mm&r=g&d=robohash" width="45" height="45" title="查看TA的卡牌" data-md5="'+wmNewListInfoArr[i].mailMD5+'" /></div><div class="wm_card_get_list_comment">我在<a href="javascript:;" class="wm_getlist_link wm_goto_guesscard">星星猜卡</a>中猜中了'+wmNewListInfoArr[i].wmAttackNum+'张牌。获得了'+wmNewListInfoArr[i].getStar+'颗星星！'+attackText+'</div></div>';
