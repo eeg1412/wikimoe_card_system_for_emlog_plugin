@@ -215,7 +215,7 @@ $(document).ready(function(e) {
 								wmDelDefaultMaillPassWord();
 							}
 							$('#wmGuesscardListBody').addClass('selected');
-							layer.alert('猜卡信息提交成功！');
+							layer.alert('猜卡信息提交成功！请耐心等待明日的兑奖日！');
 							$('#wm_my_star_guesscard').text(result.star);
 							getNewCardList();
 						}else if(info.type==1){
