@@ -106,6 +106,7 @@ $(document).ready(function(e) {
 							if(wmguesscardType==0){
 								//猜卡日
 								$('#wmGuessDayType').text('猜卡日');
+								$('#wmGuesscardTip').text('Tip:每次猜卡会消耗10颗星星！');
 								wmGuesscardBtnName = '猜卡';
 								if(result.myData!=''){
 									if(result.myData.time==result.data.time){
@@ -118,6 +119,7 @@ $(document).ready(function(e) {
 							}else{
 								//兑奖日
 								$('#wmGuessDayType').text('兑奖日');
+								$('#wmGuesscardTip').text('Tip:本次卡牌抽选结果如下，高亮为您猜中的卡牌！');
 								$('#wmGuesscardListBody').addClass('selected');
 								wmGuesscardBtnName = '兑换';
 								if(result.myData!=''){
