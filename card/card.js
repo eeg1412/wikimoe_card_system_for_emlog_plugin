@@ -204,7 +204,7 @@ $(document).ready(function(e) {
 									}
 								},
 								btn2 :function(index__){
-									layer.alert('星星猜卡分为两个阶段，猜卡日与兑奖日。猜卡日每位大佬可以选择5张心仪的卡牌，点击【猜卡】按钮消费10颗星星上传选中的卡牌（每次猜卡日只能猜1次）。兑奖日大佬们可以查看自己所选择的卡牌有没有被系统选中，点击【兑换】按钮换取星星。系统将会根据猜中卡牌的张数发送对应的星星。猜中一张卡片：10颗星星、猜中两张卡牌：100颗星星、猜中三张卡牌：1000颗星星、猜中四张卡牌：1万颗星星、猜中五张卡牌：100万颗星星！');
+									layer.alert('星星猜卡分为两个阶段，猜卡日与兑奖日。猜卡日每位大佬可以选择5张心仪的卡牌，点击【猜卡】按钮消费10颗星星上传选中的卡牌（每次猜卡日只能猜1次）。兑奖日大佬们可以查看自己所选择的卡牌有没有被系统选中，系统将会自动高亮猜中的卡牌，如果有猜中的卡牌请点击【兑换】按钮换取星星，系统将会根据猜中卡牌的张数发送对应的星星。猜中一张卡片：1颗星星、猜中两张卡牌：10颗星星、猜中三张卡牌：100颗星星、猜中四张卡牌：2500颗星星、猜中五张卡牌：50万颗星星！');
 									return false;
 								}
 							});
@@ -1919,11 +1919,11 @@ $(document).ready(function(e) {
 				}else{
 					var attackText = '';
 					if(wmNewListInfoArr[i].wmAttackNum==1){
-						attackText='马马虎虎猜中了1张，起码保本了！';
+						attackText='马马虎虎猜中了1张，虽然星星很少，但总比没有好吧！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==2){
-						attackText='运行还不错，猜中2张，小赚了一把！';
+						attackText='运气还不错，猜中2张，保本保本！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==3){
-						attackText='运行还不错，猜中3张，大赚了一把！';
+						attackText='运气不赖呀，猜中3张，小赚了一把！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==4){
 						attackText='虽然还差一点就全中了，但是已经心满意足了！';
 					}else if(wmNewListInfoArr[i].wmAttackNum==5){

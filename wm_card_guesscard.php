@@ -41,6 +41,7 @@ function wmGuessard(){
                             return false;
                         }
                         $guessSelCardArr = explode(",",$guessSelCard);//1001,1002,1003
+                        $guessSelCardArr = array_unique($guessSelCardArr);//去重
                         if(count($guessSelCardArr)!=5){
                             //卡牌ID数量不对
                             $wmGuesscardPut = array('code'=>305);
@@ -137,15 +138,15 @@ function wmGuessard(){
                     }
                     $getStar = 0;
                     if($wmAttackNum==1){
-                        $getStar = 10;
+                        $getStar = 1;
                     }else if($wmAttackNum==2){
-                        $getStar = 100;
+                        $getStar = 10;
                     }else if($wmAttackNum==3){
-                        $getStar = 1000;
+                        $getStar = 100;
                     }else if($wmAttackNum==4){
-                        $getStar = 10000;
+                        $getStar = 2500;
                     }else if($wmAttackNum==5){
-                        $getStar = 1000000;
+                        $getStar = 500000;
                     }
                     if($getStar==0){
                         //没中奖
