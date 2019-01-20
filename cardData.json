@@ -760,6 +760,22 @@
 			"title":"终将成为你",
 			"name":"七海灯子&小糸侑"
 		},
+		"0096": {
+			"star": 3,
+			"leftType": 2,
+			"rightType": 2,
+			"cry": 5,
+			"title":"原书·原书使",
+			"name":"土御门静"
+		},
+		"0097": {
+			"star": 3,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 2,
+			"title":"刀剑神域：虚空具现",
+			"name":"普蕾米亚"
+		},
 		"1001": {
 			"star": 4,
 			"leftType": 1,
@@ -1367,6 +1383,46 @@
 			"cry": 1,
 			"title":"SSSS.Gridman",
 			"name":"新条茜"
+		},
+		"1077": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 4,
+			"title":"魔法禁书目录",
+			"name":"茵蒂克丝"
+		},
+		"1078": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"少女与战车",
+			"name":"西住美穗"
+		},
+		"1079": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 6,
+			"cry": 4,
+			"title":"摇曳露营△",
+			"name":"犬山葵"
+		},
+		"1080": {
+			"star": 4,
+			"leftType": 1,
+			"rightType": 3,
+			"cry": 3,
+			"title":"摇曳露营△",
+			"name":"大垣千明"
+		},
+		"1081": {
+			"star": 4,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 2,
+			"title":"摇曳露营△",
+			"name":"齐藤惠那&竹轮"
 		},
 		"2001": {
 			"star": 5,

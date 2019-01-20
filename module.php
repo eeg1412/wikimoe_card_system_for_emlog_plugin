@@ -97,11 +97,11 @@ function wmCreatCardId($randomCardRate){
     $randomCardID = null;
     if($randomCardRate>=1&&$randomCardRate<=64){
         //N
-        $randomCardN_ = mt_rand(1, 95);
+        $randomCardN_ = mt_rand(1, 97);
         $randomCardID = '0'.sprintf("%03d", $randomCardN_);
     }else if($randomCardRate>=65&&$randomCardRate<=86){
         //R
-        $randomCardR_ = mt_rand(1, 76);
+        $randomCardR_ = mt_rand(1, 81);
         $randomCardID = '1'.sprintf("%03d", $randomCardR_);
     }else if($randomCardRate>=87&&$randomCardRate<=97){
         //SR
