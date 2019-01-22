@@ -1896,6 +1896,14 @@
 			"title":"邻家索菲",
 			"name":"索菲·特瓦伊莱特"
 		},
+		"2060": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 6,
+			"cry": 5,
+			"title":"总之就是非常可爱",
+			"name":"由崎司"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,
@@ -2151,6 +2159,22 @@
 			"cry": 1,
 			"title":"Little Busters!",
 			"name":"朱鹭户沙耶"
+		},
+		"3033": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 4,
+			"title":"白色相簿2",
+			"name":"小木曾雪菜"
+		},
+		"3034": {
+			"star": 6,
+			"leftType": 5,
+			"rightType": 7,
+			"cry": 5,
+			"title":"白色相簿2",
+			"name":"冬马和纱"
 		}
 		
 	},

@@ -105,11 +105,11 @@ function wmCreatCardId($randomCardRate){
         $randomCardID = '1'.sprintf("%03d", $randomCardR_);
     }else if($randomCardRate>=87&&$randomCardRate<=97){
         //SR
-        $randomCardSR_ = mt_rand(1, 59);
+        $randomCardSR_ = mt_rand(1, 60);
         $randomCardID = '2'.sprintf("%03d", $randomCardSR_);
     }else if($randomCardRate>97){
         //SSR
-        $randomCardSSR_ = mt_rand(1, 32);
+        $randomCardSSR_ = mt_rand(1, 34);
         $randomCardID = '3'.sprintf("%03d", $randomCardSSR_);
     }
     return $randomCardID;
