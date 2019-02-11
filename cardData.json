@@ -1904,6 +1904,46 @@
 			"title":"总之就是非常可爱",
 			"name":"由崎司"
 		},
+		"2061": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 5,
+			"title":"五等分的新娘",
+			"name":"中野一花"
+		},
+		"2062": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 1,
+			"title":"五等分的新娘",
+			"name":"中野二乃"
+		},
+		"2063": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 2,
+			"title":"五等分的新娘",
+			"name":"中野三玖"
+		},
+		"2064": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 3,
+			"title":"五等分的新娘",
+			"name":"中野四叶"
+		},
+		"2065": {
+			"star": 5,
+			"leftType": 3,
+			"rightType": 5,
+			"cry": 4,
+			"title":"五等分的新娘",
+			"name":"中野五月"
+		},
 		"3001": {
 			"star": 6,
 			"leftType": 2,

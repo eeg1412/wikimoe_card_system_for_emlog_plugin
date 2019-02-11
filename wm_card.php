@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: 抽卡系统
-Version: 2.10.0.272
+Version: 2.10.0.277
 Plugin URL:http://wikimoe.com
 Description: <p>为了更灵活，需要在页面添加自定义钩子<br/><?php doAction('wm_card_plugin'); ?></p>
 Author: 广树
