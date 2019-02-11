@@ -7,7 +7,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":1,
@@ -17,7 +18,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":2,
@@ -27,7 +29,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":3,
@@ -37,7 +40,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":4,
@@ -47,7 +51,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":5,
@@ -57,7 +62,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":6,
@@ -67,7 +73,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":7,
@@ -77,7 +84,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":8,
@@ -87,7 +95,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":9,
@@ -97,7 +106,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":10,
@@ -107,7 +117,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":11,
@@ -117,7 +128,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":12,
@@ -127,7 +139,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":13,
@@ -137,7 +150,8 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
     },
     {
         "id":14,
@@ -147,7 +161,173 @@
         "preTrans":0,
         "trans":0,
         "history":[100],
-        "exData":""
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":15,
+        "name":"中野一花",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":16,
+        "name":"中野二乃",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":17,
+        "name":"中野三玖",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":18,
+        "name":"中野四叶",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":19,
+        "name":"中野五月",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":20,
+        "name":"爱蜜莉雅",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":21,
+        "name":"雷姆",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":22,
+        "name":"山田妖精",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":23,
+        "name":"千寿村征",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":24,
+        "name":"和泉纱雾",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":25,
+        "name":"小木曾雪菜",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":26,
+        "name":"冬马和纱",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":27,
+        "name":"小糸侑",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":28,
+        "name":"佐伯沙弥香",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
+    },
+    {
+        "id":29,
+        "name":"绫波丽",
+        "prePrice":100,
+        "price":100,
+        "preTrans":0,
+        "trans":0,
+        "history":[100],
+        "exData":"",
+        "bankrupted":1
     }],
     "updateTime":0
 }

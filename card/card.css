@@ -1699,6 +1699,9 @@ ul.wm_data_trans_list_ul{
     padding: 10px;
 	border-radius: 10px;
 }
+.wm_data_trans_list_ul.type_news li {
+	background-color: #f4f4f4;
+}
 .wm_data_trans_list_ul li.type_sell{
 	background-color: #e3fdde;
 }

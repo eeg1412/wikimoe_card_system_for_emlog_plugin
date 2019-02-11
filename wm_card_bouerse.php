@@ -1,6 +1,18 @@
 <?php
 require_once('../../../init.php');
 require_once('module.php');
+function wmBouerseNews($wmNewsInfo){
+	if(file_exists('bouerseNews.json')){//判断json文件是否存在
+		$wmBouerseNewsList = json_decode(file_get_contents('bouerseNews.json'),true);
+		$wmBouerseNewsList = array_merge($wmNewsInfo,$wmBouerseNewsList);
+		if(count($wmBouerseNewsList)>20){
+			$wmBouerseNewsList = array_slice($wmBouerseNewsList,0,20);
+		}
+		file_put_contents('bouerseNews.json', json_encode($wmBouerseNewsList),LOCK_EX);
+	}else{
+		file_put_contents('bouerseNews.json', json_encode($wmNewsInfo),LOCK_EX);
+	}
+}
 function wmBouerse($getMode,$updataMode){
     if(file_exists('bouerse.json')){//判断json文件是否存在
 		$bourseListJson = json_decode(file_get_contents('bouerse.json'),true);
@@ -14,33 +26,73 @@ function wmBouerse($getMode,$updataMode){
 			$bourseList = $bourseListJson['data'];
 			for($j=0;$j<$bourseRunTime;$j++){
 				for($i=0; $i<count($bourseList); $i++){
-					$gailvYinzi = 0;
-					if($bourseList[$i]['preTrans']!=0){
-						$gailvYinzi = $bourseList[$i]['trans'] - $bourseList[$i]['preTrans'];
-						if($gailvYinzi>150){
-							$gailvYinzi = 150;
-						}else if($gailvYinzi<-150){
-							$gailvYinzi = -150;
+					if($bourseList[$i]['bankrupted']===0){//判断是否破产
+						$gailvYinzi = 0;
+						if($bourseList[$i]['preTrans']!=0){
+							$gailvYinzi = $bourseList[$i]['trans'] - $bourseList[$i]['preTrans'];
+							if($gailvYinzi>150){
+								$gailvYinzi = 150;
+							}else if($gailvYinzi<-150){
+								$gailvYinzi = -150;
+							}
 						}
+						$upOrDown = BouerseGailv($gailvYinzi);
+						$upDownLiang = mt_rand(0, 5);
+						if($upOrDown===0){
+							$bourseList[$i]['prePrice'] = $bourseList[$i]['price'];
+							$bourseList[$i]['price'] = $bourseList[$i]['price'] + $upDownLiang>233?233:$bourseList[$i]['price'] + $upDownLiang;
+							array_push($bourseList[$i]['history'],$bourseList[$i]['price']);
+							if(count($bourseList[$i]['history'])>100){
+								array_shift($bourseList[$i]['history']);
+							}
+						}else{
+							$bourseList[$i]['prePrice'] = $bourseList[$i]['price'];
+							$bourseList[$i]['price'] = $bourseList[$i]['price'] - $upDownLiang<1?1:$bourseList[$i]['price'] - $upDownLiang;
+							array_push($bourseList[$i]['history'],$bourseList[$i]['price']);
+							if(count($bourseList[$i]['history'])>100){
+								array_shift($bourseList[$i]['history']);
+							}
+						}
+						if($bourseList[$i]['price']<=1){//如果价格小于等于1则破产
+							//产生新的股票
+							$noBankrupted = wmKeyForobject($bourseList,'bankrupted',1);
+							$randomBouerseIndex = mt_rand(0, count($noBankrupted)-1);
+							$newBouerseId = $noBankrupted[$randomBouerseIndex]['id'];
+							$isBankrupted = false;//是否是破产重组
+							if($bourseList[$newBouerseId]['price']<=1){
+								$isBankrupted = true;
+								$bourseList[$newBouerseId]['prePrice'] = $bourseList[$newBouerseId]['price'];
+								$randomBouersePriceYinzi = mt_rand(1, 100);
+								$randomBouersePriceAdd = 0;
+								if($randomBouersePriceYinzi>98){
+									$randomBouersePriceAdd = 40;
+								}else if($randomBouersePriceYinzi>=91&&$randomBouersePriceYinzi>=98){
+									$randomBouersePriceAdd = 15;
+								}
+								//随机重组金额
+								$randomBouersePrice = mt_rand(10, 15);
+								$randomBouersePrice = $randomBouersePrice + $randomBouersePriceAdd;
+								$bourseList[$newBouerseId]['price'] = $randomBouersePrice;
+								array_push($bourseList[$newBouerseId]['history'],$bourseList[$newBouerseId]['price']);
+								if(count($bourseList[$newBouerseId]['history'])>100){
+									array_shift($bourseList[$newBouerseId]['history']);
+								}
+							}
+							$bourseList[$newBouerseId]['bankrupted'] = 0;
+							$bourseList[$i]['bankrupted'] = 1;
+							$bourseNewsText = '';
+							if($isBankrupted){//如果是破产重组
+								$bourseNewsText = $bourseList[$newBouerseId]['name'].'股已成功重组并上市，初始股价为'.$randomBouersePrice;
+							}else{
+								$bourseNewsText = $bourseList[$newBouerseId]['name'].'股已上市。';
+							}
+							$newsTime = intval($bourseNowTime - ($bourseNowTime%1800));
+							$newsBankruptedText = $bourseList[$i]['name'].'股已破产，进入重组阶段。';
+							$bourseNewsArr = array(array('time'=>$newsTime,'text'=>$bourseNewsText),array('time'=>$newsTime,'text'=>$newsBankruptedText));
+							wmBouerseNews($bourseNewsArr);
+						}
+						$bourseList[$i]['preTrans'] = $bourseList[$i]['trans'];
 					}
-					$upOrDown = BouerseGailv($gailvYinzi);
-					$upDownLiang = mt_rand(0, 5);
-					if($upOrDown===0){
-						$bourseList[$i]['prePrice'] = $bourseList[$i]['price'];
-						$bourseList[$i]['price'] = $bourseList[$i]['price'] + $upDownLiang>233?233:$bourseList[$i]['price'] + $upDownLiang;
-						array_push($bourseList[$i]['history'],$bourseList[$i]['price']);
-						if(count($bourseList[$i]['history'])>100){
-							array_shift($bourseList[$i]['history']);
-						}
-					}else{
-						$bourseList[$i]['prePrice'] = $bourseList[$i]['price'];
-						$bourseList[$i]['price'] = $bourseList[$i]['price'] - $upDownLiang<1?1:$bourseList[$i]['price'] - $upDownLiang;
-						array_push($bourseList[$i]['history'],$bourseList[$i]['price']);
-						if(count($bourseList[$i]['history'])>100){
-							array_shift($bourseList[$i]['history']);
-						}
-					}
-					$bourseList[$i]['preTrans'] = $bourseList[$i]['trans'];
 				}
 			}
 			$bourseNowTime_ = intval($bourseNowTime - ($bourseNowTime%1800));//矫正到三十分
@@ -63,6 +115,8 @@ function wmBouerse($getMode,$updataMode){
 				file_put_contents('bouerse.json', json_encode($bourseListOutData),LOCK_EX);
 			}
 		}
+		//过滤仅显示未破产的
+		$bourseListOutData['data'] = wmKeyForobject($bourseListOutData['data'],'bankrupted',0);
 		$bouerseOutData = array('listData'=>$bourseListOutData);
 		if($getMode){
 			echo json_encode($bouerseOutData);
@@ -85,10 +139,31 @@ function wmSearchUserBouerse(){
             if ($mgidinfo) {
 				$bouerseOutData = wmBouerse(false,false);
 				$userBouerseInfo = $mgidinfo['bouerse'];
+				$userBouerseInfoObject = null;
+				$userBouerseInfoForId = '';
+				if($userBouerseInfo!=''){
+					$userBouerseInfoObject = json_decode($userBouerseInfo,true);
+					$userBouerseInfoForId = array();
+					//过滤仅输出上市的
+					for($i=0; $i<count($bouerseOutData['listData']['data']); $i++){
+						if(isset($userBouerseInfoObject[$bouerseOutData['listData']['data'][$i]['id']])){
+							$userObjectSingle = $userBouerseInfoObject[$bouerseOutData['listData']['data'][$i]['id']];
+							$userObjectSingle['id'] = $bouerseOutData['listData']['data'][$i]['id'];
+							array_push($userBouerseInfoForId,$userObjectSingle);
+						}else{
+							array_push($userBouerseInfoForId,null);
+						}
+					}
+				}
+				$bourseListNewsData = '';
+				if(file_exists('bouerseNews.json')){//判断json文件是否存在
+					$bourseListNewsData = json_decode(file_get_contents('bouerseNews.json'),true);
+				}
 				$userStar = $mgidinfo['starCount'];
 				$bouerseOutData['code'] = 202;
+				$bouerseOutData['news'] = $bourseListNewsData;
 				$bouerseOutData['starCount'] = $userStar;
-				$bouerseOutData['bouerse'] = $userBouerseInfo;
+				$bouerseOutData['bouerse'] = $userBouerseInfoForId;
 				echo json_encode($bouerseOutData);
 			}else{
 				$bouerseOutData = array('code'=>3);//无该用户
@@ -105,6 +180,9 @@ function wmSearchUserBouerse(){
 }
 function initBouerse(){
 	$initBouerseData = json_decode(file_get_contents('initBouerList.json'),true);
+	for($i=0; $i<15; $i++){
+        $initBouerseData['data'][$i]['bankrupted'] = 0;
+    }
 	$initNowTime = time();
 	$initBouerseData['updateTime'] = $initNowTime - ($initNowTime % 1800);
     file_put_contents('bouerse.json', json_encode($initBouerseData),LOCK_EX);
@@ -149,12 +227,17 @@ function wmBuyBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
+						if($bourseList[$buyId]['bankrupted']==1){
+							$bouerseOutData = array('code'=>4);//破产股票
+							echo json_encode($bouerseOutData);
+							return false;
+						}
 						if($bourseList[$buyId]['price']!=$buyPrice){
 							$bouerseOutData = array('code'=>6);//价格对不上
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<=15){
+						if($bourseList[$buyId]['price']<=10){
 							$bouerseOutData = array('code'=>5);//价格过低无法购买
 							echo json_encode($bouerseOutData);
 							return false;
@@ -267,12 +350,17 @@ function wmSellBouerse(){
 							echo json_encode($bouerseOutData);
 							return false;
 						}
+						if($bourseList[$buyId]['bankrupted']==1){
+							$bouerseOutData = array('code'=>4);//破产股票
+							echo json_encode($bouerseOutData);
+							return false;
+						}
 						if($bourseList[$buyId]['price']!=$buyPrice){
 							$bouerseOutData = array('code'=>6);//价格对不上
 							echo json_encode($bouerseOutData);
 							return false;
 						}
-						if($bourseList[$buyId]['price']<=15){
+						if($bourseList[$buyId]['price']<=10){
 							$bouerseOutData = array('code'=>5);//价格过低无法交易
 							echo json_encode($bouerseOutData);
 							return false;

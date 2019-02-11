@@ -213,4 +213,15 @@ function wmPasswordCheck($mgidinfo,$password){
         return false;
     }
 }
+//根据条件查询出新的对象
+function wmKeyForobject($objectArr,$k,$v){
+    $arrCache = array();
+    for($i=0; $i<count($objectArr); $i++){
+        if($objectArr[$i][$k] == $v){
+            $arrCache;
+            array_push($arrCache,$objectArr[$i]);
+        };
+    }
+    return $arrCache;
+}
 ?>

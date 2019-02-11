@@ -317,9 +317,9 @@ $(document).ready(function(e) {
 						}
 						$('#wmBouersTable tbody').empty();
 						var wmMybouerse = result.bouerse;
-						if(wmMybouerse!==''){
-							wmMybouerse = JSON.parse(wmMybouerse);
-						}
+						// if(wmMybouerse!==''){
+						// 	wmMybouerse = JSON.parse(wmMybouerse);
+						// }
 						for(var i=0;i<result.listData.data.length;i++){
 							var bouerseZD = result.listData.data[i].price - result.listData.data[i].prePrice;
 							var wmbouerseUpDownClass = '';
@@ -341,8 +341,13 @@ $(document).ready(function(e) {
 							}
 							var wmBouerseHistory = JSON.stringify(result.listData.data[i].history);
 							var wmBouerseInfo = [result.listData.data[i].price,bouerseZD,result.listData.data[i].trans,wmBuyed].join(',');
-							var bouerseHtml = '<tr data-trans="'+wmBouerseHistoryTrans+'" data-info="'+wmBouerseInfo+'" data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+i+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
+							var bouerseHtml = '<tr data-trans="'+wmBouerseHistoryTrans+'" data-info="'+wmBouerseInfo+'" data-history="'+wmBouerseHistory+'" data-name="'+result.listData.data[i].name+'" data-id="'+result.listData.data[i].id+'"><td>'+result.listData.data[i].name+'</td><td>'+result.listData.data[i].price+'</td><td class="'+wmbouerseUpDownClass+'">'+bouerseZD+'</td><td>'+wmBuyed+'</td></tr>';
 							$('#wmBouersTable tbody').append(bouerseHtml);
+						}
+						if(result.news==''){
+							$('#bouerseNews').attr('data-news','');
+						}else{
+							$('#bouerseNews').attr('data-news',JSON.stringify(result.news));
 						}
 						$('#wm_my_star_bouerse').text(result.starCount);
 						if(index!==null){
@@ -352,12 +357,36 @@ $(document).ready(function(e) {
 								maxWidth:'100%',
 								zIndex:1003,
 								content:$('#wmBouerseBody'),
-								btn: ['刷新','说明','离开'], //按钮
+								btn: ['新闻','刷新','说明','离开'], //按钮
 								btn1 :function(index){
-									wmGetBouerseInfo(null);
+									var wmBouerseNews = $('#bouerseNews').attr('data-news');;
+									if(wmBouerseNews==''){
+										layer.alert('暂无新闻！');
+									}else{
+										wmBouerseNews = JSON.parse(wmBouerseNews);
+										var wmDataNewsHtml = '';
+										for(var j=0;j<wmBouerseNews.length;j++){
+											wmDataNewsHtml = wmDataNewsHtml+'<li><span>'+capitalize(wmBouerseNews[j]['time']*1000)+' </span>'+wmBouerseNews[j]['text']+'</li>';
+											
+										}
+										wmDataNewsHtml = '<ul class="wm_data_trans_list_ul type_news">' + wmDataNewsHtml + '</ul>';
+										layer.open({
+											type: 1,
+											title:'股市新闻',
+											maxWidth:'100%',
+											zIndex:1005,
+											content:wmDataNewsHtml,
+											btn: ['关闭'], //按钮
+										});
+									}
+									return false;
 								},
 								btn2 :function(index){
-									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！卖出股票的时候将会产生5%且最低20星星的手续费！每只股票最多只能持有9份！');
+									wmGetBouerseInfo(null);
+									return false;
+								},
+								btn3 :function(index){
+									layer.alert('股市有风险，入市请谨慎！股票数据会在每个半点更新一次。如果某一只股票股价过低将会被锁定买卖导致无法交易，购买时请慎重挑选！卖出股票的时候将会产生5%且最低20星星的手续费！每只股票最多只能持有9份！如果股价过低将会进入破产重组期。');
 									return false;
 								}
 							});
@@ -613,7 +642,11 @@ $(document).ready(function(e) {
 										}else if(result.code==301){
 											layer.alert('密码有误或者已经过期！');
 										}else if(result.code==4){
-											layer.alert('无该股票信息！');
+											layer.alert('无该股票信息或者已经破产！');
+											layer.close(index);
+											layer.close(windowId);
+											layer.close(inputValueWindow);
+											wmGetBouerseInfo(null);
 										}else if(result.code==5){
 											layer.alert('抱歉，该股由于价格过低暂时被禁止买卖！');
 										}else if(result.code==6){
