@@ -1,21 +1,10 @@
-# 维基萌emlog抽卡系统插件
+# 花火学园Discuz抽卡系统插件
 
 #### 项目介绍
-可用于emlog博客系统，自带数十张精美卡牌图片，不仅可以每天抽卡更可以与亲朋好友进行卡牌竞技！
+从[广树](https://github.com/eeg1412/)大佬那里fork来的emlog插件，正在试图移植到Discuz
 
 #### 使用说明
-在需要的页面添加自定义钩子：
-```PHP
-<?php doAction('wm_card_plugin'); ?>
-```
-在地址栏带上参数即可查询该用户的卡片情况，例如  
-www.wikimoe.com/?post=130&useraddr=fbb31d99a24cf9a56c48b44dd0797d22&usernick=广树  
-其中useraddr=想要查询的邮箱地址MD5值，usernick=用户名
-
-体验地址：[https://www.wikimoe.com/?post=130](https://www.wikimoe.com/?post=130)
-![预览图](https://gitee.com/uploads/images/2018/0423/102004_554a8f2e_1258290.png "QQ截图20180423101944.png")
-![竞技模式](https://gitee.com/uploads/images/2018/0423/102131_49e221e9_1258290.jpeg "QQ截图20180423102031.jpg")
-![竞技模式](https://gitee.com/uploads/images/2018/0423/103429_4793ca2f_1258290.jpeg "QQ截图20180423103345.jpg")
+还在移植中，所有相关信息请参照原仓库
 
 #### 注意
 
