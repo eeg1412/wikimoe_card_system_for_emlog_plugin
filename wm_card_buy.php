@@ -10,7 +10,7 @@ function buyCard(){
     $data = null;
     if(isset($emailAddr) && $emailAddr!=""){
         if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断 
-            $DB = MySql::getInstance();
+            $DB = Database::getInstance();
             $emailAddrMD5 = "\"".md5($emailAddr)."\"";
             $mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$emailAddrMD5."");
             $mgidinfo=$DB->fetch_array($mgid);

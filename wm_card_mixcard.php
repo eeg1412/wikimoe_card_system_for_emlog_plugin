@@ -12,7 +12,7 @@ function mixCard(){
     if(isset($emailAddr) && $emailAddr!=""){
         if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断 
             if(count($cardIDArr)==count($cardCountArr)){//判断是否数据一致
-                $DB = MySql::getInstance();
+                $DB = Database::getInstance();
                 $emailAddrMd5 = "\"".md5($emailAddr)."\"";
                 $mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$emailAddrMd5."");
                 $mgidinfo=$DB->fetch_array($mgid);

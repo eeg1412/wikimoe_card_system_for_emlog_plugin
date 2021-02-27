@@ -37,7 +37,7 @@ function wm_card_sendmail_do($mailserver, $port, $mailuser, $mailpass, $mailto, 
 	}
 }
 function wm_card_code_mail(){
-    $DB = MySql::getInstance();
+    $DB = Database::getInstance();
     $emailAddr = strip_tags($_POST['email']);
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
     if(isset($emailAddr) && $emailAddr!=""){

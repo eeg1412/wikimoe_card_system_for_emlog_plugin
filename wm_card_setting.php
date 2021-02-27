@@ -98,7 +98,7 @@ if(!empty($_POST)&&valid_wmtoken()){
                 if(isset($emailAddr) && $emailAddr!=""){
                         if(preg_match($checkmail,$emailAddr)){//用正则表达式函数进行判断  
                                 //邮箱地址正确
-                                $DB = MySql::getInstance();
+                                $DB = Database::getInstance();
                                 $send_email = "\"".md5($emailAddr)."\"";
                                 $mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$send_email."");
                                 $mgidinfo=$DB->fetch_array($mgid);

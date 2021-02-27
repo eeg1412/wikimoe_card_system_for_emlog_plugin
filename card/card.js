@@ -1373,7 +1373,7 @@ $(document).ready(function(e) {
 			openStarSearchWindow(true);
 		}else if(bannerType=="donate"){
 			var bannerAddress = $(this).attr('data-address');
-			layer.confirm('感谢您赞助本站，赞助每满1元，将会获得30个星星。记得在赞助中留下您的邮箱地址以便发放星星！另外如果没有在本站抽过卡牌的话可能会导致星星发放失败，请务必确认这个邮箱是否在本站抽过卡牌！', {
+			layer.confirm('感谢您赞助本站', {
 				btn: ['赞助','取消'] //按钮
 			  }, function(){
 				window.location.href=bannerAddress;

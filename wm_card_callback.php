@@ -1,7 +1,7 @@
 <?php
 if(!defined('EMLOG_ROOT')) {exit('error!');}
 function callback_init(){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
 	$check_table_exist = $DB->query('SHOW TABLES LIKE "'.DB_PREFIX.'wm_card"');
 	if($DB->num_rows($check_table_exist) == 0){// 新建数据表
 		$dbcharset = 'utf8mb4';
@@ -37,7 +37,7 @@ function callback_init(){
 function callback_rm(){
 	$wmCard_set=unserialize(ltrim(file_get_contents(dirname(__FILE__).'/wm_card.com.php'),'<?php die; ?>'));
 	if(intval($wmCard_set['delDatabase'])=='1'){
-		$DB = MySql::getInstance();
+		$DB = Database::getInstance();
 		$query = $DB->query("DROP TABLE IF EXISTS ".DB_PREFIX."wm_card");
 	}
 }

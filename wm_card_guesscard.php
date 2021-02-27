@@ -2,7 +2,7 @@
 require_once('../../../init.php');
 require_once('module.php');
 function wmGuessard(){
-    $DB = MySql::getInstance();
+    $DB = Database::getInstance();
     $emailAddr = strip_tags($_POST['email']);
     $guessType = strip_tags($_POST['type']);
     $guessSelCard = strip_tags($_POST['cardID']);

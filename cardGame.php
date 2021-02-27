@@ -2,7 +2,7 @@
 require_once('../../../init.php');
 require_once('module.php');
 function getCardInfo($emailMD5){//获取卡片数组
-			$DB = MySql::getInstance();
+			$DB = Database::getInstance();
 			$comment_author_email = "\"".$emailMD5."\"";
 			$mgid=$DB->query("SELECT * FROM ".DB_PREFIX."wm_card WHERE email=".$comment_author_email."");
 			$mgidinfo=$DB->fetch_array($mgid);
@@ -177,7 +177,7 @@ function setCry($cardData,$MyCardArr,$EMCardArr){//计算水晶攻击加成
 	
 }
 function setScore($Score,$emailMD5,$setBattleTime){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
 	if($Score>2147483647){
 		$Score = 2147483647;
 	}
@@ -191,7 +191,7 @@ function setScore($Score,$emailMD5,$setBattleTime){
 	$result=$DB->query($query);
 }
 function setLevel($level,$getexp,$emailMD5){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
 	if($level>2147483647){
 		$level = 2147483647;
 	}

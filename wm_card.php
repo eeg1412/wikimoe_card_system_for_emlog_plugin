@@ -370,7 +370,7 @@ function wm_card_menu()
 addAction('adm_sidebar_ext', 'wm_card_menu');
 function wm_card_backup(){
 	global $tables;
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
 	$is_exist_album_query = $DB->query('show tables like "'.DB_PREFIX.'wm_card"');
 	if($DB->num_rows($is_exist_album_query) != 0) array_push($tables, 'wm_card');
 }

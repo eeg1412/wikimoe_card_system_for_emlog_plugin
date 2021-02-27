@@ -16,7 +16,7 @@ function searchWmRank(){
     echo json_encode($wmRankJsonData);
 }
 function searchWmDataBaseByRank(){
-    $DB = MySql::getInstance();
+    $DB = Database::getInstance();
     $mgidScore=$DB->query("
         SELECT *
         FROM `".DB_PREFIX."wm_card`

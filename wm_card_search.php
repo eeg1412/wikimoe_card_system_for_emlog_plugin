@@ -1,7 +1,7 @@
 <?php
 require_once('../../../init.php');	
 function wm_cardsearch(){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
 	$data = null;
 	$emailAddr = strip_tags($_POST['email']);
 	if(!preg_match("/^[A-Za-z0-9]+$/",$emailAddr)){

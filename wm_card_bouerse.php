@@ -127,7 +127,7 @@ function wmBouerse($getMode,$updataMode){
 	
 }
 function wmSearchUserBouerse(){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
     $emailAddr = strip_tags($_POST['email']);
     // $password = strip_tags($_POST['password']);
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
@@ -197,7 +197,7 @@ function BouerseGailv($gailvYinzi){
     }
 }
 function wmBuyBouerse(){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
     $emailAddr = strip_tags($_POST['email']);
     // $password = strip_tags($_POST['password']);
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
@@ -320,7 +320,7 @@ function wmBuyBouerse(){
 	}
 }
 function wmSellBouerse(){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
     $emailAddr = strip_tags($_POST['email']);
     // $password = strip_tags($_POST['password']);
     $checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式

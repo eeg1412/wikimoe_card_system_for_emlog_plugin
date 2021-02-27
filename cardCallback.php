@@ -2,9 +2,12 @@
 require_once('../../../init.php');	
 require_once('module.php');
 function wm_cardWrite(){
-	$DB = MySql::getInstance();
+	$DB = Database::getInstance();
 	$data = null;
-	$emailAddr = strip_tags($_POST['email']);
+  require_once('../../../../source/class/class_core.php');
+  $discuz = & discuz_core::instance();
+  $discuz->init();
+	$emailAddr = strip_tags($_G['member']['email']);
 	$choiseIndex = intval(strip_tags($_POST['choiseIndex']));
 	$checkmail="/^([a-zA-Z0-9])+([a-zA-Z0-9\?\*\[|\]%=~^\{\}\/\+!#&\$\._-])*@([a-zA-Z0-9_-])+\.([a-zA-Z0-9\._-]+)+$/";//定义正则表达式
 	if(isset($emailAddr) && $emailAddr!=""){
