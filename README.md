@@ -1,7 +1,7 @@
-# 花火学园Discuz抽卡系统插件
+# 花火学园~~Discuz~~emlog抽卡系统插件~
 
 #### 项目介绍
-从[广树](https://github.com/eeg1412/)大佬那里fork来的emlog插件，正在试图移植到Discuz
+从[广树](https://github.com/eeg1412/)大佬那里fork来的emlog插件，正在试图移植到Discuz（然而太麻烦所以打算尝试只要用户和discuz能连接就行）
 
 #### 使用说明
 还在移植中，所有相关信息请参照原仓库
