@@ -2137,23 +2137,14 @@ $(document).ready(function(e) {
 			return false;
 		}
 		var wmCardPluginpath_ = wmCardPluginpath + 'cardCallback.php';
-		var wmEmail = $('#wm_card_email').val();
 		var choiseIndex = $(this).attr('data-id');
-		//console.log(wmEmail);
-		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
-		if(wmEmail === ""){ //输入不能为空
-			layer.alert("邮箱地址不能为空");
-	　　　　return false;
-	　　}else if(!reg.test(wmEmail)){ //正则验证不通过，格式不对
-			layer.alert("邮箱地址有误!");
-	　　　　return false;
-	　　}else{
+		{
 		chiosed = true;
 		$('#wmCardLoading').stop(true, false).delay(800).fadeIn(100);
 	　　　　$.ajax({
 			  type: 'POST',
 			  url: wmCardPluginpath_,
-			  data: {email:wmEmail,choiseIndex:choiseIndex},
+			  data: {choiseIndex:choiseIndex},
 			  success: function(result){
 				  console.log(result);
 				  //0为邮箱地址为空，1为邮箱地址不合格，2为今天已经抽过了，3为评论表里找不到邮箱地址，202

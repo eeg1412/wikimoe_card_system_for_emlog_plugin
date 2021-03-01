@@ -233,13 +233,13 @@ function wm_card_loghook() {
 				</div>
 				<h5 class="wm_card_chiose_title" id="alertTitle">每天一次神抽</h5>
 				<div class="wm_card_email_body" id="wmCardChioseInputBody">
-					<input type="text" name="email" class="wm_card_email" id="wm_card_email" placeholder="请先输入邮箱地址再点击卡片">
+					<!-- <input type="text" name="email" class="wm_card_email" id="wm_card_email" placeholder="请先输入邮箱地址再点击卡片">
 					<div class="wm_card_remember_body">
 						<div class="wm_card_remember_box" title="公共场合慎用！" id="wmRememberEmail">抽卡并保存邮箱地址</div>
-					</div>
+					</div> -->
 				</div>
 				<div class="wm_card_restart_body">
-					<button type="button" class="wm_restart_btn" id="wm_card_restart_btn">换号重来</button><button type="button" class="wm_restart_btn" id="wm_card_rechiose_btn">再抽一次</button></div>
+					<!-- <button type="button" class="wm_restart_btn" id="wm_card_restart_btn">换号重来</button> --><button type="button" class="wm_restart_btn" id="wm_card_rechiose_btn">再抽一次</button></div>
 				<div class="cardList" id="wmCardList">
 				<div class="cardList_body" id="wmGetCard">
 					<div class="card selectcard" data-id="0">
